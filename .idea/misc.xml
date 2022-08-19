@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/btn_call.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_bookmarks.xml" value="0.175" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_location.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_pharmacy.xml" value="0.175" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_support.xml" value="0.175" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_main.xml" value="0.2" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_pharmacy.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_pharmacy_list.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/pharmacy_recycler_view_item.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/menu/list_toolbar.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/menu/pharmacy_toolbar.xml" value="0.1" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

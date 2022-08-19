@@ -1,0 +1,103 @@
+<resources>
+
+    <style name="Widget.Theme.PharmacyList.MyView" parent="">
+        <item name="android:background">@color/gray</item>
+    </style>
+
+    <style name="CardViewStandard" parent="CardView">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+    </style>
+
+    <style name="LinearLayoutMain">
+        <item name="android:layout_height">match_parent</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:orientation">vertical</item>
+    </style>
+
+    <style name="TextViewStandard" parent="@android:style/Widget.TextView">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">16sp</item>
+    </style>
+
+    <style name="TextViewContact" parent="TextViewStandard">
+        <item name="android:textSize">20sp</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawableLeft">@drawable/ic_person</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="TextViewPhone" parent="TextViewStandard">
+        <item name="android:drawableLeft">@drawable/ic_phone</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="TextViewAddress" parent="TextViewStandard">
+        <item name="android:drawableLeft">@drawable/ic_location</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="TextViewDistance" parent="TextViewStandard">
+        <item name="android:drawableLeft">@drawable/ic_distance</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="TextViewWarning" parent="TextViewStandard">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:drawableLeft">@drawable/ic_warning</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="TextViewInfo" parent="TextViewStandard">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:drawableLeft">@drawable/ic_info</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="TextViewNight" parent="TextViewStandard">
+        <item name="android:layout_gravity">center</item>
+        <item name="android:drawableLeft">@drawable/ic_night</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+    </style>
+
+    <style name="EditTextStandard" parent="@android:style/Widget.EditText">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:minHeight">48dp</item>
+        <item name="android:ems">12</item>
+        <item name="android:layout_marginLeft">5dp</item>
+        <item name="android:layout_marginRight">5dp</item>
+        <item name="android:layout_marginTop">2dp</item>
+        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:textColor">@color/textHint</item>
+    </style>
+
+    <style name="ButtonStandard">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:layout_marginTop">10dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:foreground">@drawable/rectangle_border</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+    </style>
+
+    <style name="SwitchStandard" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/green</item>
+        <item name="colorSwitchThumbNormal">@color/gray</item>
+        <item name="android:colorForeground">@color/dark_gray</item>
+    </style>
+</resources>

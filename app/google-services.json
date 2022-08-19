@@ -1,0 +1,98 @@
+{
+  "project_info": {
+    "project_number": "878552963353",
+    "firebase_url": "https://onlinepharmacy-5658b-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "onlinepharmacy-5658b",
+    "storage_bucket": "onlinepharmacy-5658b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878552963353:android:969dd62b1686f570da0d88",
+        "android_client_info": {
+          "package_name": "com.charalambos.PharmacyList"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878552963353-05nnc3lpf1jcb3h6602vvulsg2pbeshg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1SwDBYD-CBg2xv_C74gDEP4q4VeIr_CQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878552963353-05nnc3lpf1jcb3h6602vvulsg2pbeshg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878552963353:android:349d43bfe3843f01da0d88",
+        "android_client_info": {
+          "package_name": "com.charalambos.cypruspharmacies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878552963353-05nnc3lpf1jcb3h6602vvulsg2pbeshg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1SwDBYD-CBg2xv_C74gDEP4q4VeIr_CQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878552963353-05nnc3lpf1jcb3h6602vvulsg2pbeshg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:878552963353:android:6a0dbc010a9a8e37da0d88",
+        "android_client_info": {
+          "package_name": "com.charalambos.pharmaciescy"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "878552963353-05nnc3lpf1jcb3h6602vvulsg2pbeshg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA1SwDBYD-CBg2xv_C74gDEP4q4VeIr_CQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "878552963353-05nnc3lpf1jcb3h6602vvulsg2pbeshg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

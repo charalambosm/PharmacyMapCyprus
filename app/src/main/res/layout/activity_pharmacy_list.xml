@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    style="@style/LinearLayoutMain"
+    android:fitsSystemWindows="true"
+    tools:context=".Pharmacy.AllListActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/listActivityToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="4dp"
+        android:minHeight="?attr/actionBarSize"
+        android:nestedScrollingEnabled="true">
+
+<!--        <TextView-->
+<!--            android:id="@+id/listActivityToolbarTextView"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginLeft="24dp"-->
+<!--            android:text="@string/pharmacy_list_fragment_title"-->
+<!--            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />-->
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/locationAccessNotGrantedCardView"
+        android:visibility="gone"
+        style="@style/CardViewStandard">
+        <TextView
+            style="@style/TextViewWarning"
+            android:text="@string/location_access_not_granted_prompt"/>
+    </androidx.cardview.widget.CardView>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:id="@+id/divider"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <androidx.cardview.widget.CardView
+        style="@style/CardViewStandard">
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/pharmacySearchView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:queryBackground="@color/transparent"
+            app:queryHint="Αναζήτηση φαρμακείου"
+            app:iconifiedByDefault="false" />
+    </androidx.cardview.widget.CardView>
+
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipeRefreshLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/pharmacyRecyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+</LinearLayout>
