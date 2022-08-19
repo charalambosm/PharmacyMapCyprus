@@ -26,10 +26,10 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Pharmacy.PharmacyActivity"
+            android:name=".Pharmacy.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".Pharmacy.PharmacyListActivity"
+            android:name=".Pharmacy.AllListActivity"
             android:exported="false" />
         <activity
             android:name=".Pharmacy.NightOnlyListActivity"
