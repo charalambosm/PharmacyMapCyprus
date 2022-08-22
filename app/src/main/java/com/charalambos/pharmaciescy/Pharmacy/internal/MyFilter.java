@@ -1,6 +1,6 @@
 package com.charalambos.pharmaciescy.Pharmacy.internal;
 
-import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
+import com.charalambos.pharmaciescy.Favorites.Favorites;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,8 +35,8 @@ public class MyFilter {
             return this;
         }
 
-        public PharmacyFilterBuilder withBookmarksOnly(Bookmarks bookmarks) {
-            allFilters.add(Pharmacy -> (bookmarks.isBookmark(Pharmacy.getId())));
+        public PharmacyFilterBuilder withBookmarksOnly(Favorites favorites) {
+            allFilters.add(Pharmacy -> (favorites.isBookmark(Pharmacy.getId())));
             return this;
         }
 

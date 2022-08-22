@@ -1,10 +1,10 @@
 package com.charalambos.pharmaciescy.Pharmacy;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentContainerView;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
@@ -19,7 +19,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
+import com.charalambos.pharmaciescy.Favorites.Favorites;
 import com.charalambos.pharmaciescy.Pharmacy.internal.Pharmacy;
 import com.charalambos.pharmaciescy.R;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -33,15 +33,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import java.util.Locale;
 
 public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
-    FragmentContainerView fragmentContainerView;
     SupportMapFragment supportMapFragment;
     GoogleMap mMap;
     Pharmacy pharmacy;
     LatLng pharmacyLatLng;
     TextView toolbarTitle, addressTextView, phoneTextView, nightTextView, distanceTextView;
     Toolbar toolbar;
-    Bookmarks bookmarks;
-    boolean isBookmark;
+    Favorites favorites;
+    boolean isFavorite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +63,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     private void getIntentData() {
         Intent intent = getIntent();
         pharmacy = intent.getParcelableExtra("pharmacy");
-        isBookmark = intent.getBooleanExtra("bookmark",false);
+        isFavorite = intent.getBooleanExtra("favorites",false);
     }
 
     private void configureToolbar() {
@@ -72,6 +71,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         toolbarTitle = findViewById(R.id.pharmacyActivityToolbarTitle);
         toolbarTitle.setText(String.format("%s %s", pharmacy.getFirstName(), pharmacy.getLastName()));
         setSupportActionBar(toolbar);
+        ActionBar actionBar = getSupportActionBar();
+        if (actionBar != null) {
+            actionBar.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     private void configureViews() {
@@ -86,7 +89,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     }
 
     private void configureMapFragment() {
-        fragmentContainerView = findViewById(R.id.pharmacyActivityFragmentContainerView);
         supportMapFragment = (SupportMapFragment) getSupportFragmentManager().findFragmentByTag("mapFragment");
         if (supportMapFragment != null) {
             supportMapFragment.getMapAsync(this);
@@ -182,44 +184,50 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
     @Override
     public boolean onPrepareOptionsMenu(Menu menu) {
-        MenuItem bookmarksAdd = menu.findItem(R.id.action_bookmarks_add);
-        MenuItem bookmarksRemove = menu.findItem(R.id.action_bookmarks_remove);
-        if (isBookmark) {
-            Log.e("BOOKMARK","YES");
-            bookmarksAdd.setVisible(false);
-            bookmarksRemove.setVisible(true);
+        MenuItem favoritesAdd = menu.findItem(R.id.action_favorites_add);
+        MenuItem favoritesDelete = menu.findItem(R.id.action_favorites_delete);
+        if (isFavorite) {
+            Log.e("FAVORITES","YES");
+            favoritesAdd.setVisible(false);
+            favoritesDelete.setVisible(true);
         } else {
-            Log.e("BOOKMARK","NO");
-            bookmarksAdd.setVisible(true);
-            bookmarksRemove.setVisible(false);
+            Log.e("FAVORITES","NO");
+            favoritesAdd.setVisible(true);
+            favoritesDelete.setVisible(false);
         }
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_bookmarks_add) {
-            addToBookmarks();
+        if (item.getItemId() == R.id.action_favorites_add) {
+            addToFavorites();
             return true;
-        } else if (item.getItemId() == R.id.action_bookmarks_remove) {
-            removeFromBookmarks();
+        } else if (item.getItemId() == R.id.action_favorites_delete) {
+            removeFromFavorites();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
         }
     }
 
-    private void removeFromBookmarks() {
-        bookmarks = new Bookmarks(this);
-        bookmarks.deleteBookmark(pharmacy.getId());
-        isBookmark = false;
+    private void removeFromFavorites() {
+        favorites = new Favorites(this);
+        favorites.deleteBookmark(pharmacy.getId());
+        isFavorite = false;
         invalidateOptionsMenu();
     }
 
-    private void addToBookmarks() {
-        bookmarks = new Bookmarks(this);
-        bookmarks.addBookmark(pharmacy.getId());
-        isBookmark = true;
+    private void addToFavorites() {
+        favorites = new Favorites(this);
+        favorites.addBookmark(pharmacy.getId());
+        isFavorite = true;
         invalidateOptionsMenu();
+    }
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 }

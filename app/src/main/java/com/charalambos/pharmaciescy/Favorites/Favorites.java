@@ -1,14 +1,14 @@
-package com.charalambos.pharmaciescy.Bookmarks;
+package com.charalambos.pharmaciescy.Favorites;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 
-public class Bookmarks {
-    protected final String bookmarksSharedPreferencesFile = "bookmarks";
-    protected SharedPreferences bookmarksSharedPreferences;
+public class Favorites {
+    protected final String bookmarksSharedPreferencesFile = "favorites";
+    protected final SharedPreferences bookmarksSharedPreferences;
     SharedPreferences.Editor editor;
 
-    public Bookmarks(Context context) {
+    public Favorites(Context context) {
         bookmarksSharedPreferences = context.getSharedPreferences(bookmarksSharedPreferencesFile, Context.MODE_PRIVATE);
     }
 

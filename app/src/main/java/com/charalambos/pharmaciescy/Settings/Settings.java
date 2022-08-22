@@ -11,10 +11,10 @@ import java.util.Set;
 
 public class Settings {
     protected final String settingsSharedPreferencesFile = "settings";
-    SharedPreferences settingsSharedPreferences;
+    final SharedPreferences settingsSharedPreferences;
     SharedPreferences.Editor editor;
-    String selectedDistrictsKey = "district_preference";
-    Set<String> defaultDistrictsValue;
+    final String selectedDistrictsKey = "district_preference";
+    final Set<String> defaultDistrictsValue;
 
     public Settings(Context context) {
         settingsSharedPreferences = context.getSharedPreferences(settingsSharedPreferencesFile, Context.MODE_PRIVATE);

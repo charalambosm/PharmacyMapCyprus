@@ -9,7 +9,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.res.ResourcesCompat;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,14 +18,14 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
-import android.widget.TextView;
+import android.view.MenuItem;
+import android.view.View;
 
-import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
+import com.charalambos.pharmaciescy.Favorites.Favorites;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyAdapter;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyCancellationToken;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyFilter;
@@ -54,11 +53,11 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     // Location related
     FusedLocationProviderClient fusedLocationProvider;
     Location currentLocation;
-    MyCancellationToken myCancellationToken = new MyCancellationToken();
+    final MyCancellationToken myCancellationToken = new MyCancellationToken();
 
     // Database related
     Settings settings;
-    Bookmarks bookmarks;
+    Favorites favorites;
     MyFilter myFilter;
     MyValueEventListener myValueEventListener;
     MyAdapter myAdapter;
@@ -80,8 +79,8 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         // Configure settings
         configureSettings();
 
-        // Configure bookmarks
-        configureBookmarks();
+        // Configure favorites
+        configureFavorites();
 
         // Configure pharmacy filters
         configureFilter();
@@ -153,15 +152,15 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         settings = new Settings(this);
     }
 
-    private void configureBookmarks() {
-        bookmarks = new Bookmarks(this);
+    private void configureFavorites() {
+        favorites = new Favorites(this);
     }
 
     private void configureFilter() {
-        myFilter = buildFilter(settings, bookmarks);
+        myFilter = buildFilter(settings, favorites);
     }
 
-    protected abstract MyFilter buildFilter(Settings settings, Bookmarks bookmarks);
+    protected abstract MyFilter buildFilter(Settings settings, Favorites favorites);
 
     private void configureAdapter() {
         myAdapter = new MyAdapter() {
@@ -169,11 +168,11 @@ public abstract class AbstractListActivity extends AppCompatActivity {
             public void cardViewShowMoreCallback(Pharmacy pharmacy) {
                 Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
                 intent.putExtra("pharmacy", pharmacy);
-                intent.putExtra("bookmark", bookmarks.isBookmark(pharmacy.getId()));
+                intent.putExtra("favorites", favorites.isBookmark(pharmacy.getId()));
                 startActivity(intent);
             }
         };
-        myAdapter.setBookmarks(bookmarks);
+        myAdapter.setFavorites(favorites);
     }
 
     private void configureValueEventListener() {
@@ -228,10 +227,25 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         getLocation();
     }
 
+    private void openFilterDialog() {
+//        TODO: Create and launch filter dialog
+        return;
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.list_toolbar, menu);
         return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_filter) {
+            openFilterDialog();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
@@ -249,9 +263,13 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     // PERMISSION GRANTED
                     getLocation();
+                    locationAccessNotGrantedCardView.setVisibility(View.GONE);
+                    divider.setVisibility(View.GONE);
                 } else {
                     // PERMISSION DENIED
                     Log.e("LOCATION ACCESS", "PERMISSION DENIED");
+                    locationAccessNotGrantedCardView.setVisibility(View.VISIBLE);
+                    divider.setVisibility(View.VISIBLE);
                 }
             }
         }

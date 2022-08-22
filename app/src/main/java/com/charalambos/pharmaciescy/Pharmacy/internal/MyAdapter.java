@@ -1,7 +1,6 @@
 package com.charalambos.pharmaciescy.Pharmacy.internal;
 
 import android.annotation.SuppressLint;
-import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +8,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
+import com.charalambos.pharmaciescy.Favorites.Favorites;
 import com.charalambos.pharmaciescy.R;
 
 import java.util.List;
@@ -18,7 +17,7 @@ import java.util.Locale;
 public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     private List<Pharmacy> pharmacyList;
     private List<Pharmacy> fullPharmacyList;
-    private Bookmarks bookmarks;
+    private Favorites favorites;
 
     public MyAdapter() {
         super();
@@ -45,11 +44,11 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         }
         holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.2f km",model.getDistance()));
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model));
-        holder.bookmarksButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
-        if (bookmarks.isBookmark(model.getId())) {
-            holder.bookmarksButton.setImageResource(R.drawable.ic_favorite);
+        holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
+        if (favorites.isBookmark(model.getId())) {
+            holder.favoritesButton.setImageResource(R.drawable.ic_favorite);
         } else {
-            holder.bookmarksButton.setImageResource(R.drawable.ic_favorite_add);
+            holder.favoritesButton.setImageResource(R.drawable.ic_favorite_add);
         }
     }
 
@@ -75,17 +74,17 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         this.pharmacyList = pharmacyList;
     }
 
-    public void setBookmarks(Bookmarks bookmarks) {
-        this.bookmarks = bookmarks;
+    public void setFavorites(Favorites favorites) {
+        this.favorites = favorites;
     }
 
     public abstract void cardViewShowMoreCallback(Pharmacy pharmacy);
 
     public void cardViewBookmarksCallback(Pharmacy pharmacy, int position) {
-        if (bookmarks.isBookmark(pharmacy.getId())) {
-            bookmarks.deleteBookmark(pharmacy.getId());
+        if (favorites.isBookmark(pharmacy.getId())) {
+            favorites.deleteBookmark(pharmacy.getId());
         } else {
-            bookmarks.addBookmark(pharmacy.getId());
+            favorites.addBookmark(pharmacy.getId());
         }
         notifyItemChanged(position);
     }
