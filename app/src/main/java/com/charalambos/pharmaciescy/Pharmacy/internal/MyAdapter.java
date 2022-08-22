@@ -1,5 +1,7 @@
 package com.charalambos.pharmaciescy.Pharmacy.internal;
 
+import android.annotation.SuppressLint;
+import android.util.SparseBooleanArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -7,6 +9,7 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
 import com.charalambos.pharmaciescy.R;
 
 import java.util.List;
@@ -15,6 +18,7 @@ import java.util.Locale;
 public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     private List<Pharmacy> pharmacyList;
     private List<Pharmacy> fullPharmacyList;
+    private Bookmarks bookmarks;
 
     public MyAdapter() {
         super();
@@ -27,6 +31,7 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         return new MyHolder(view);
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         Pharmacy model = pharmacyList.get(position);
@@ -39,7 +44,13 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
             holder.textViewNight.setVisibility(View.VISIBLE);
         }
         holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.2f km",model.getDistance()));
-        holder.itemView.setOnClickListener(view -> cardViewOnClickListener(model));
+        holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model));
+        holder.bookmarksButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
+        if (bookmarks.isBookmark(model.getId())) {
+            holder.bookmarksButton.setImageResource(R.drawable.ic_favorite);
+        } else {
+            holder.bookmarksButton.setImageResource(R.drawable.ic_favorite_add);
+        }
     }
 
     @Override
@@ -64,5 +75,18 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         this.pharmacyList = pharmacyList;
     }
 
-    public abstract void cardViewOnClickListener(Pharmacy pharmacy);
+    public void setBookmarks(Bookmarks bookmarks) {
+        this.bookmarks = bookmarks;
+    }
+
+    public abstract void cardViewShowMoreCallback(Pharmacy pharmacy);
+
+    public void cardViewBookmarksCallback(Pharmacy pharmacy, int position) {
+        if (bookmarks.isBookmark(pharmacy.getId())) {
+            bookmarks.deleteBookmark(pharmacy.getId());
+        } else {
+            bookmarks.addBookmark(pharmacy.getId());
+        }
+        notifyItemChanged(position);
+    }
 }

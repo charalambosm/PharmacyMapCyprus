@@ -6,9 +6,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.charalambos.pharmaciescy.Pharmacy.AllListActivity;
 import com.charalambos.pharmaciescy.Pharmacy.BookmarksListActivity;
 import com.charalambos.pharmaciescy.Pharmacy.NightOnlyListActivity;
-import com.charalambos.pharmaciescy.Pharmacy.AllListActivity;
+import com.charalambos.pharmaciescy.Pharmacy.AbstractListActivity;
 
 public class MainActivity extends AppCompatActivity {
 

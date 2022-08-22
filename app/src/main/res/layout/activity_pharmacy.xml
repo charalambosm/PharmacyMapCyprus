@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/LinearLayoutMain"
     android:fitsSystemWindows="true"
-    tools:context=".Pharmacy.PharmacyActivity">
+    tools:context=".Pharmacy.DetailsActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/pharmacyActivityToolbar"

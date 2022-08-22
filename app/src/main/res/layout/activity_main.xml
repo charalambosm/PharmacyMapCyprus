@@ -83,7 +83,7 @@
         android:layout_marginBottom="48dp"
         android:background="?android:attr/selectableItemBackground"
         android:foreground="@drawable/rectangle_border"
-        android:drawableTop="@drawable/ic_bookmarks"/>
+        android:drawableTop="@drawable/ic_pharmacy"/>
 
     <Button
         android:id="@+id/contactUsButton"

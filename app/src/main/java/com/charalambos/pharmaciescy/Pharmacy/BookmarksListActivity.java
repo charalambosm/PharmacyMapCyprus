@@ -1,12 +1,10 @@
 package com.charalambos.pharmaciescy.Pharmacy;
 
-import androidx.appcompat.app.ActionBar;
-
 import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyFilter;
 import com.charalambos.pharmaciescy.Settings.Settings;
 
-public class BookmarksListActivity extends AllListActivity {
+public class BookmarksListActivity extends AbstractListActivity {
     @Override
     protected String withTitle() {
         return "Αγαπημένα φαρμακεία";

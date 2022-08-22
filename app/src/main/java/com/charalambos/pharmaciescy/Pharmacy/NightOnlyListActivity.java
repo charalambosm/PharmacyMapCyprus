@@ -4,7 +4,7 @@ import com.charalambos.pharmaciescy.Bookmarks.Bookmarks;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyFilter;
 import com.charalambos.pharmaciescy.Settings.Settings;
 
-public class NightOnlyListActivity extends AllListActivity {
+public class NightOnlyListActivity extends AbstractListActivity {
     @Override
     protected String withTitle() {
         return "Διημερεύον φαρμακεία";
