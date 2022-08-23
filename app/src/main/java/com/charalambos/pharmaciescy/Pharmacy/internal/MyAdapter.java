@@ -42,10 +42,14 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         } else {
             holder.textViewNight.setVisibility(View.VISIBLE);
         }
-        holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.2f km",model.getDistance()));
+        if (model.getDistance() == 0) {
+            holder.textViewDistance.setVisibility(View.GONE);
+        } else {
+            holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.2f km",model.getDistance()));
+        }
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model));
         holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
-        if (favorites.isBookmark(model.getId())) {
+        if (favorites.isFavorite(model.getId())) {
             holder.favoritesButton.setImageResource(R.drawable.ic_favorite);
         } else {
             holder.favoritesButton.setImageResource(R.drawable.ic_favorite_add);
@@ -81,10 +85,10 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     public abstract void cardViewShowMoreCallback(Pharmacy pharmacy);
 
     public void cardViewBookmarksCallback(Pharmacy pharmacy, int position) {
-        if (favorites.isBookmark(pharmacy.getId())) {
-            favorites.deleteBookmark(pharmacy.getId());
+        if (favorites.isFavorite(pharmacy.getId())) {
+            favorites.deleteFavorite(pharmacy.getId());
         } else {
-            favorites.addBookmark(pharmacy.getId());
+            favorites.addFavorite(pharmacy.getId());
         }
         notifyItemChanged(position);
     }

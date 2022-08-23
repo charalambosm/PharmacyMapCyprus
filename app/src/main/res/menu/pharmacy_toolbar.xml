@@ -7,7 +7,7 @@
         android:id="@+id/action_favorites_add"
         android:icon="@drawable/ic_favorite_add"
         app:showAsAction="always"
-        android:title="Πρόσθηκη στα αγαπημένα"
+        android:title="@string/add_to_favorites"
         tools:ignore="AlwaysShowAction" />
 
     <item
@@ -15,5 +15,5 @@
         android:icon="@drawable/ic_favorite"
         app:showAsAction="always"
         android:visible="false"
-        android:title="Διαγραφή απο το αγαπημένα" />
+        android:title="@string/delete_from_favorites" />
 </menu>

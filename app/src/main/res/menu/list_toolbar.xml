@@ -5,5 +5,5 @@
         android:id="@+id/action_filter"
         android:icon="@drawable/ic_filter"
         app:showAsAction="always"
-        android:title="Φίλτρα" />
+        android:title="@string/filters" />
 </menu>

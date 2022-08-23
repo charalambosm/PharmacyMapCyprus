@@ -2,6 +2,17 @@ package com.charalambos.pharmaciescy.Pharmacy;
 
 import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 
+import android.Manifest;
+import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.Location;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.View;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,21 +25,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.location.Location;
-import android.os.Bundle;
-import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-
 import com.charalambos.pharmaciescy.Favorites.Favorites;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyAdapter;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyCancellationToken;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyFilter;
+import com.charalambos.pharmaciescy.Pharmacy.internal.MyFilterDialog;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyQueryTextListener;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyValueEventListener;
 import com.charalambos.pharmaciescy.Pharmacy.internal.Pharmacy;
@@ -55,20 +56,19 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     Location currentLocation;
     final MyCancellationToken myCancellationToken = new MyCancellationToken();
 
-    // Database related
     Settings settings;
     Favorites favorites;
     MyFilter myFilter;
     MyValueEventListener myValueEventListener;
     MyAdapter myAdapter;
-    DatabaseReference pharmacyDatabaseReference;
+    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pharmacy_list);
 
-        pharmacyDatabaseReference = FirebaseDatabase.getInstance().getReference().child("pharmacy_list");
+        databaseReference = FirebaseDatabase.getInstance().getReference();
 
         // Define views
         configureViews();
@@ -88,7 +88,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         // Define pharmacy adapter
         configureAdapter();
 
-        // Define pharmacy value event listener
+        // Define pharmacy list value event listener
         configureValueEventListener();
 
         // Configure fusedLocationProvider
@@ -102,7 +102,6 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         resetSearchView();
-        getLocation();
     }
 
     protected void configureViews() {
@@ -139,6 +138,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     private void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.listActivityToolbar);
         toolbar.setTitle(withTitle());
+        toolbar.setLogo(withLogo());
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -147,6 +147,8 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     }
 
     protected abstract String withTitle();
+
+    protected abstract int withLogo();
 
     private void configureSettings() {
         settings = new Settings(this);
@@ -168,7 +170,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
             public void cardViewShowMoreCallback(Pharmacy pharmacy) {
                 Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
                 intent.putExtra("pharmacy", pharmacy);
-                intent.putExtra("favorites", favorites.isBookmark(pharmacy.getId()));
+                intent.putExtra("favorites", favorites.isFavorite(pharmacy.getId()));
                 startActivity(intent);
             }
         };
@@ -213,7 +215,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                     if (location != null) {
                         currentLocation = location;
                         // Add value event listener to database reference
-                        pharmacyDatabaseReference.addValueEventListener(myValueEventListener);
+                        databaseReference.child("pharmacy_list").addValueEventListener(myValueEventListener);
                     }
                 });
     }
@@ -228,8 +230,13 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     }
 
     private void openFilterDialog() {
-//        TODO: Create and launch filter dialog
-        return;
+        MyFilterDialog myFilterDialog = new MyFilterDialog(this);
+        myFilterDialog.setOnDismissListener(dialogInterface -> {
+            configureFilter();
+            swipeRefreshLayout.setRefreshing(true);
+            getLocation();
+        });
+        myFilterDialog.show();
     }
 
     @Override
@@ -259,18 +266,17 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         if (requestCode == 1) {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                if (ActivityCompat.checkSelfPermission(this,
-                        Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
-                    // PERMISSION GRANTED
-                    getLocation();
-                    locationAccessNotGrantedCardView.setVisibility(View.GONE);
-                    divider.setVisibility(View.GONE);
-                } else {
-                    // PERMISSION DENIED
-                    Log.e("LOCATION ACCESS", "PERMISSION DENIED");
-                    locationAccessNotGrantedCardView.setVisibility(View.VISIBLE);
-                    divider.setVisibility(View.VISIBLE);
-                }
+                // PERMISSION GRANTED
+                getLocation();
+                locationAccessNotGrantedCardView.setVisibility(View.GONE);
+                divider.setVisibility(View.GONE);
+            } else {
+                // PERMISSION DENIED
+                Log.e("LOCATION ACCESS", "PERMISSION DENIED");
+                // Add value event listener to database reference
+                databaseReference.child("pharmacy_list").addValueEventListener(myValueEventListener);
+                locationAccessNotGrantedCardView.setVisibility(View.VISIBLE);
+                divider.setVisibility(View.VISIBLE);
             }
         }
     }

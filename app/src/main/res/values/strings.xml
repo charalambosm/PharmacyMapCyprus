@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Pharmacies CY</string>
-    <string name="pharmacy_list_fragment_title">Φαρμακεία</string>
-    <string name="contact_us_fragment_title">Επικοινωνία</string>
+    <string name="contact_us_title">Επικοινωνία</string>
     <string name="contact_prompt">Η γνώμη σας μας ενδιαφέρει. Για την βελτίωση της εφαρμογής και των υπηρεσιών μας, συμπληρώστε την φόρμα με τις ιδέες σας.\n\nΕυχαριστούμε!</string>
     <string name="full_name">Ονοματεπώνυμο</string>
     <string name="email">Email</string>
@@ -13,18 +12,18 @@
     <string name="distance">Απόσταση</string>
     <string name="night_pharmacy">Διημερεύον φαρμακείο</string>
     <string name="button">button</string>
-    <string name="night_only">Διημερεύον φαρμακεία μόνο</string>
     <string name="full_name_empty">Το ονοματεπώνυμο δεν μπορει να είναι κενό</string>
     <string name="email_empty">Το email δεν μπορεί να είναι κενό</string>
     <string name="phone_empty">Το τηλέφωνο δεν μπορεί να είναι κενό</string>
     <string name="message_empty">Το μύνημα δεν μπορεί να είναι κενό</string>
-    <string name="email_sent_successfully">Το email έχει σταλεί επιτυχώς</string>
-    <string name="email_sent_unsuccessfully">Το email δεν έχει σταλεί. Παρακαλώ ελέγξτε την σύνδεση σας στο διαδικτύο και ξαναδοκιμάστε</string>
+    <string name="email_sent_successfully">Το email έχει σταλεί επιτυχώς!</string>
+    <string name="email_sent_unsuccessfully">Το email δεν έχει σταλεί. Παρακαλώ ελέγξτε την σύνδεση σας στο διαδικτύο και ξαναδοκιμάστε!</string>
     <string name="fill_form_prompt">Παρακαλώ συμπληρώστε όλα τα πεδία στην φόρμα</string>
     <string name="phone_wrong">Ο αριθμός τηλεφώνου δεν είναι σωστός</string>
     <string name="email_wrong">Το email δεν είναι σωστό</string>
     <string name="full_name_wrong">Το ονοματεπώνυμο είναι λάθος</string>
-    <string name="location_access_not_granted_prompt">Δεν έχει επιτραπεί στο eΦαρμακείο πρόσβαση στην τοποθεσία αυτης της συσκευής. Η λίστα φαρμακείων είναι σε αλφαβητική σειρά.</string>
+    <string name="location_access_not_granted_prompt">Δεν έχει επιτραπεί πρόσβαση στην τοποθεσία αυτης της συσκευής.</string>
+
     <string-array name="spinnerCategories">
         <item>Επιλέξτε κατηγορία</item>
         <item>Τοποθεσία φαρμακείου</item>
@@ -41,21 +40,18 @@
         <item>Αμμόχωστος</item>
     </string-array>
 
-    <string-array name="district_options">
-        <item>Λευκωσία</item>
-        <item>Λεμεσός</item>
-        <item>Λάρνακα</item>
-        <item>Πάφος</item>
-        <item>Αμμόχωστος</item>
-    </string-array>
-
-    <string-array name="district_values">
-        <item>Λευκωσία</item>
-        <item>Λεμεσός</item>
-        <item>Λάρνακα</item>
-        <item>Πάφος</item>
-        <item>Αμμόχωστος</item>
-    </string-array>
-    <string name="bookmarks_activity_title">Αγαπημένα</string>
-    <string name="night_activity_title">Διημερεύον φαρμακεία</string>
+    <string name="favorites_title">Αγαπημένα</string>
+    <string name="all_pharmacies_title">Όλα τα φαρμακεία</string>
+    <string name="night_title">Διημερεύον σήμερα</string>
+    <string name="districts">Επαρχίες</string>
+    <string name="nicosia">Λευκωσία</string>
+    <string name="limassol">Λεμεσός</string>
+    <string name="larnaca">Λάρνακα</string>
+    <string name="paphos">Πάφος</string>
+    <string name="famagusta">Αμμόχωστος</string>
+    <string name="save">Αποθήκευση</string>
+    <string name="more">Περισσότερα</string>
+    <string name="filters">Φίλτρα</string>
+    <string name="add_to_favorites">Πρόσθηκη στα αγαπημένα</string>
+    <string name="delete_from_favorites">Διαγραφή απο το αγαπημένα</string>
 </resources>

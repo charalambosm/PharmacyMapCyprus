@@ -37,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     GoogleMap mMap;
     Pharmacy pharmacy;
     LatLng pharmacyLatLng;
-    TextView toolbarTitle, addressTextView, phoneTextView, nightTextView, distanceTextView;
+    TextView addressTextView, phoneTextView, nightTextView, distanceTextView;
     Toolbar toolbar;
     Favorites favorites;
     boolean isFavorite;
@@ -48,13 +48,13 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.activity_pharmacy);
 
         // Get data from incoming intent
-        AsyncTask.execute(this::getIntentData);
+        getIntentData();
 
         // Set up toolbar
-        AsyncTask.execute(this::configureToolbar);
+        configureToolbar();
 
         // Set up views
-        AsyncTask.execute(this::configureViews);
+        configureViews();
 
         // Set up map
         configureMapFragment();
@@ -68,8 +68,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
     private void configureToolbar() {
         toolbar = findViewById(R.id.pharmacyActivityToolbar);
-        toolbarTitle = findViewById(R.id.pharmacyActivityToolbarTitle);
-        toolbarTitle.setText(String.format("%s %s", pharmacy.getFirstName(), pharmacy.getLastName()));
+        toolbar.setTitle(String.format("%s %s", pharmacy.getFirstName(), pharmacy.getLastName()));
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
@@ -84,7 +83,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         distanceTextView = findViewById(R.id.pharmacyActivityDistanceTextView);
         addressTextView.setText(pharmacy.getAddress());
         phoneTextView.setText(String.format(Locale.getDefault(), "%d", pharmacy.getPhone()));
-        distanceTextView.setText(String.format(Locale.getDefault(), "%3.2f km", pharmacy.getDistance()));
+        if (pharmacy.getDistance() == 0) {
+            distanceTextView.setVisibility(View.GONE);
+        } else {
+            distanceTextView.setText(String.format(Locale.getDefault(), "%3.2f km", pharmacy.getDistance()));
+        }
         setNightTextViewVisibility();
     }
 
@@ -213,14 +216,14 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
     private void removeFromFavorites() {
         favorites = new Favorites(this);
-        favorites.deleteBookmark(pharmacy.getId());
+        favorites.deleteFavorite(pharmacy.getId());
         isFavorite = false;
         invalidateOptionsMenu();
     }
 
     private void addToFavorites() {
         favorites = new Favorites(this);
-        favorites.addBookmark(pharmacy.getId());
+        favorites.addFavorite(pharmacy.getId());
         isFavorite = true;
         invalidateOptionsMenu();
     }

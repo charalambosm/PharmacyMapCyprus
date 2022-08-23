@@ -36,7 +36,7 @@ public class MyFilter {
         }
 
         public PharmacyFilterBuilder withBookmarksOnly(Favorites favorites) {
-            allFilters.add(Pharmacy -> (favorites.isBookmark(Pharmacy.getId())));
+            allFilters.add(Pharmacy -> (favorites.isFavorite(Pharmacy.getId())));
             return this;
         }
 

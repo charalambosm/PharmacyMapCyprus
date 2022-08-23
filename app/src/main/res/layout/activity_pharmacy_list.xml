@@ -12,17 +12,8 @@
         android:layout_height="wrap_content"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
-        android:nestedScrollingEnabled="true">
-
-<!--        <TextView-->
-<!--            android:id="@+id/listActivityToolbarTextView"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:layout_marginLeft="24dp"-->
-<!--            android:text="@string/pharmacy_list_fragment_title"-->
-<!--            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />-->
-
-    </androidx.appcompat.widget.Toolbar>
+        app:titleMarginStart="24dp"
+        android:nestedScrollingEnabled="true"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/locationAccessNotGrantedCardView"

@@ -2,12 +2,18 @@ package com.charalambos.pharmaciescy.Pharmacy;
 
 import com.charalambos.pharmaciescy.Favorites.Favorites;
 import com.charalambos.pharmaciescy.Pharmacy.internal.MyFilter;
+import com.charalambos.pharmaciescy.R;
 import com.charalambos.pharmaciescy.Settings.Settings;
 
-public class BookmarksListActivity extends AbstractListActivity {
+public class FavoritesListActivity extends AbstractListActivity {
     @Override
     protected String withTitle() {
-        return "Αγαπημένα φαρμακεία";
+        return getString(R.string.favorites_title);
+    }
+
+    @Override
+    protected int withLogo() {
+        return R.drawable.ic_favorite;
     }
 
     @Override

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp">
+
+    <TextView
+        android:id="@+id/districtsTextView"
+        style="@style/TextViewHeading"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="@string/districts"/>
+
+    <CheckBox
+        android:id="@+id/nicosiaCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/districtsTextView"
+        android:buttonTint="@color/dark_green"
+        android:text="@string/nicosia" />
+
+    <CheckBox
+        android:id="@+id/limassolCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/nicosiaCheckbox"
+        android:buttonTint="@color/dark_green"
+        android:text="@string/limassol" />
+
+    <CheckBox
+        android:id="@+id/larnacaCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/limassolCheckbox"
+        android:buttonTint="@color/dark_green"
+        android:text="@string/larnaca" />
+
+    <CheckBox
+        android:id="@+id/paphosCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/larnacaCheckbox"
+        android:buttonTint="@color/dark_green"
+        android:text="@string/paphos" />
+
+    <CheckBox
+        android:id="@+id/famagustaCheckbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/paphosCheckbox"
+        android:buttonTint="@color/dark_green"
+        android:text="@string/famagusta" />
+
+    <Button
+        android:id="@+id/filterDialogOKButton"
+        style="@style/ButtonStandard"
+        android:layout_below="@id/famagustaCheckbox"
+        android:layout_centerHorizontal="true"
+        android:text="@string/save"/>
+
+</RelativeLayout>

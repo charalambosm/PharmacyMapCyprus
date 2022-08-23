@@ -26,6 +26,10 @@
         <item name="android:textSize">16sp</item>
     </style>
 
+    <style name="TextViewHeading" parent="TextViewStandard">
+        <item name="android:textSize">20sp</item>
+    </style>
+
     <style name="TextViewContact" parent="TextViewStandard">
         <item name="android:textSize">20sp</item>
         <item name="android:paddingLeft">5dp</item>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    style="@style/LinearLayoutMain"
+    xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
+    style="@style/LinearLayoutMain"
     tools:context=".MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -11,98 +11,69 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="top"
+        app:titleMarginStart="24dp"
+        app:logo="@drawable/ic_home"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
-        app:layout_constraintTop_toTopOf="parent"
-        android:nestedScrollingEnabled="true">
+        android:nestedScrollingEnabled="true"
+        app:title="Κυρίως μενού" />
 
-        <TextView
-            android:id="@+id/mainToolbarTextView"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="24dp"
-            android:text="Κυρίως μενού"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
-
-    </androidx.appcompat.widget.Toolbar>
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/allPharmaciesButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Όλα τα φαρμακεία"
-        android:textColor="@color/black"
-        android:layout_marginLeft="48dp"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="24dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:foreground="@drawable/rectangle_border"
+        style="@style/ButtonStandard"
+        android:drawableLeft="@drawable/ic_pharmacy"
         android:onClick="allPharmaciesCallback"
-        app:layout_constraintBottom_toTopOf="@id/favoritePharmaciesButton"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@+id/nightPharmaciesButton"
-        app:layout_constraintTop_toBottomOf="@+id/mainToolbar"
-        android:drawableTop="@drawable/ic_pharmacy" />
+        android:text="@string/all_pharmacies_title"/>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/nightPharmaciesButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:text="Διημερεύον φαρμακεία"
-        android:layout_marginTop="48dp"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="24dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:foreground="@drawable/rectangle_border"
+        style="@style/ButtonStandard"
+        android:drawableLeft="@drawable/ic_night"
         android:onClick="nightOnlyPharmaciesCallback"
-        app:layout_constraintBottom_toTopOf="@id/contactUsButton"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintLeft_toRightOf="@+id/allPharmaciesButton"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/mainToolbar"
-        android:drawableTop="@drawable/ic_pharmacy" />
+        android:text="@string/night_title"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/favoritePharmaciesButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Αγαπημένα φαρμακεία"
-        android:textColor="@color/black"
+        style="@style/ButtonStandard"
+        android:drawableLeft="@drawable/ic_favorite"
         android:onClick="bookmarksPharmaciesCallback"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toLeftOf="@id/contactUsButton"
-        app:layout_constraintTop_toBottomOf="@+id/allPharmaciesButton"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginLeft="48dp"
-        android:layout_marginRight="24dp"
-        android:layout_marginBottom="48dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:foreground="@drawable/rectangle_border"
-        android:drawableTop="@drawable/ic_pharmacy"/>
+        android:text="@string/favorites_title"/>
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <Button
         android:id="@+id/contactUsButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Εποικινωνήστε μαζί μας"
-        android:textColor="@color/black"
-        app:layout_constraintDimensionRatio="H,1:1"
-        app:layout_constraintLeft_toRightOf="@id/favoritePharmaciesButton"
-        app:layout_constraintTop_toBottomOf="@id/nightPharmaciesButton"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginRight="48dp"
-        android:layout_marginBottom="48dp"
-        android:background="?android:attr/selectableItemBackground"
-        android:foreground="@drawable/rectangle_border"
-        android:drawableTop="@drawable/ic_support" />
+        style="@style/ButtonStandard"
+        android:drawableLeft="@drawable/ic_support"
+        android:onClick="contactUsCallback"
+        android:text="@string/contact_us_title"/>
 
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
+    <TextView
+        android:id="@+id/lastUpdatedTextView"
+        style="@style/TextViewStandard"
+        android:gravity="center"/>
 
-
-</androidx.constraintlayout.widget.ConstraintLayout>
+</LinearLayout>

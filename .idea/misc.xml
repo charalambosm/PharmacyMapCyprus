@@ -4,16 +4,29 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/btn_call.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/btn_directions.xml" value="0.261" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_bookmark_add.xml" value="0.1695" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_bookmarks.xml" value="0.175" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_distance.xml" value="0.261" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_favorite.xml" value="0.1695" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_favorite_add.xml" value="0.1695" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_filter.xml" value="0.261" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_help.xml" value="0.261" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_home.xml" value="0.261" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_location.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_night.xml" value="0.261" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_person.xml" value="0.261" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_pharmacy.xml" value="0.175" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_phone.xml" value="0.261" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_settings.xml" value="0.261" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_support.xml" value="0.175" />
-        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_main.xml" value="0.2" />
-        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_pharmacy.xml" value="0.1" />
-        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_pharmacy_list.xml" value="0.1" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/ic_warning.xml" value="0.261" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/drawable/rectangle_border.xml" value="0.261" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_contact_us.xml" value="0.25" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_main.xml" value="0.33" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_pharmacy.xml" value="0.33" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/activity_pharmacy_list.xml" value="0.25" />
+        <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/dialog_filter.xml" value="0.1377049180327869" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/layout/pharmacy_recycler_view_item.xml" value="0.2" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/menu/list_toolbar.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/Charalambos/Documents/OnlinePharmacy/PharmaciesCY/app/src/main/res/menu/pharmacy_toolbar.xml" value="0.1" />

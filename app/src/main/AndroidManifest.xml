@@ -35,11 +35,15 @@
             android:name=".Pharmacy.NightOnlyListActivity"
             android:exported="false" />
         <activity
-            android:name=".Pharmacy.BookmarksListActivity"
+            android:name=".Pharmacy.FavoritesListActivity"
             android:exported="false" />
+        <activity
+            android:name=".Support.ContactUsActivity"
+            android:exported="false" />
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="${MAPS_API_KEY}"/>
+            android:value="${MAPS_API_KEY}" />
     </application>
 
 </manifest>
