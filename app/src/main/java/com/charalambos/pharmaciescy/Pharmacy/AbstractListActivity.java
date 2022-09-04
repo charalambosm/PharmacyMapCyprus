@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -42,6 +43,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
+import java.util.Locale;
 
 public abstract class AbstractListActivity extends AppCompatActivity {
     // Views
@@ -173,6 +175,21 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                 intent.putExtra("favorites", favorites.isFavorite(pharmacy.getId()));
                 startActivity(intent);
             }
+
+            @Override
+            public void cardViewDirectionCallback(Pharmacy pharmacy) {
+                Uri gmmIntentUri
+                        = Uri.parse(String.format(Locale.ENGLISH
+                        ,"geo:%f,%f?q=%f,%f(%s %s)"
+                        ,pharmacy.getLatitude(),pharmacy.getLongitude()
+                        ,pharmacy.getLatitude(),pharmacy.getLongitude()
+                        ,pharmacy.getFirstName(),pharmacy.getLastName()));
+                Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
+                mapIntent.setPackage("com.google.android.apps.maps");
+                if (mapIntent.resolveActivity(getPackageManager()) != null) {
+                    startActivity(mapIntent);
+                }
+            }
         };
         myAdapter.setFavorites(favorites);
     }
@@ -188,7 +205,6 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                     }
                     // Filter Pharmacy List
                     List<Pharmacy> filteredPharmacyList = myFilter.apply(pharmacyList);
-
                     // Set pharmacy list to adapter and set adapter to recycler view
                     myAdapter.setFullPharmacyList(filteredPharmacyList);
                     recyclerView.setAdapter(myAdapter);

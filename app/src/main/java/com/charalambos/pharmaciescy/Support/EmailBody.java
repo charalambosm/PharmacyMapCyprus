@@ -12,10 +12,6 @@ public class EmailBody {
                 "Email: " +
                 emailBodyBuilder.email +
                 lineSeparator() +
-                "Phone: " +
-                emailBodyBuilder.phone +
-                lineSeparator() +
-                lineSeparator() +
                 "Μύνημα: " +
                 lineSeparator() +
                 emailBodyBuilder.message;
@@ -27,7 +23,6 @@ public class EmailBody {
 
     public static class EmailBodyBuilder {
         private String name;
-        private String phone;
         private String email;
         private String message;
 
@@ -41,11 +36,6 @@ public class EmailBody {
                 out[i] = temp[i].substring(0, 1).toUpperCase() + temp[i].substring(1);
             }
             this.name = String.join(" ",out);
-            return this;
-        }
-
-        public EmailBodyBuilder setPhone(String phone) {
-            this.phone = phone.trim();
             return this;
         }
 

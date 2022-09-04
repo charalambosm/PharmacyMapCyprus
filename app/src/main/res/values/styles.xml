@@ -31,28 +31,25 @@
     </style>
 
     <style name="TextViewContact" parent="TextViewStandard">
-        <item name="android:textSize">20sp</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawableLeft">@drawable/ic_person</item>
         <item name="android:drawablePadding">10dp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:hint">@string/full_name</item>
     </style>
 
     <style name="TextViewPhone" parent="TextViewStandard">
         <item name="android:drawableLeft">@drawable/ic_phone</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawablePadding">10dp</item>
+        <item name="android:hint">@string/phone</item>
     </style>
 
     <style name="TextViewAddress" parent="TextViewStandard">
         <item name="android:drawableLeft">@drawable/ic_location</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawablePadding">10dp</item>
-    </style>
-
-    <style name="TextViewDistance" parent="TextViewStandard">
-        <item name="android:drawableLeft">@drawable/ic_distance</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
+        <item name="android:hint">@string/address</item>
     </style>
 
     <style name="TextViewWarning" parent="TextViewStandard">
@@ -74,6 +71,7 @@
         <item name="android:drawableLeft">@drawable/ic_night</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawablePadding">10dp</item>
+        <item name="android:text">@string/night_pharmacy</item>
     </style>
 
     <style name="EditTextStandard" parent="@android:style/Widget.EditText">

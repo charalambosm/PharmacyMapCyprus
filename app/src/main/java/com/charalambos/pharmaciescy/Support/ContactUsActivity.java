@@ -7,7 +7,6 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,15 +15,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.charalambos.pharmaciescy.R;
-import com.hbb20.CountryCodePicker;
 
 import javax.mail.MessagingException;
 
 public class ContactUsActivity extends AppCompatActivity {
-    EditText nameEditText, emailEditText, phoneEditText, messageEditText;
-    Spinner categorySpinner;
+    EditText nameEditText, emailEditText, messageEditText;
     Button sendButton;
-    CountryCodePicker countryCodePicker;
     Toolbar toolbar;
 
     @Override
@@ -59,13 +55,9 @@ public class ContactUsActivity extends AppCompatActivity {
     private void configureViews() {
         nameEditText = findViewById(R.id.nameEditText);
         emailEditText = findViewById(R.id.emailEditText);
-        phoneEditText = findViewById(R.id.phoneEditText);
         messageEditText = findViewById(R.id.messageEditText);
-        categorySpinner = findViewById(R.id.categorySpinner);
         sendButton = findViewById(R.id.sendButton);
         sendButton.setOnClickListener(this::sendButtonCallback);
-        countryCodePicker = findViewById(R.id.countryCodePicker);
-        countryCodePicker.registerCarrierNumberEditText(phoneEditText);
     }
 
     private void setEditTextValidators() {
@@ -84,16 +76,6 @@ public class ContactUsActivity extends AppCompatActivity {
             public void validate(TextView textView, String text) {
                 if (!text.matches(emailPattern)) {
                     textView.setError(getString(R.string.email_wrong));
-                } else {
-                    textView.setError(null);
-                }
-            }
-        });
-        phoneEditText.addTextChangedListener(new TextValidator(phoneEditText) {
-            @Override
-            public void validate(TextView textView, String text) {
-                if (!(countryCodePicker.isValidFullNumber())) {
-                    textView.setError(getString(R.string.phone_wrong));
                 } else {
                     textView.setError(null);
                 }
@@ -122,15 +104,13 @@ public class ContactUsActivity extends AppCompatActivity {
     private void sendEmail() {
         try {
             String name = nameEditText.getText().toString();
-            String phone = countryCodePicker.getFormattedFullNumber();
             String fromEmail = emailEditText.getText().toString();
             String toEmail = "cmaxoutis79@gmail.com";
-            String subject = categorySpinner.getSelectedItem().toString();
+            String subject = "Αίτημα βοηθείας";
             String message = messageEditText.getText().toString();
             EmailSender emailSender = new EmailSender("cmaxoutis79@gmail.com","tinxbwjtwnnxpadi");
             EmailBody emailBody = new EmailBody.EmailBodyBuilder()
                     .setEmail(fromEmail)
-                    .setPhone(phone)
                     .setName(name)
                     .setMessage(message)
                     .build();
@@ -158,15 +138,6 @@ public class ContactUsActivity extends AppCompatActivity {
         }
         if (emailEditText.getError() != null || emailEditText.getText().toString().isEmpty()) {
             emailEditText.setError(getString(R.string.email_empty));
-            isErrors = true;
-        }
-        if (phoneEditText.getError() != null || phoneEditText.getText().toString().isEmpty()) {
-            phoneEditText.setError(getString(R.string.phone_empty));
-            isErrors = true;
-        }
-        if (categorySpinner.getSelectedItemPosition() == 0) {
-            TextView textView = (TextView) categorySpinner.getSelectedView();
-            textView.setError("");
             isErrors = true;
         }
         if (messageEditText.getError() != null || messageEditText.getText().toString().isEmpty()) {

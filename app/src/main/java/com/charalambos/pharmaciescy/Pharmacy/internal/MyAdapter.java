@@ -1,6 +1,7 @@
 package com.charalambos.pharmaciescy.Pharmacy.internal;
 
 import android.annotation.SuppressLint;
+import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         Pharmacy model = pharmacyList.get(position);
         holder.textViewName.setText(String.format("%s %s", model.getFirstName(), model.getLastName()));
         holder.textViewAddress.setText(model.getAddress());
-        holder.textViewPhone.setText(String.format(Locale.getDefault(), "%d",model.getPhone()));
+        holder.textViewPhone.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
         if (!model.isNight()) {
             holder.textViewNight.setVisibility(View.GONE);
         } else {
@@ -45,10 +46,11 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         if (model.getDistance() == 0) {
             holder.textViewDistance.setVisibility(View.GONE);
         } else {
-            holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.2f km",model.getDistance()));
+            holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
         }
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model));
         holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
+        holder.directionButton.setOnClickListener(view -> cardViewDirectionCallback(model));
         if (favorites.isFavorite(model.getId())) {
             holder.favoritesButton.setImageResource(R.drawable.ic_favorite);
         } else {
@@ -92,4 +94,6 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         }
         notifyItemChanged(position);
     }
+
+    public abstract void cardViewDirectionCallback(Pharmacy pharmacy);
 }

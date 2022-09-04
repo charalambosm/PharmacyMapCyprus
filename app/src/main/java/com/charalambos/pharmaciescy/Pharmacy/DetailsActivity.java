@@ -11,8 +11,8 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
-import android.os.AsyncTask;
 import android.os.Bundle;
+import android.telephony.PhoneNumberUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -82,11 +82,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         nightTextView = findViewById(R.id.pharmacyActivityNightTextView);
         distanceTextView = findViewById(R.id.pharmacyActivityDistanceTextView);
         addressTextView.setText(pharmacy.getAddress());
-        phoneTextView.setText(String.format(Locale.getDefault(), "%d", pharmacy.getPhone()));
+        phoneTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"));
         if (pharmacy.getDistance() == 0) {
             distanceTextView.setVisibility(View.GONE);
         } else {
-            distanceTextView.setText(String.format(Locale.getDefault(), "%3.2f km", pharmacy.getDistance()));
+            distanceTextView.setText(String.format(Locale.getDefault(), "%3.1f km", pharmacy.getDistance()));
         }
         setNightTextViewVisibility();
     }
@@ -143,14 +143,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         mapIntent.setPackage("com.google.android.apps.maps");
         if (mapIntent.resolveActivity(getPackageManager()) != null) {
             startActivity(mapIntent);
-        }
-    }
-
-    public void phoneButtonCallback(View view) {
-        Intent intent = new Intent(Intent.ACTION_DIAL);
-        intent.setData(Uri.parse("tel:+357"+pharmacy.getPhone()));
-        if (intent.resolveActivity(getPackageManager()) != null) {
-            startActivity(intent);
         }
     }
 
