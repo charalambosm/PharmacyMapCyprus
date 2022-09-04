@@ -71,6 +71,16 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         pharmacyList = matchedPharmacyList;
     }
 
+    public void changeItemAtPosition(int position) {
+        notifyItemChanged(position);
+    }
+
+    public void removeItemFromPosition(int position) {
+        pharmacyList.remove(position);
+        notifyItemRemoved(position);
+        notifyItemRangeChanged(position, pharmacyList.size());
+    }
+
     public List<Pharmacy> getFullPharmacyList() {
         return fullPharmacyList;
     }
@@ -86,14 +96,7 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
 
     public abstract void cardViewShowMoreCallback(Pharmacy pharmacy);
 
-    public void cardViewBookmarksCallback(Pharmacy pharmacy, int position) {
-        if (favorites.isFavorite(pharmacy.getId())) {
-            favorites.deleteFavorite(pharmacy.getId());
-        } else {
-            favorites.addFavorite(pharmacy.getId());
-        }
-        notifyItemChanged(position);
-    }
+    public abstract void cardViewBookmarksCallback(Pharmacy pharmacy, int position);
 
     public abstract void cardViewDirectionCallback(Pharmacy pharmacy);
 }

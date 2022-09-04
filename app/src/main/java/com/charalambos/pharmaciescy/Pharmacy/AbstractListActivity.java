@@ -177,6 +177,16 @@ public abstract class AbstractListActivity extends AppCompatActivity {
             }
 
             @Override
+            public void cardViewBookmarksCallback(Pharmacy pharmacy, int position) {
+                if (favorites.isFavorite(pharmacy.getId())) {
+                    favorites.deleteFavorite(pharmacy.getId());
+                } else {
+                    favorites.addFavorite(pharmacy.getId());
+                }
+                changeOrRemoveItem(position);
+            }
+
+            @Override
             public void cardViewDirectionCallback(Pharmacy pharmacy) {
                 Uri gmmIntentUri
                         = Uri.parse(String.format(Locale.ENGLISH
@@ -193,6 +203,8 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         };
         myAdapter.setFavorites(favorites);
     }
+
+    protected abstract void changeOrRemoveItem(int position);
 
     private void configureValueEventListener() {
         myValueEventListener = new MyValueEventListener() {

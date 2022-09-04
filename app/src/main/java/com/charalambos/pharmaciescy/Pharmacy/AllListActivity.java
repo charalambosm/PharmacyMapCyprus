@@ -22,4 +22,9 @@ public class AllListActivity extends AbstractListActivity {
                 .setDistrictsFilter(settings.getSelectedDistrictsPreference())
                 .build();
     }
+
+    @Override
+    protected void changeOrRemoveItem(int position) {
+        myAdapter.changeItemAtPosition(position);
+    }
 }

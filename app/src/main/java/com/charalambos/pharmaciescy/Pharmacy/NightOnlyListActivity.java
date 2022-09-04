@@ -23,4 +23,9 @@ public class NightOnlyListActivity extends AbstractListActivity {
                 .setNightOnlyFilter(true)
                 .build();
     }
+
+    @Override
+    protected void changeOrRemoveItem(int position) {
+        myAdapter.changeItemAtPosition(position);
+    }
 }

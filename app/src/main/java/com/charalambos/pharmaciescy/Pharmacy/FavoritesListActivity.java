@@ -23,4 +23,9 @@ public class FavoritesListActivity extends AbstractListActivity {
                 .withBookmarksOnly(favorites)
                 .build();
     }
+
+    @Override
+    protected void changeOrRemoveItem(int position) {
+        myAdapter.removeItemFromPosition(position);
+    }
 }
