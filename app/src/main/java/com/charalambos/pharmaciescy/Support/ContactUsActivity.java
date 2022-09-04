@@ -105,10 +105,10 @@ public class ContactUsActivity extends AppCompatActivity {
         try {
             String name = nameEditText.getText().toString();
             String fromEmail = emailEditText.getText().toString();
-            String toEmail = "cmaxoutis79@gmail.com";
+            String toEmail = "easysolutionscyprus@gmail.com";
             String subject = "Αίτημα βοηθείας";
             String message = messageEditText.getText().toString();
-            EmailSender emailSender = new EmailSender("cmaxoutis79@gmail.com","tinxbwjtwnnxpadi");
+            EmailSender emailSender = new EmailSender("easysolutionscyprus@gmail.com","izbvzbzxexeicvdw");
             EmailBody emailBody = new EmailBody.EmailBodyBuilder()
                     .setEmail(fromEmail)
                     .setName(name)

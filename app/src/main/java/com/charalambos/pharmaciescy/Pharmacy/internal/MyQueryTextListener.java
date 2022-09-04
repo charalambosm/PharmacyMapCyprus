@@ -21,7 +21,8 @@ public abstract class MyQueryTextListener implements SearchView.OnQueryTextListe
         List<Pharmacy> matchedPharmacyList = new ArrayList<>();
         for (Pharmacy pharmacy : fullPharmacyList) {
             if (pharmacy.getFirstName().toLowerCase().contains(newText.toLowerCase()) ||
-                    pharmacy.getLastName().toLowerCase().contains(newText.toLowerCase())) {
+                    pharmacy.getLastName().toLowerCase().contains(newText.toLowerCase()) ||
+                    pharmacy.getAddress().toLowerCase().contains(newText.toLowerCase())) {
                 matchedPharmacyList.add(pharmacy);
             }
         }

@@ -82,11 +82,17 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         nightTextView = findViewById(R.id.pharmacyActivityNightTextView);
         distanceTextView = findViewById(R.id.pharmacyActivityDistanceTextView);
         addressTextView.setText(pharmacy.getAddress());
-        phoneTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"));
         if (pharmacy.getDistance() == 0) {
             distanceTextView.setVisibility(View.GONE);
         } else {
             distanceTextView.setText(String.format(Locale.getDefault(), "%3.1f km", pharmacy.getDistance()));
+        }
+        if (pharmacy.getHomePhone() == 0) {
+            phoneTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"));
+        } else {
+            phoneTextView.setText(String.format(Locale.getDefault(), "%s\n%s",
+                    PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"),
+                    PhoneNumberUtils.formatNumber("+357"+pharmacy.getHomePhone(), "CY")));
         }
         setNightTextViewVisibility();
     }

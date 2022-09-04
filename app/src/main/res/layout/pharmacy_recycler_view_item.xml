@@ -26,7 +26,6 @@
         <TextView
             android:id="@+id/pharmacyRecyclerViewItemPhoneTextView"
             style="@style/TextViewPhone"
-            android:autoLink="phone"
             android:layout_toLeftOf="@id/cardViewBookmarksButton"
             android:layout_toRightOf="@id/directionLinearLayout"
             android:layout_below="@id/pharmacyRecyclerViewItemAddressTextView"/>

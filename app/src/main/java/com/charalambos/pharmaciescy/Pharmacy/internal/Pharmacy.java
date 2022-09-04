@@ -11,6 +11,7 @@ public class Pharmacy implements Parcelable {
     private String district;
     private boolean night;
     private int phone;
+    private int homePhone;
     private double latitude;
     private double longitude;
     private double distance;
@@ -26,6 +27,7 @@ public class Pharmacy implements Parcelable {
         district = in.readString();
         night = in.readByte() != 0;
         phone = in.readInt();
+        homePhone = in.readInt();
         latitude = in.readDouble();
         longitude = in.readDouble();
         distance = in.readDouble();
@@ -71,6 +73,10 @@ public class Pharmacy implements Parcelable {
         return phone;
     }
 
+    public int getHomePhone() {
+        return homePhone;
+    }
+
     public double getLatitude() {
         return latitude;
     }
@@ -99,6 +105,7 @@ public class Pharmacy implements Parcelable {
         parcel.writeString(district);
         parcel.writeByte((byte) (night ? 1 : 0));
         parcel.writeInt(phone);
+        parcel.writeInt(homePhone);
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
         parcel.writeDouble(distance);

@@ -1,6 +1,5 @@
 package com.charalambos.pharmaciescy.Pharmacy.internal;
 
-import android.annotation.SuppressLint;
 import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,13 +30,11 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         return new MyHolder(view);
     }
 
-    @SuppressLint("ClickableViewAccessibility")
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         Pharmacy model = pharmacyList.get(position);
         holder.textViewName.setText(String.format("%s %s", model.getFirstName(), model.getLastName()));
         holder.textViewAddress.setText(model.getAddress());
-        holder.textViewPhone.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
         if (!model.isNight()) {
             holder.textViewNight.setVisibility(View.GONE);
         } else {
@@ -47,6 +44,13 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
             holder.textViewDistance.setVisibility(View.GONE);
         } else {
             holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
+        }
+        if (model.getHomePhone() == 0) {
+            holder.textViewPhone.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
+        } else {
+            holder.textViewPhone.setText(String.format(Locale.getDefault(), "%s\n%s",
+                    PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"),
+                    PhoneNumberUtils.formatNumber("+357"+model.getHomePhone(), "CY")));
         }
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model));
         holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));

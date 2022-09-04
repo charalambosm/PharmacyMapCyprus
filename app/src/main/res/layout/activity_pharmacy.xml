@@ -26,8 +26,6 @@
     <TextView
         android:id="@+id/pharmacyActivityPhoneTextView"
         style="@style/TextViewPhone"
-        android:autoLink="phone"
-        android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@+id/directionActivityLinearLayout"
         android:layout_below="@id/pharmacyActivityAddressTextView"/>
 
