@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    package="com.charalambos.pharmaciescy">
+    xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -17,7 +16,7 @@
         android:theme="@style/Theme.PharmaciesCY"
         tools:targetApi="31">
         <activity
-            android:name=".MainActivity"
+            android:name="com.easysolutionscyprus.pharmacy.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -26,19 +25,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".Pharmacy.DetailsActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name=".Pharmacy.AllListActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.AllListActivity"
             android:exported="false" />
         <activity
-            android:name=".Pharmacy.NightOnlyListActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.NightOnlyListActivity"
             android:exported="false" />
         <activity
-            android:name=".Pharmacy.FavoritesListActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.FavoritesListActivity"
             android:exported="false" />
         <activity
-            android:name=".Support.ContactUsActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Support.ContactUsActivity"
             android:exported="false" />
 
         <meta-data
