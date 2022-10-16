@@ -1,5 +1,6 @@
 package com.easysolutionscyprus.pharmacy;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +12,9 @@ import com.easysolutionscyprus.pharmacy.Pharmacy.AllListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.FavoritesListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.NightOnlyListActivity;
 import com.easysolutionscyprus.pharmacy.Support.ContactUsActivity;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -25,6 +29,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getLastUpdatedReference();
+        configureAds();
+    }
+
+    @SuppressLint("MissingPermission")
+    private void configureAds() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        AdView mAdView = findViewById(R.id.adView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void getLastUpdatedReference() {

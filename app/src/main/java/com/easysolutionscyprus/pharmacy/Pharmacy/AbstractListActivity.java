@@ -38,6 +38,9 @@ import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyValueEventListener;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
 import com.easysolutionscyprus.pharmacy.Settings.Settings;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.divider.MaterialDivider;
@@ -103,6 +106,13 @@ public abstract class AbstractListActivity extends AppCompatActivity {
         // Configure details activity launcher
         configureDetailsActivityLauncher();
 
+        // Configure ads
+        configureAds();
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         // Get location
         getLocation();
     }
@@ -248,7 +258,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                         Intent intent = result.getData();
                         int position;
                         if (intent != null) {
-                            position = intent.getIntExtra("position", 0x00);
+                            position = intent.getIntExtra("cardPosition", 0x00);
                             changeOrRemoveItem(position);
                         }
                     }
@@ -262,6 +272,8 @@ public abstract class AbstractListActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             return;
         }
+        locationAccessNotGrantedCardView.setVisibility(View.GONE);
+        divider.setVisibility(View.GONE);
         fusedLocationProvider.getCurrentLocation(PRIORITY_HIGH_ACCURACY, myCancellationToken)
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
@@ -270,6 +282,15 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                         databaseReference.child("pharmacy_list").addValueEventListener(myValueEventListener);
                     }
                 });
+    }
+
+    @SuppressLint("MissingPermission")
+    private void configureAds() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        AdView mAdView = findViewById(R.id.pharmacyListAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     private void resetSearchView() {
@@ -320,9 +341,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
             if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
                 // PERMISSION GRANTED
                 getLocation();
-                locationAccessNotGrantedCardView.setVisibility(View.GONE);
-                divider.setVisibility(View.GONE);
-            } else {
+            } else if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED ){
                 // PERMISSION DENIED
                 Log.e("LOCATION ACCESS", "PERMISSION DENIED");
                 // Add value event listener to database reference

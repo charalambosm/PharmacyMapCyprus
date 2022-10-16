@@ -1,5 +1,6 @@
 package com.easysolutionscyprus.pharmacy.Support;
 
+import android.annotation.SuppressLint;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
@@ -15,6 +16,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.easysolutionscyprus.pharmacy.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
 
 import javax.mail.MessagingException;
 
@@ -30,7 +34,10 @@ public class ContactUsActivity extends AppCompatActivity {
         AsyncTask.execute(this::setThreadPolicy);
         configureToolbar();
         configureViews();
+        // Configure  text validators
         setEditTextValidators();
+        // Configure ads
+        configureAds();
     }
 
     private void setThreadPolicy() {
@@ -145,6 +152,15 @@ public class ContactUsActivity extends AppCompatActivity {
             isErrors = true;
         }
         return isErrors;
+    }
+
+    @SuppressLint("MissingPermission")
+    private void configureAds() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        AdView mAdView = findViewById(R.id.contactUsAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 
     @Override

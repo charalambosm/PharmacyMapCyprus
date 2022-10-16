@@ -1,6 +1,8 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy;
 
 
+import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
@@ -11,6 +13,7 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
@@ -21,8 +24,14 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.easysolutionscyprus.pharmacy.Favorites.Favorites;
+import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -41,8 +50,11 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     TextView addressTextView, phoneTextView, nightTextView, distanceTextView;
     Toolbar toolbar;
     Favorites favorites;
+    Location currentLocation;
+    FusedLocationProviderClient fusedLocationProvider;
+    final MyCancellationToken myCancellationToken = new MyCancellationToken();
     boolean isFavorite;
-    int position;
+    int cardPosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,13 +72,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
         // Set up map
         configureMapFragment();
+
+        // Configure ads
+        configureAds();
     }
 
     private void getIntentData() {
         Intent intent = getIntent();
         pharmacy = intent.getParcelableExtra("pharmacy");
         isFavorite = intent.getBooleanExtra("favorites",false);
-        position = intent.getIntExtra("position", 1);
+        cardPosition = intent.getIntExtra("position", 1);
     }
 
     private void configureToolbar() {
@@ -172,12 +187,35 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                         Manifest.permission.ACCESS_FINE_LOCATION) == PackageManager.PERMISSION_GRANTED) {
                     // PERMISSION GRANTED
                     configureMapFragment();
+                    // Get current location
+                    getLocation();
                 } else {
                     // PERMISSION DENIED
                     Log.e("LOCATION ACCESS", "PERMISSION DENIED");
                 }
             }
         }
+    }
+
+    @SuppressLint("MissingPermission")
+    private void getLocation() {
+        fusedLocationProvider = LocationServices.getFusedLocationProviderClient(this);
+        fusedLocationProvider.getCurrentLocation(PRIORITY_HIGH_ACCURACY, myCancellationToken)
+                .addOnSuccessListener(this, location -> {
+                    if (location != null) {
+                        currentLocation = location;
+                        // Show distance from user
+                        calculateAndShowDistance();                    }
+                });
+    }
+
+    void calculateAndShowDistance() {
+        float[] result = new float[3];
+        Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(),
+                pharmacy.getLatitude(), pharmacy.getLongitude(), result);
+        double distance = result[0] / 1000;
+        distanceTextView.setVisibility(View.VISIBLE);
+        distanceTextView.setText(String.format(Locale.getDefault(), "%3.1f km", distance));
     }
 
     @Override
@@ -238,8 +276,17 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     public void onBackPressed() {
         Intent intent = new Intent();
-        intent.putExtra("position", position);
+        intent.putExtra("cardPosition", cardPosition);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @SuppressLint("MissingPermission")
+    private void configureAds() {
+        MobileAds.initialize(this, initializationStatus -> {
+        });
+        AdView mAdView = findViewById(R.id.pharmacyDetailsAdView);
+        AdRequest adRequest = new AdRequest.Builder().build();
+        mAdView.loadAd(adRequest);
     }
 }
