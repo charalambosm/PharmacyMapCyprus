@@ -46,9 +46,10 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
             holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
         }
         if (model.getHomePhone() == 0) {
-            holder.textViewPhone.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
+            holder.textViewPhone.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)",
+                    PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY")));
         } else {
-            holder.textViewPhone.setText(String.format(Locale.getDefault(), "%s\n%s",
+            holder.textViewPhone.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)\n%s (Σπιτ.)",
                     PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"),
                     PhoneNumberUtils.formatNumber("+357"+model.getHomePhone(), "CY")));
         }

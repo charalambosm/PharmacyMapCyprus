@@ -42,10 +42,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@id/cardViewBookmarksButton"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/more"
-            android:src="@drawable/ic_chevron_right"/>
+            android:minWidth="32dp"
+            android:minHeight="48dp"
+            android:src="@drawable/ic_chevron_right" />
 
         <ImageButton
             android:id="@+id/cardViewBookmarksButton"
@@ -54,6 +57,8 @@
             android:layout_alignParentRight="true"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/favorites_title"
+            android:minWidth="32dp"
+            android:minHeight="48dp"
             android:src="@drawable/ic_favorite_add" />
 
         <LinearLayout
@@ -62,15 +67,16 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:orientation="vertical">
+
             <ImageButton
                 android:id="@+id/cardViewDirectionButton"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:layout_gravity="center"
                 android:background="?android:attr/selectableItemBackground"
                 android:contentDescription="@string/button"
                 android:scaleType="fitXY"
-                android:src="@drawable/btn_directions"/>
+                android:src="@drawable/btn_directions" />
 
             <TextView
                 android:id="@+id/pharmacyRecyclerViewItemDistanceTextView"
