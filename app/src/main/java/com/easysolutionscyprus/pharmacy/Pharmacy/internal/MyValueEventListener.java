@@ -27,7 +27,6 @@ public abstract class MyValueEventListener implements com.google.firebase.databa
             Pharmacy pharmacy = dataSnapshot.getValue(Pharmacy.class);
             this.pharmacyList.add(pharmacy);
         }
-        Log.e("PHARMACY LIST", "Finished retrieving pharmacy list");
         update();
     }
 

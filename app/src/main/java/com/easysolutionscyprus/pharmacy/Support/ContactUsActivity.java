@@ -1,12 +1,13 @@
 package com.easysolutionscyprus.pharmacy.Support;
 
-import android.annotation.SuppressLint;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.StrictMode;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -16,15 +17,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.easysolutionscyprus.pharmacy.R;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 
 import javax.mail.MessagingException;
 
 public class ContactUsActivity extends AppCompatActivity {
     EditText nameEditText, emailEditText, messageEditText;
     Button sendButton;
+    CheckBox privacyPolicyCheckBox;
+    TextView privacyPolicyTextView;
     Toolbar toolbar;
 
     @Override
@@ -61,8 +61,16 @@ public class ContactUsActivity extends AppCompatActivity {
         nameEditText = findViewById(R.id.nameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         messageEditText = findViewById(R.id.messageEditText);
+        privacyPolicyCheckBox = findViewById(R.id.privacyPolicyCheckBox);
+        privacyPolicyTextView = findViewById(R.id.privacyPolicyTextView);
+        privacyPolicyTextView.setOnClickListener(this::openPrivacyPolicyDialog);
         sendButton = findViewById(R.id.sendButton);
         sendButton.setOnClickListener(this::sendButtonCallback);
+    }
+
+    private void openPrivacyPolicyDialog(View view) {
+        Intent browserIntent = new Intent(Intent.ACTION_VIEW, Uri.parse("https://easysolutionscyprus.wordpress.com/"));
+        startActivity(browserIntent);
     }
 
     private void setEditTextValidators() {
@@ -103,6 +111,10 @@ public class ContactUsActivity extends AppCompatActivity {
             Toast.makeText(this, R.string.fill_form_prompt,Toast.LENGTH_SHORT).show();
             return;
         }
+        if (!privacyPolicyCheckBox.isChecked()) {
+            privacyPolicyCheckBox.setError("Παρακαλώ όπως αποδεχτείτε την πολιτική απορρήτου για να επικοινωνήσετε μαζί μας.");
+            return;
+        }
         AsyncTask.execute(this::sendEmail);
     }
 
@@ -123,7 +135,6 @@ public class ContactUsActivity extends AppCompatActivity {
             runOnUiThread(this::toastEmailSentSuccessfully);
         } catch (MessagingException messagingException) {
             runOnUiThread(this::toastEmailSentFailed);
-            Log.e("SEND EMAIL", messagingException.toString(), messagingException);
         }
     }
 

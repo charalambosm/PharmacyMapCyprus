@@ -62,6 +62,41 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center">
+            <CheckBox
+                android:id="@+id/privacyPolicyCheckBox"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:buttonTint="@color/dark_green" />
+
+            <TextView
+                style="@style/TextViewStandard"
+                android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:text="Αποδέχομαι την "/>
+
+            <TextView
+                android:id="@+id/privacyPolicyTextView"
+                style="@style/TextViewStandard"
+                android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:clickable="true"
+                android:textColor="@color/blue"
+                android:text="@string/privacy_policy_underlined"
+                android:focusable="true" />
+
+            <TextView
+                style="@style/TextViewStandard"
+                android:layout_margin="0dp"
+                android:layout_width="wrap_content"
+                android:text="."/>
+        </LinearLayout>
+
+
         <Button
             android:id="@+id/sendButton"
             style="@style/ButtonStandard"

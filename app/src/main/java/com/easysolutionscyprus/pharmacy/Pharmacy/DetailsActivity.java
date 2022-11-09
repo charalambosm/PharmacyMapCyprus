@@ -189,9 +189,6 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
                     configureMapFragment();
                     // Get current location
                     getLocation();
-                } else {
-                    // PERMISSION DENIED
-                    Log.e("LOCATION ACCESS", "PERMISSION DENIED");
                 }
             }
         }
@@ -229,11 +226,9 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         MenuItem favoritesAdd = menu.findItem(R.id.action_favorites_add);
         MenuItem favoritesDelete = menu.findItem(R.id.action_favorites_delete);
         if (isFavorite) {
-            Log.e("FAVORITES","YES");
             favoritesAdd.setVisible(false);
             favoritesDelete.setVisible(true);
         } else {
-            Log.e("FAVORITES","NO");
             favoritesAdd.setVisible(true);
             favoritesDelete.setVisible(false);
         }

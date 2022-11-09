@@ -239,8 +239,6 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                     myAdapter.setFullPharmacyList(filteredPharmacyList);
                     recyclerView.setAdapter(myAdapter);
                     swipeRefreshLayout.setRefreshing(false);
-                } else {
-                    Log.e("PHARMACY_LIST", "No pharmacies found");
                 }
             }
         };
@@ -343,7 +341,6 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                 getLocation();
             } else if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED ){
                 // PERMISSION DENIED
-                Log.e("LOCATION ACCESS", "PERMISSION DENIED");
                 // Add value event listener to database reference
                 databaseReference.child("pharmacy_list").addValueEventListener(myValueEventListener);
                 locationAccessNotGrantedCardView.setVisibility(View.VISIBLE);
