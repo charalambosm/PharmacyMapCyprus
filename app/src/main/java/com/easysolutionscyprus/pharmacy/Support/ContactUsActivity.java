@@ -16,7 +16,9 @@ import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.R;
+import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
 
 import javax.mail.MessagingException;
 
@@ -26,16 +28,24 @@ public class ContactUsActivity extends AppCompatActivity {
     CheckBox privacyPolicyCheckBox;
     TextView privacyPolicyTextView;
     Toolbar toolbar;
+    LocalePreference localeSettings;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        configureSettings();
         setContentView(R.layout.activity_contact_us);
         AsyncTask.execute(this::setThreadPolicy);
         configureToolbar();
         configureViews();
         // Configure text validators
         setEditTextValidators();
+    }
+
+    private void configureSettings() {
+        localeSettings = new LocalePreference(this);
+        String languageCode = String.join("",localeSettings.getPreference());
+        LanguageConfigurator.setLanguage(getBaseContext(), languageCode);
     }
 
     private void setThreadPolicy() {

@@ -37,7 +37,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:queryBackground="@color/transparent"
-            app:queryHint="Αναζήτηση φαρμακείου"
+            app:queryHint="@string/search_pharmacy"
             app:iconifiedByDefault="false" />
     </androidx.cardview.widget.CardView>
 

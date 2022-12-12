@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginHorizontal="10dp">
+
+    <TextView
+        android:id="@+id/languageTextView"
+        style="@style/TextViewHeading"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:text="@string/language"/>
+
+    <RadioGroup
+        android:id="@+id/languageRadioGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/languageTextView"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <RadioButton
+            android:id="@+id/englishRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_green"
+            android:text="@string/english"/>
+
+        <RadioButton
+            android:id="@+id/greekRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:buttonTint="@color/dark_green"
+            android:text="@string/greek"/>
+    </RadioGroup>
+
+    <Button
+        android:id="@+id/languageDialogOKButton"
+        style="@style/ButtonStandard"
+        android:layout_below="@id/languageRadioGroup"
+        android:layout_centerHorizontal="true"
+        android:text="@string/save"/>
+
+</RelativeLayout>

@@ -1,4 +1,4 @@
-package com.easysolutionscyprus.pharmacy.Pharmacy.internal;
+package com.easysolutionscyprus.pharmacy.Settings.dialog;
 
 import static android.view.Window.FEATURE_NO_TITLE;
 
@@ -12,18 +12,18 @@ import android.widget.CheckBox;
 import androidx.annotation.NonNull;
 
 import com.easysolutionscyprus.pharmacy.R;
-import com.easysolutionscyprus.pharmacy.Settings.Settings;
+import com.easysolutionscyprus.pharmacy.Settings.DistrictPreference;
 
 import java.util.Set;
 
-public class MyFilterDialog extends Dialog implements View.OnClickListener {
+public class PharmacyFilterDialog extends Dialog implements View.OnClickListener, DialogPrototype {
     Button okButton;
     CheckBox nicosiaCheckbox, limassolCheckbox, larnacaCheckBox, paphosCheckbox, famagustaCheckbox;
-    Settings settings;
+    DistrictPreference districtSettings;
 
-    public MyFilterDialog(@NonNull Context context) {
+    public PharmacyFilterDialog(@NonNull Context context) {
         super(context);
-        settings = new Settings(context);
+        districtSettings = new DistrictPreference(context);
     }
 
     @Override
@@ -31,17 +31,27 @@ public class MyFilterDialog extends Dialog implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         requestWindowFeature(FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_filter);
-        configureOkButton();
-        configureDistrictCheckboxes();
+        configureSaveButton();
+        configureOptionWidgets();
     }
 
-    private void configureOkButton() {
+    @Override
+    public void onClick(View view) {
+        if (view.getId() == R.id.filterDialogOKButton) {
+            save();
+            dismiss();
+        }
+    }
+
+    @Override
+    public void configureSaveButton() {
         okButton = findViewById(R.id.filterDialogOKButton);
         okButton.setOnClickListener(this);
     }
 
-    public void configureDistrictCheckboxes() {
-        Set<String> selectedDistricts = settings.getSelectedDistrictsPreference();
+    @Override
+    public void configureOptionWidgets() {
+        Set<String> selectedDistricts = districtSettings.getPreference();
         nicosiaCheckbox = findViewById(R.id.nicosiaCheckbox);
         limassolCheckbox = findViewById(R.id.limassolCheckbox);
         larnacaCheckBox = findViewById(R.id.larnacaCheckbox);
@@ -64,22 +74,15 @@ public class MyFilterDialog extends Dialog implements View.OnClickListener {
         }
     }
 
-    public void saveFilters() {
-        settings.setSelectedDistrictsPreferences(
-                new Settings.SelectedDistrictsBuilder()
+    @Override
+    public void save() {
+        districtSettings.setPreference(
+                new DistrictPreference.DistrictSettingsBuilder()
                         .setNicosia(nicosiaCheckbox.isChecked())
                         .setLimassol(limassolCheckbox.isChecked())
                         .setLarnaca(larnacaCheckBox.isChecked())
                         .setPaphos(paphosCheckbox.isChecked())
                         .setFamagusta(famagustaCheckbox.isChecked())
                         .build());
-    }
-
-    @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.filterDialogOKButton) {
-            saveFilters();
-            dismiss();
-        }
     }
 }

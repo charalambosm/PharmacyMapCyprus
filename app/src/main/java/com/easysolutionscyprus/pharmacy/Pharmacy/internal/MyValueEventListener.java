@@ -1,7 +1,6 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.internal;
 
 import android.location.Location;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 

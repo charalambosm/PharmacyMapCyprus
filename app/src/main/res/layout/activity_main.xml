@@ -16,7 +16,7 @@
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="true"
-        app:title="Κυρίως μενού" />
+        app:title="@string/main_menu" />
 
     <View
         android:layout_width="wrap_content"

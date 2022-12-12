@@ -106,5 +106,5 @@
         <item name="android:colorForeground">@color/dark_gray</item>
     </style>
 
-    <string name="home_phone">Τηλέφωνο οικίας</string>
+    <string name="home_phone">Home phone</string>
 </resources>

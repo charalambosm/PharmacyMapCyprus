@@ -3,7 +3,7 @@ package com.easysolutionscyprus.pharmacy.Pharmacy;
 import com.easysolutionscyprus.pharmacy.Favorites.Favorites;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyFilter;
 import com.easysolutionscyprus.pharmacy.R;
-import com.easysolutionscyprus.pharmacy.Settings.Settings;
+import com.easysolutionscyprus.pharmacy.Settings.DistrictPreference;
 
 public class NightOnlyListActivity extends AbstractListActivity {
     @Override
@@ -17,9 +17,9 @@ public class NightOnlyListActivity extends AbstractListActivity {
     }
 
     @Override
-    protected MyFilter buildFilter(Settings settings, Favorites favorites) {
+    protected MyFilter buildFilter(DistrictPreference districtSettings, Favorites favorites) {
         return new MyFilter.PharmacyFilterBuilder()
-                .setDistrictsFilter(settings.getSelectedDistrictsPreference())
+                .setDistrictsFilter(districtSettings.getPreference())
                 .setNightOnlyFilter(true)
                 .build();
     }

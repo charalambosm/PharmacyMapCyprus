@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="district_default">
+        <item>Λευκωσία</item>
+        <item>Λεμεσός</item>
+        <item>Λάρνακα</item>
+        <item>Πάφος</item>
+        <item>Αμμόχωστος</item>
+        <item>Nicosia</item>
+        <item>Limassol</item>
+        <item>Larnaca</item>
+        <item>Paphos</item>
+        <item>Famagusta</item>
+    </string-array>
+    <string name="locale_default" translatable="false">
+        <item>en</item>
+    </string>
+    <string-array name="locale_options">
+        <item>English</item>
+        <item>Ελληνικά</item>
+    </string-array>
+</resources>

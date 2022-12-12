@@ -3,12 +3,6 @@ package com.easysolutionscyprus.pharmacy.Pharmacy;
 
 import static com.google.android.gms.location.Priority.PRIORITY_HIGH_ACCURACY;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-import androidx.core.app.ActivityCompat;
-
 import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,16 +11,23 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.core.app.ActivityCompat;
+
 import com.easysolutionscyprus.pharmacy.Favorites.Favorites;
+import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
+import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -51,6 +52,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     Toolbar toolbar;
     Favorites favorites;
     Location currentLocation;
+    LocalePreference localeSettings;
     FusedLocationProviderClient fusedLocationProvider;
     final MyCancellationToken myCancellationToken = new MyCancellationToken();
     boolean isFavorite;
@@ -59,6 +61,7 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        configureSettings();
         setContentView(R.layout.activity_pharmacy);
 
         // Get data from incoming intent
@@ -75,6 +78,12 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
 
         // Configure ads
         configureAds();
+    }
+
+    private void configureSettings() {
+        localeSettings = new LocalePreference(this);
+        String languageCode = String.join("",localeSettings.getPreference());
+        LanguageConfigurator.setLanguage(getBaseContext(), languageCode);
     }
 
     private void getIntentData() {
@@ -106,9 +115,10 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
             distanceTextView.setText(String.format(Locale.getDefault(), "%3.1f km", pharmacy.getDistance()));
         }
         if (pharmacy.getHomePhone() == 0) {
-            phoneTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"));
+            phoneTextView.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)",
+                    PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY")));
         } else {
-            phoneTextView.setText(String.format(Locale.getDefault(), "%s\n%s",
+            phoneTextView.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)\n%s (Σπιτ.)",
                     PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"),
                     PhoneNumberUtils.formatNumber("+357"+pharmacy.getHomePhone(), "CY")));
         }

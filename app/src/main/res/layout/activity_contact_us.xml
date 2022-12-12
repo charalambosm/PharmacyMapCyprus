@@ -77,7 +77,7 @@
                 style="@style/TextViewStandard"
                 android:layout_margin="0dp"
                 android:layout_width="wrap_content"
-                android:text="Αποδέχομαι την "/>
+                android:text="@string/privacy_policy_start"/>
 
             <TextView
                 android:id="@+id/privacyPolicyTextView"
@@ -93,7 +93,7 @@
                 style="@style/TextViewStandard"
                 android:layout_margin="0dp"
                 android:layout_width="wrap_content"
-                android:text="."/>
+                android:text="@string/privacy_policy_end"/>
         </LinearLayout>
 
 

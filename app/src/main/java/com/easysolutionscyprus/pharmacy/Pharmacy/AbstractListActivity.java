@@ -28,16 +28,19 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.easysolutionscyprus.pharmacy.Database.DatabaseSingleton;
 import com.easysolutionscyprus.pharmacy.Favorites.Favorites;
+import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyAdapter;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyFilter;
-import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyFilterDialog;
+import com.easysolutionscyprus.pharmacy.Settings.dialog.PharmacyFilterDialog;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyQueryTextListener;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyValueEventListener;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
-import com.easysolutionscyprus.pharmacy.Settings.Settings;
+import com.easysolutionscyprus.pharmacy.Settings.DistrictPreference;
+import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -45,7 +48,6 @@ import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.divider.MaterialDivider;
 import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.List;
 import java.util.Locale;
@@ -63,30 +65,30 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     Location currentLocation;
     final MyCancellationToken myCancellationToken = new MyCancellationToken();
 
-    Settings settings;
+    DistrictPreference districtSettings;
+    LocalePreference localeSettings;
     Favorites favorites;
     MyFilter myFilter;
     MyValueEventListener myValueEventListener;
     public static MyAdapter myAdapter;
-    DatabaseReference databaseReference;
+    DatabaseReference pharmacyListDatabaseReference;
 
     ActivityResultLauncher<Intent> detailsActivityResultsLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        configureSettings();
         setContentView(R.layout.activity_pharmacy_list);
 
-        databaseReference = FirebaseDatabase.getInstance().getReference();
+        // Define pharmacy list database reference
+        configurePharmacyListDatabaseReference();
 
         // Define views
         configureViews();
 
         // Configure toolbar
         configureToolbar();
-
-        // Configure settings
-        configureSettings();
 
         // Configure favorites
         configureFavorites();
@@ -108,6 +110,10 @@ public abstract class AbstractListActivity extends AppCompatActivity {
 
         // Configure ads
         configureAds();
+    }
+
+    private void configurePharmacyListDatabaseReference() {
+        pharmacyListDatabaseReference = DatabaseSingleton.getInstance().getPharmacyList(localeSettings.getPreference());
     }
 
     @Override
@@ -170,7 +176,9 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     protected abstract int withLogo();
 
     private void configureSettings() {
-        settings = new Settings(this);
+        districtSettings = new DistrictPreference(this);
+        localeSettings = new LocalePreference(this);
+        LanguageConfigurator.setLanguage(getBaseContext(), localeSettings.getPreference());
     }
 
     private void configureFavorites() {
@@ -178,10 +186,10 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     }
 
     private void configureFilter() {
-        myFilter = buildFilter(settings, favorites);
+        myFilter = buildFilter(districtSettings, favorites);
     }
 
-    protected abstract MyFilter buildFilter(Settings settings, Favorites favorites);
+    protected abstract MyFilter buildFilter(DistrictPreference districtSettings, Favorites favorites);
 
     private void configureAdapter() {
         myAdapter = new MyAdapter() {
@@ -239,6 +247,8 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                     myAdapter.setFullPharmacyList(filteredPharmacyList);
                     recyclerView.setAdapter(myAdapter);
                     swipeRefreshLayout.setRefreshing(false);
+                } else {
+                    Log.e("NO_PHARMACIES","NONE_FOUND");
                 }
             }
         };
@@ -277,7 +287,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                     if (location != null) {
                         currentLocation = location;
                         // Add value event listener to database reference
-                        databaseReference.child("pharmacy_list").addValueEventListener(myValueEventListener);
+                        pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
                     }
                 });
     }
@@ -301,13 +311,13 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     }
 
     private void openFilterDialog() {
-        MyFilterDialog myFilterDialog = new MyFilterDialog(this);
-        myFilterDialog.setOnDismissListener(dialogInterface -> {
+        PharmacyFilterDialog pharmacyFilterDialog = new PharmacyFilterDialog(this);
+        pharmacyFilterDialog.setOnDismissListener(dialogInterface -> {
             configureFilter();
             swipeRefreshLayout.setRefreshing(true);
             getLocation();
         });
-        myFilterDialog.show();
+        pharmacyFilterDialog.show();
     }
 
     @Override
@@ -342,7 +352,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
             } else if(grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_DENIED ){
                 // PERMISSION DENIED
                 // Add value event listener to database reference
-                databaseReference.child("pharmacy_list").addValueEventListener(myValueEventListener);
+                pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
                 locationAccessNotGrantedCardView.setVisibility(View.VISIBLE);
                 divider.setVisibility(View.VISIBLE);
             }
