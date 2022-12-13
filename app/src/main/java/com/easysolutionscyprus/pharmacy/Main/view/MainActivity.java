@@ -1,4 +1,4 @@
-package com.easysolutionscyprus.pharmacy;
+package com.easysolutionscyprus.pharmacy.Main.view;
 
 import android.content.Intent;
 import android.view.Menu;
@@ -9,11 +9,13 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import com.easysolutionscyprus.pharmacy.Main.model.DatabaseSingleton;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.AllListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.FavoritesListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.NightOnlyListActivity;
 import com.easysolutionscyprus.pharmacy.Preferences.view.LanguageDialog;
 import com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity;
+import com.easysolutionscyprus.pharmacy.R;
 import com.google.firebase.database.DataSnapshot;
 
 public class MainActivity extends TranslatableActivity {

@@ -17,7 +17,7 @@
         android:theme="@style/Theme.PharmaciesCY"
         tools:targetApi="31">
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.MainActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Main.view.MainActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

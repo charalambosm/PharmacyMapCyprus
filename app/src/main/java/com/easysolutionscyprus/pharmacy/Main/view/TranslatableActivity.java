@@ -1,4 +1,4 @@
-package com.easysolutionscyprus.pharmacy;
+package com.easysolutionscyprus.pharmacy.Main.view;
 
 import android.annotation.SuppressLint;
 import android.os.Bundle;

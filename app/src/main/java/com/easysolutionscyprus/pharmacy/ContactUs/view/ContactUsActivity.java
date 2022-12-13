@@ -18,7 +18,7 @@ import com.easysolutionscyprus.pharmacy.R;
 import com.easysolutionscyprus.pharmacy.ContactUs.model.EmailBody;
 import com.easysolutionscyprus.pharmacy.ContactUs.model.EmailSender;
 import com.easysolutionscyprus.pharmacy.ContactUs.model.TextValidator;
-import com.easysolutionscyprus.pharmacy.TranslatableActivity;
+import com.easysolutionscyprus.pharmacy.Main.view.TranslatableActivity;
 
 import javax.mail.MessagingException;
 

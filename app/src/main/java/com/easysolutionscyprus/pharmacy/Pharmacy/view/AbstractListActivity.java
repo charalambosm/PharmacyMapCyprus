@@ -26,7 +26,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-import com.easysolutionscyprus.pharmacy.DatabaseSingleton;
+import com.easysolutionscyprus.pharmacy.Main.model.DatabaseSingleton;
 import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyAdapter;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyCancellationToken;
@@ -37,7 +37,7 @@ import com.easysolutionscyprus.pharmacy.Pharmacy.model.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
 import com.easysolutionscyprus.pharmacy.Preferences.model.DistrictPreference;
 import com.easysolutionscyprus.pharmacy.Preferences.view.PharmacyFilterDialog;
-import com.easysolutionscyprus.pharmacy.TranslatableActivity;
+import com.easysolutionscyprus.pharmacy.Main.view.TranslatableActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.divider.MaterialDivider;

@@ -24,7 +24,7 @@ import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
-import com.easysolutionscyprus.pharmacy.TranslatableActivity;
+import com.easysolutionscyprus.pharmacy.Main.view.TranslatableActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
