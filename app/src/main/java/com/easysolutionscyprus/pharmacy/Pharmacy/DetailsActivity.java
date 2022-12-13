@@ -9,7 +9,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Bundle;
 import android.telephony.PhoneNumberUtils;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,19 +17,14 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
 
 import com.easysolutionscyprus.pharmacy.Favorites.Favorites;
-import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
-import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.easysolutionscyprus.pharmacy.TranslatableActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -43,7 +37,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 
 import java.util.Locale;
 
-public class DetailsActivity extends AppCompatActivity implements OnMapReadyCallback {
+public class DetailsActivity extends TranslatableActivity implements OnMapReadyCallback {
     SupportMapFragment supportMapFragment;
     GoogleMap mMap;
     Pharmacy pharmacy;
@@ -52,38 +46,26 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
     Toolbar toolbar;
     Favorites favorites;
     Location currentLocation;
-    LocalePreference localeSettings;
     FusedLocationProviderClient fusedLocationProvider;
     final MyCancellationToken myCancellationToken = new MyCancellationToken();
     boolean isFavorite;
     int cardPosition;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        configureSettings();
-        setContentView(R.layout.activity_pharmacy);
+    protected int withLayout() {
+        return R.layout.activity_pharmacy;
+    }
 
+    @Override
+    protected void executeOnCreateActions() {
         // Get data from incoming intent
         getIntentData();
 
-        // Set up toolbar
-        configureToolbar();
-
-        // Set up views
-        configureViews();
+        // Populate views using intent data
+        populateViews();
 
         // Set up map
         configureMapFragment();
-
-        // Configure ads
-        configureAds();
-    }
-
-    private void configureSettings() {
-        localeSettings = new LocalePreference(this);
-        String languageCode = String.join("",localeSettings.getPreference());
-        LanguageConfigurator.setLanguage(getBaseContext(), languageCode);
     }
 
     private void getIntentData() {
@@ -93,7 +75,8 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         cardPosition = intent.getIntExtra("position", 1);
     }
 
-    private void configureToolbar() {
+    @Override
+    protected void configureToolbar() {
         toolbar = findViewById(R.id.pharmacyActivityToolbar);
         toolbar.setTitle(String.format("%s %s", pharmacy.getFirstName(), pharmacy.getLastName()));
         setSupportActionBar(toolbar);
@@ -103,11 +86,16 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         }
     }
 
-    private void configureViews() {
+    @Override
+    protected void configureViews() {
         addressTextView = findViewById(R.id.pharmacyActivityAddressTextView);
         phoneTextView = findViewById(R.id.pharmacyActivityPhoneTextView);
         nightTextView = findViewById(R.id.pharmacyActivityNightTextView);
         distanceTextView = findViewById(R.id.pharmacyActivityDistanceTextView);
+        adView = findViewById(R.id.pharmacyDetailsAdView);
+    }
+
+    private void populateViews() {
         addressTextView.setText(pharmacy.getAddress());
         if (pharmacy.getDistance() == 0) {
             distanceTextView.setVisibility(View.GONE);
@@ -284,14 +272,5 @@ public class DetailsActivity extends AppCompatActivity implements OnMapReadyCall
         intent.putExtra("cardPosition", cardPosition);
         setResult(RESULT_OK, intent);
         finish();
-    }
-
-    @SuppressLint("MissingPermission")
-    private void configureAds() {
-        MobileAds.initialize(this, initializationStatus -> {
-        });
-        AdView mAdView = findViewById(R.id.pharmacyDetailsAdView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
 }

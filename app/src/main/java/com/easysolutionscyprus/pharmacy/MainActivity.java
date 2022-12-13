@@ -1,52 +1,46 @@
 package com.easysolutionscyprus.pharmacy;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.easysolutionscyprus.pharmacy.Database.DatabaseSingleton;
-import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.Pharmacy.AllListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.FavoritesListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.NightOnlyListActivity;
-import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
 import com.easysolutionscyprus.pharmacy.Settings.dialog.LanguageDialog;
 import com.easysolutionscyprus.pharmacy.Support.ContactUsActivity;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
 import com.google.firebase.database.DataSnapshot;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends TranslatableActivity {
     public static DatabaseSingleton databaseReference;
     TextView lastUpdatedTextView;
-    LocalePreference localeSettings;
     Toolbar toolbar;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        configureSettings();
-        setContentView(R.layout.activity_main);
+    protected int withLayout() {
+        return R.layout.activity_main;
+    }
+
+    @Override
+    protected void configureViews() {
+        lastUpdatedTextView = findViewById(R.id.lastUpdatedTextView);
+        adView = findViewById(R.id.adView);
+    }
+
+    @Override
+    protected void executeOnCreateActions() {
         configureToolbar();
         getDatabaseReference();
-        configureAds();
     }
 
-    private void configureSettings() {
-        localeSettings = new LocalePreference(this);
-        LanguageConfigurator.setLanguage(getBaseContext(), localeSettings.getPreference());
-    }
-
-    private void configureToolbar() {
+    @Override
+    protected void configureToolbar() {
         toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
     }
@@ -67,21 +61,12 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @SuppressLint("MissingPermission")
-    private void configureAds() {
-        MobileAds.initialize(this, initializationStatus -> {});
-        AdView mAdView = findViewById(R.id.adView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-    }
-
     private void getDatabaseReference() {
         databaseReference = DatabaseSingleton.getInstance();
         databaseReference.getLastUpdated().get().addOnSuccessListener(this::configureLastUpdatedTextView);
     }
 
     private void configureLastUpdatedTextView(DataSnapshot dataSnapshot) {
-        lastUpdatedTextView = findViewById(R.id.lastUpdatedTextView);
         lastUpdatedTextView.setText(String.format(getString(R.string.last_updated), dataSnapshot.getValue()));
     }
 

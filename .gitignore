@@ -13,3 +13,9 @@
 .externalNativeBuild
 .cxx
 local.properties
+.idea/deploymentTargetDropDown.xml
+.idea/vcs.xml
+Screenshot_20220904_121204.png
+Screenshot_20220904_121457.png
+Screenshot_20220904_143334.png
+app/release/

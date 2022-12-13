@@ -3,7 +3,6 @@ package com.easysolutionscyprus.pharmacy.Support;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.AsyncTask;
-import android.os.Bundle;
 import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
@@ -13,39 +12,30 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
-import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.R;
-import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
+import com.easysolutionscyprus.pharmacy.TranslatableActivity;
 
 import javax.mail.MessagingException;
 
-public class ContactUsActivity extends AppCompatActivity {
+public class ContactUsActivity extends TranslatableActivity {
     EditText nameEditText, emailEditText, messageEditText;
     Button sendButton;
     CheckBox privacyPolicyCheckBox;
     TextView privacyPolicyTextView;
     Toolbar toolbar;
-    LocalePreference localeSettings;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        configureSettings();
-        setContentView(R.layout.activity_contact_us);
-        AsyncTask.execute(this::setThreadPolicy);
-        configureToolbar();
-        configureViews();
-        // Configure text validators
-        setEditTextValidators();
+    protected int withLayout() {
+        return R.layout.activity_contact_us;
     }
 
-    private void configureSettings() {
-        localeSettings = new LocalePreference(this);
-        String languageCode = String.join("",localeSettings.getPreference());
-        LanguageConfigurator.setLanguage(getBaseContext(), languageCode);
+    @Override
+    protected void executeOnCreateActions() {
+        AsyncTask.execute(this::setThreadPolicy);
+        configureToolbar();
+        setEditTextValidators();
     }
 
     private void setThreadPolicy() {
@@ -58,7 +48,8 @@ public class ContactUsActivity extends AppCompatActivity {
         }
     }
 
-    private void configureToolbar() {
+    @Override
+    protected void configureToolbar() {
         toolbar = findViewById(R.id.contactUsToolbar);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
@@ -67,7 +58,8 @@ public class ContactUsActivity extends AppCompatActivity {
         }
     }
 
-    private void configureViews() {
+    @Override
+    protected void configureViews() {
         nameEditText = findViewById(R.id.nameEditText);
         emailEditText = findViewById(R.id.emailEditText);
         messageEditText = findViewById(R.id.messageEditText);
@@ -76,6 +68,7 @@ public class ContactUsActivity extends AppCompatActivity {
         privacyPolicyTextView.setOnClickListener(this::openPrivacyPolicyDialog);
         sendButton = findViewById(R.id.sendButton);
         sendButton.setOnClickListener(this::sendButtonCallback);
+        adView = findViewById(R.id.contactUsAdView);
     }
 
     private void openPrivacyPolicyDialog(View view) {

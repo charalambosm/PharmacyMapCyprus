@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.net.Uri;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -18,7 +17,6 @@ import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
@@ -30,20 +28,16 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.easysolutionscyprus.pharmacy.Database.DatabaseSingleton;
 import com.easysolutionscyprus.pharmacy.Favorites.Favorites;
-import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyAdapter;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyFilter;
-import com.easysolutionscyprus.pharmacy.Settings.dialog.PharmacyFilterDialog;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyQueryTextListener;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.MyValueEventListener;
 import com.easysolutionscyprus.pharmacy.Pharmacy.internal.Pharmacy;
 import com.easysolutionscyprus.pharmacy.R;
 import com.easysolutionscyprus.pharmacy.Settings.DistrictPreference;
-import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
-import com.google.android.gms.ads.MobileAds;
+import com.easysolutionscyprus.pharmacy.Settings.dialog.PharmacyFilterDialog;
+import com.easysolutionscyprus.pharmacy.TranslatableActivity;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
 import com.google.android.material.divider.MaterialDivider;
@@ -52,7 +46,7 @@ import com.google.firebase.database.DatabaseReference;
 import java.util.List;
 import java.util.Locale;
 
-public abstract class AbstractListActivity extends AppCompatActivity {
+public abstract class AbstractListActivity extends TranslatableActivity {
     // Views
     RecyclerView recyclerView;
     SearchView searchView;
@@ -65,8 +59,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     Location currentLocation;
     final MyCancellationToken myCancellationToken = new MyCancellationToken();
 
-    DistrictPreference districtSettings;
-    LocalePreference localeSettings;
+    DistrictPreference districtPreference;
     Favorites favorites;
     MyFilter myFilter;
     MyValueEventListener myValueEventListener;
@@ -76,19 +69,17 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> detailsActivityResultsLauncher;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        configureSettings();
-        setContentView(R.layout.activity_pharmacy_list);
+    protected int withLayout() {
+        return R.layout.activity_pharmacy_list;
+    }
 
+    @Override
+    protected void executeOnCreateActions() {
         // Define pharmacy list database reference
         configurePharmacyListDatabaseReference();
 
-        // Define views
-        configureViews();
-
-        // Configure toolbar
-        configureToolbar();
+        // Get district preferences
+        configureDistrictPreferences();
 
         // Configure favorites
         configureFavorites();
@@ -107,13 +98,10 @@ public abstract class AbstractListActivity extends AppCompatActivity {
 
         // Configure details activity launcher
         configureDetailsActivityLauncher();
-
-        // Configure ads
-        configureAds();
     }
 
     private void configurePharmacyListDatabaseReference() {
-        pharmacyListDatabaseReference = DatabaseSingleton.getInstance().getPharmacyList(localeSettings.getPreference());
+        pharmacyListDatabaseReference = DatabaseSingleton.getInstance().getPharmacyList(localePreference.getPreference());
     }
 
     @Override
@@ -158,9 +146,13 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // Configure ad view
+        adView = findViewById(R.id.pharmacyListAdView);
     }
 
-    private void configureToolbar() {
+    @Override
+    protected void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.listActivityToolbar);
         toolbar.setTitle(withTitle());
         toolbar.setLogo(withLogo());
@@ -175,10 +167,8 @@ public abstract class AbstractListActivity extends AppCompatActivity {
 
     protected abstract int withLogo();
 
-    private void configureSettings() {
-        districtSettings = new DistrictPreference(this);
-        localeSettings = new LocalePreference(this);
-        LanguageConfigurator.setLanguage(getBaseContext(), localeSettings.getPreference());
+    private void configureDistrictPreferences() {
+        districtPreference = new DistrictPreference(this);
     }
 
     private void configureFavorites() {
@@ -186,7 +176,7 @@ public abstract class AbstractListActivity extends AppCompatActivity {
     }
 
     private void configureFilter() {
-        myFilter = buildFilter(districtSettings, favorites);
+        myFilter = buildFilter(districtPreference, favorites);
     }
 
     protected abstract MyFilter buildFilter(DistrictPreference districtSettings, Favorites favorites);
@@ -290,15 +280,6 @@ public abstract class AbstractListActivity extends AppCompatActivity {
                         pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
                     }
                 });
-    }
-
-    @SuppressLint("MissingPermission")
-    private void configureAds() {
-        MobileAds.initialize(this, initializationStatus -> {
-        });
-        AdView mAdView = findViewById(R.id.pharmacyListAdView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
     }
 
     private void resetSearchView() {
