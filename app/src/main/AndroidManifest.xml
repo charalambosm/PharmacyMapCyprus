@@ -26,19 +26,19 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.DetailsActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.DetailsActivity"
             android:exported="false" />
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.AllListActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.AllListActivity"
             android:exported="false" />
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.NightOnlyListActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.NightOnlyListActivity"
             android:exported="false" />
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.FavoritesListActivity"
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.FavoritesListActivity"
             android:exported="false" />
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.Support.ContactUsActivity"
+            android:name="com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity"
             android:exported="false" />
 
         <meta-data

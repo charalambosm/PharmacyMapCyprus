@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/LinearLayoutMain"
     android:fitsSystemWindows="true"
-    tools:context=".Pharmacy.AbstractListActivity">
+    tools:context=".Pharmacy.view.AbstractListActivity">
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/listActivityToolbar"

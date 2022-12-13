@@ -6,8 +6,7 @@ import android.os.Bundle;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.easysolutionscyprus.pharmacy.Language.LanguageConfigurator;
-import com.easysolutionscyprus.pharmacy.Settings.LocalePreference;
+import com.easysolutionscyprus.pharmacy.Preferences.model.LocalePreference;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
@@ -37,7 +36,7 @@ public abstract class TranslatableActivity extends AppCompatActivity {
 
     private void translateActivity() {
         localePreference = new LocalePreference(this);
-        LanguageConfigurator.setLanguage(getBaseContext(), localePreference.getPreference());
+        localePreference.apply();
     }
 
     @SuppressLint("MissingPermission")

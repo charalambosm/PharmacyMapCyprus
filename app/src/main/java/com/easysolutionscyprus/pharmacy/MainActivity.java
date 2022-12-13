@@ -9,12 +9,11 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
-import com.easysolutionscyprus.pharmacy.Database.DatabaseSingleton;
-import com.easysolutionscyprus.pharmacy.Pharmacy.AllListActivity;
-import com.easysolutionscyprus.pharmacy.Pharmacy.FavoritesListActivity;
-import com.easysolutionscyprus.pharmacy.Pharmacy.NightOnlyListActivity;
-import com.easysolutionscyprus.pharmacy.Settings.dialog.LanguageDialog;
-import com.easysolutionscyprus.pharmacy.Support.ContactUsActivity;
+import com.easysolutionscyprus.pharmacy.Pharmacy.view.AllListActivity;
+import com.easysolutionscyprus.pharmacy.Pharmacy.view.FavoritesListActivity;
+import com.easysolutionscyprus.pharmacy.Pharmacy.view.NightOnlyListActivity;
+import com.easysolutionscyprus.pharmacy.Preferences.view.LanguageDialog;
+import com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity;
 import com.google.firebase.database.DataSnapshot;
 
 public class MainActivity extends TranslatableActivity {
