@@ -46,4 +46,6 @@
     <string name="main_menu">Κυρίως Μενού</string>
     <string name="last_updated">Ανανεώθηκε: %s</string>
     <string name="search_pharmacy">Αναζήτηση φαρμακείων</string>
+    <string name="phone_format_pharmacy_only">%s (Φαρμακείο)</string>
+    <string name="phone_format_both">%s (Φαρμακείο)\n%s (Σπίτι)</string>
 </resources>

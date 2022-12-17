@@ -1,5 +1,9 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 
+import static com.easysolutionscyprus.pharmacy.R.string.phone_format_pharmacy_only;
+import static com.easysolutionscyprus.pharmacy.R.string.phone_format_both;
+
+import android.content.Context;
 import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +22,7 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     private List<Pharmacy> pharmacyList;
     private List<Pharmacy> fullPharmacyList;
     private Favorites favorites;
+    private Context context;
 
     public MyAdapter() {
         super();
@@ -27,6 +32,7 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pharmacy_recycler_view_item, parent, false);
+        context = parent.getContext();
         return new MyHolder(view);
     }
 
@@ -46,10 +52,10 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
             holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
         }
         if (model.getHomePhone() == 0) {
-            holder.textViewPhone.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)",
+            holder.textViewPhone.setText(String.format(Locale.getDefault(), context.getString(phone_format_pharmacy_only),
                     PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY")));
         } else {
-            holder.textViewPhone.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)\n%s (Σπιτ.)",
+            holder.textViewPhone.setText(String.format(Locale.getDefault(), context.getString(phone_format_both),
                     PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"),
                     PhoneNumberUtils.formatNumber("+357"+model.getHomePhone(), "CY")));
         }
