@@ -233,8 +233,6 @@ public abstract class AbstractListActivity extends TranslatableActivity {
                     myAdapter.setFullPharmacyList(filteredPharmacyList);
                     recyclerView.setAdapter(myAdapter);
                     swipeRefreshLayout.setRefreshing(false);
-                } else {
-                    Log.e("NO_PHARMACIES","NONE_FOUND");
                 }
             }
         };

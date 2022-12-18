@@ -1,9 +1,5 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 
-import static com.easysolutionscyprus.pharmacy.R.string.phone_format_pharmacy_only;
-import static com.easysolutionscyprus.pharmacy.R.string.phone_format_both;
-
-import android.content.Context;
 import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;

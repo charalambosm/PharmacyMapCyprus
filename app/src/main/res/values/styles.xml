@@ -4,13 +4,6 @@
         <item name="android:background">@color/gray</item>
     </style>
 
-    <style name="AdViewStandard" parent="">
-        <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_width">match_parent</item>
-        <item name="adUnitId">@string/test_ad_id</item>
-        <item name="adSize">BANNER</item>
-    </style>
-
     <style name="CardViewStandard" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>

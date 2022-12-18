@@ -1,8 +1,6 @@
 package com.easysolutionscyprus.pharmacy.Main.view;
 
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,17 +10,14 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.widget.Toolbar;
 
+import com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity;
 import com.easysolutionscyprus.pharmacy.Main.model.DatabaseSingleton;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.AllListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.FavoritesListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.NightOnlyListActivity;
 import com.easysolutionscyprus.pharmacy.Preferences.view.LanguageDialog;
-import com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity;
 import com.easysolutionscyprus.pharmacy.R;
 import com.google.firebase.database.DataSnapshot;
-
-import java.util.Locale;
-import java.util.Objects;
 
 public class MainActivity extends TranslatableActivity {
     public static DatabaseSingleton databaseReference;
@@ -80,8 +75,6 @@ public class MainActivity extends TranslatableActivity {
     }
 
     private void configureLastUpdatedTextView(DataSnapshot dataSnapshot) {
-        Log.d("LOCALE",localePreference.getPreference());
-        Log.d("LOCALE", String.valueOf(Locale.getDefault()));
         if (dataSnapshot.getValue() != null) {
             lastUpdatedTextView.setText(dataSnapshot.getValue().toString());
         }

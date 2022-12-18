@@ -12,7 +12,6 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.RequestConfiguration;
 
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 

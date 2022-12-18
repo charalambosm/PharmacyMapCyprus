@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cyprus Pharmacy Guide</string>
+    <string name="app_name">Pharmacy Pocket Guide</string>
     <string name="contact_prompt">Your opinion matters to us. For improving our app and services please fill in the form with your ideas.\n\nThank you!</string>
     <string name="contact_us_title">Contact Us</string>
     <string name="full_name">Full Name</string>
