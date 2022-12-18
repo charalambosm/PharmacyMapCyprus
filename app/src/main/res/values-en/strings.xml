@@ -44,8 +44,8 @@
     <string name="privacy_policy_start">"I accept the "</string>
     <string name="privacy_policy_end">.</string>
     <string name="main_menu">Main Menu</string>
-    <string name="last_updated">Last Updated: %s</string>
+    <string name="last_updated">Last Updated:</string>
     <string name="search_pharmacy">Search pharmacies</string>
-    <string name="phone_format_pharmacy_only">%s (Pharm.)</string>
+    <string name="phone_format_pharmacy_only">%s (Pharmacy)</string>
     <string name="phone_format_both">%s (Pharmacy)\n%s (Home)</string>
 </resources>

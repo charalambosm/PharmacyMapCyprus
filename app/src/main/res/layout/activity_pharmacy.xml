@@ -24,15 +24,21 @@
         android:layout_below="@+id/pharmacyActivityToolbar" />
 
     <TextView
-        android:id="@+id/pharmacyActivityPhoneTextView"
-        style="@style/TextViewPhone"
+        android:id="@+id/pharmacyActivityPhonePharmacyTextView"
+        style="@style/TextViewPhonePharmacy"
         android:layout_toLeftOf="@+id/directionActivityLinearLayout"
         android:layout_below="@id/pharmacyActivityAddressTextView"/>
 
     <TextView
+        android:id="@+id/pharmacyActivityPhoneHomeTextView"
+        style="@style/TextViewPhoneHome"
+        android:layout_toLeftOf="@+id/directionActivityLinearLayout"
+        android:layout_below="@id/pharmacyActivityPhonePharmacyTextView"/>
+
+    <TextView
         android:id="@+id/pharmacyActivityNightTextView"
         style="@style/TextViewNight"
-        android:layout_below="@+id/pharmacyActivityPhoneTextView"
+        android:layout_below="@+id/pharmacyActivityPhoneHomeTextView"
         android:layout_toLeftOf="@+id/directionActivityLinearLayout" />
 
         <LinearLayout
@@ -79,7 +85,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         ads:adSize="BANNER"
-        ads:adUnitId="@string/ad_id">
+        ads:adUnitId="@string/test_ad_id">
     </com.google.android.gms.ads.AdView>
 </RelativeLayout>
 

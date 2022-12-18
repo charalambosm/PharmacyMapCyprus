@@ -42,7 +42,7 @@ public class DetailsActivity extends TranslatableActivity implements OnMapReadyC
     GoogleMap mMap;
     Pharmacy pharmacy;
     LatLng pharmacyLatLng;
-    TextView addressTextView, phoneTextView, nightTextView, distanceTextView;
+    TextView addressTextView, phonePharmacyTextView, phoneHomeTextView, nightTextView, distanceTextView;
     Toolbar toolbar;
     Favorites favorites;
     Location currentLocation;
@@ -89,7 +89,8 @@ public class DetailsActivity extends TranslatableActivity implements OnMapReadyC
     @Override
     protected void configureViews() {
         addressTextView = findViewById(R.id.pharmacyActivityAddressTextView);
-        phoneTextView = findViewById(R.id.pharmacyActivityPhoneTextView);
+        phonePharmacyTextView = findViewById(R.id.pharmacyActivityPhonePharmacyTextView);
+        phoneHomeTextView = findViewById(R.id.pharmacyActivityPhoneHomeTextView);
         nightTextView = findViewById(R.id.pharmacyActivityNightTextView);
         distanceTextView = findViewById(R.id.pharmacyActivityDistanceTextView);
         adView = findViewById(R.id.pharmacyDetailsAdView);
@@ -103,12 +104,11 @@ public class DetailsActivity extends TranslatableActivity implements OnMapReadyC
             distanceTextView.setText(String.format(Locale.getDefault(), "%3.1f km", pharmacy.getDistance()));
         }
         if (pharmacy.getHomePhone() == 0) {
-            phoneTextView.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)",
-                    PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY")));
+            phonePharmacyTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"));
+            phoneHomeTextView.setVisibility(View.GONE);
         } else {
-            phoneTextView.setText(String.format(Locale.getDefault(), "%s (Φαρμ.)\n%s (Σπιτ.)",
-                    PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"),
-                    PhoneNumberUtils.formatNumber("+357"+pharmacy.getHomePhone(), "CY")));
+            phonePharmacyTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getPhone(), "CY"));
+            phoneHomeTextView.setText(PhoneNumberUtils.formatNumber("+357"+pharmacy.getHomePhone(), "CY"));
         }
         setNightTextViewVisibility();
     }

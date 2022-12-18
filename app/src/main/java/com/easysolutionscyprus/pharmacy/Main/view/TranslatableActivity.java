@@ -10,6 +10,11 @@ import com.easysolutionscyprus.pharmacy.Preferences.model.LocalePreference;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.google.android.gms.ads.RequestConfiguration;
+
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public abstract class TranslatableActivity extends AppCompatActivity {
     protected LocalePreference localePreference;
@@ -34,7 +39,7 @@ public abstract class TranslatableActivity extends AppCompatActivity {
 
     protected abstract void configureToolbar();
 
-    private void translateActivity() {
+    protected final void translateActivity() {
         localePreference = new LocalePreference(this);
         localePreference.apply();
     }
@@ -42,6 +47,10 @@ public abstract class TranslatableActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void configureAds() {
         MobileAds.initialize(this, initializationStatus -> {});
+        List<String> testDeviceIds = Collections.singletonList("78CCC020CE6CDC9E1BF6F407A7848165");
+        RequestConfiguration configuration =
+                new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build();
+        MobileAds.setRequestConfiguration(configuration);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
     }

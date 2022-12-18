@@ -98,17 +98,13 @@ public abstract class AbstractListActivity extends TranslatableActivity {
 
         // Configure details activity launcher
         configureDetailsActivityLauncher();
+
+        // Get location
+        getLocation();
     }
 
     private void configurePharmacyListDatabaseReference() {
         pharmacyListDatabaseReference = DatabaseSingleton.getInstance().getPharmacyList(localePreference.getPreference());
-    }
-
-    @Override
-    protected void onStart() {
-        super.onStart();
-        // Get location
-        getLocation();
     }
 
     @Override
@@ -289,6 +285,7 @@ public abstract class AbstractListActivity extends TranslatableActivity {
 
     private void swipeRefreshLayoutCallback() {
         getLocation();
+        resetSearchView();
     }
 
     private void openFilterDialog() {

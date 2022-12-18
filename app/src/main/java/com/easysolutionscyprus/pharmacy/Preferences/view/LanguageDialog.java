@@ -22,6 +22,7 @@ public class LanguageDialog extends Dialog implements View.OnClickListener, Dial
     public LanguageDialog(@NonNull Context context) {
         super(context);
         localeSettings = new LocalePreference(context);
+        localeSettings.apply();
     }
 
     @Override
@@ -33,11 +34,12 @@ public class LanguageDialog extends Dialog implements View.OnClickListener, Dial
         configureOptionWidgets();
     }
 
+
+
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.languageDialogOKButton) {
-            save();
-            dismiss();
+            onSave();
         }
     }
 
@@ -58,12 +60,13 @@ public class LanguageDialog extends Dialog implements View.OnClickListener, Dial
     }
 
     @Override
-    public void save() {
+    public void onSave() {
         int checkedLocale = languageRadioGroup.getCheckedRadioButtonId();
         if (checkedLocale == R.id.englishRadioButton) {
             localeSettings.setPreference("en");
         } else {
             localeSettings.setPreference("el");
         }
+        dismiss();
     }
 }

@@ -24,17 +24,24 @@
             android:layout_toRightOf="@id/directionLinearLayout" />
 
         <TextView
-            android:id="@+id/pharmacyRecyclerViewItemPhoneTextView"
-            style="@style/TextViewPhone"
+            android:id="@+id/pharmacyRecyclerViewItemPhonePharmacyTextView"
+            style="@style/TextViewPhonePharmacy"
             android:layout_toLeftOf="@id/cardViewBookmarksButton"
             android:layout_toRightOf="@id/directionLinearLayout"
             android:layout_below="@id/pharmacyRecyclerViewItemAddressTextView"/>
 
         <TextView
+            android:id="@+id/pharmacyRecyclerViewItemPhoneHomeTextView"
+            style="@style/TextViewPhoneHome"
+            android:layout_toLeftOf="@id/cardViewBookmarksButton"
+            android:layout_toRightOf="@id/directionLinearLayout"
+            android:layout_below="@id/pharmacyRecyclerViewItemPhonePharmacyTextView"/>
+
+        <TextView
             android:id="@+id/pharmacyRecyclerViewItemNightTextView"
             style="@style/TextViewNight"
             android:layout_toLeftOf="@id/cardViewBookmarksButton"
-            android:layout_below="@+id/pharmacyRecyclerViewItemPhoneTextView"
+            android:layout_below="@+id/pharmacyRecyclerViewItemPhoneHomeTextView"
             android:layout_toRightOf="@id/directionLinearLayout"/>
 
         <ImageButton

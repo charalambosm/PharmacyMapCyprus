@@ -4,6 +4,13 @@
         <item name="android:background">@color/gray</item>
     </style>
 
+    <style name="AdViewStandard" parent="">
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_width">match_parent</item>
+        <item name="adUnitId">@string/test_ad_id</item>
+        <item name="adSize">BANNER</item>
+    </style>
+
     <style name="CardViewStandard" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -38,8 +45,17 @@
         <item name="android:hint">@string/full_name</item>
     </style>
 
-    <style name="TextViewPhone" parent="TextViewStandard">
-        <item name="android:drawableLeft">@drawable/ic_phone</item>
+    <style name="TextViewPhonePharmacy" parent="TextViewStandard">
+        <item name="android:drawableLeft">@drawable/ic_phone_pharmacy</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:lineSpacingExtra">4sp</item>
+        <item name="android:autoLink">phone</item>
+        <item name="android:hint">@string/phone</item>
+    </style>
+
+    <style name="TextViewPhoneHome" parent="TextViewStandard">
+        <item name="android:drawableLeft">@drawable/ic_phone_home</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawablePadding">10dp</item>
         <item name="android:lineSpacingExtra">4sp</item>

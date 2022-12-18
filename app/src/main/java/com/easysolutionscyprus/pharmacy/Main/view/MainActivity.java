@@ -1,9 +1,12 @@
 package com.easysolutionscyprus.pharmacy.Main.view;
 
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -18,9 +21,13 @@ import com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity;
 import com.easysolutionscyprus.pharmacy.R;
 import com.google.firebase.database.DataSnapshot;
 
+import java.util.Locale;
+import java.util.Objects;
+
 public class MainActivity extends TranslatableActivity {
     public static DatabaseSingleton databaseReference;
-    TextView lastUpdatedTextView;
+    TextView lastUpdatedTextView, lastUpdatedLabel;
+    Button allPharmaciesButton, nightPharmaciesButton, favoritePharmaciesButton, contactUsButton;
     Toolbar toolbar;
 
     @Override
@@ -31,6 +38,11 @@ public class MainActivity extends TranslatableActivity {
     @Override
     protected void configureViews() {
         lastUpdatedTextView = findViewById(R.id.lastUpdatedTextView);
+        lastUpdatedLabel = findViewById(R.id.lastUpdatedLabel);
+        allPharmaciesButton = findViewById(R.id.allPharmaciesButton);
+        nightPharmaciesButton = findViewById(R.id.nightPharmaciesButton);
+        favoritePharmaciesButton = findViewById(R.id.favoritePharmaciesButton);
+        contactUsButton = findViewById(R.id.contactUsButton);
         adView = findViewById(R.id.adView);
     }
 
@@ -68,7 +80,11 @@ public class MainActivity extends TranslatableActivity {
     }
 
     private void configureLastUpdatedTextView(DataSnapshot dataSnapshot) {
-        lastUpdatedTextView.setText(String.format(getString(R.string.last_updated), dataSnapshot.getValue()));
+        Log.d("LOCALE",localePreference.getPreference());
+        Log.d("LOCALE", String.valueOf(Locale.getDefault()));
+        if (dataSnapshot.getValue() != null) {
+            lastUpdatedTextView.setText(dataSnapshot.getValue().toString());
+        }
     }
 
     public void allPharmaciesCallback(View view) {
@@ -93,8 +109,18 @@ public class MainActivity extends TranslatableActivity {
 
     private void showLanguageDialog() {
         LanguageDialog languageDialog = new LanguageDialog(this);
-        languageDialog.setOnDismissListener(dialog -> recreate());
+        languageDialog.setOnDismissListener(dialog -> updateViewsText());
         languageDialog.show();
+    }
+
+    private void updateViewsText() {
+        translateActivity();
+        lastUpdatedLabel.setText(getString(R.string.last_updated));
+        allPharmaciesButton.setText(getString(R.string.all_pharmacies_title));
+        nightPharmaciesButton.setText(getString(R.string.night_title));
+        favoritePharmaciesButton.setText(getString(R.string.favorites_title));
+        contactUsButton.setText(getString(R.string.contact_us_title));
+        toolbar.setTitle(getString(R.string.main_menu));
     }
 
 }

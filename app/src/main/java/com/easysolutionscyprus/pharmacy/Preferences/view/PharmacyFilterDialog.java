@@ -38,7 +38,8 @@ public class PharmacyFilterDialog extends Dialog implements View.OnClickListener
     @Override
     public void onClick(View view) {
         if (view.getId() == R.id.filterDialogOKButton) {
-            save();
+            onSave();
+        } else {
             dismiss();
         }
     }
@@ -75,7 +76,7 @@ public class PharmacyFilterDialog extends Dialog implements View.OnClickListener
     }
 
     @Override
-    public void save() {
+    public void onSave() {
         districtSettings.setPreference(
                 new DistrictPreference.DistrictSettingsBuilder()
                         .setNicosia(nicosiaCheckbox.isChecked())
@@ -84,5 +85,6 @@ public class PharmacyFilterDialog extends Dialog implements View.OnClickListener
                         .setPaphos(paphosCheckbox.isChecked())
                         .setFamagusta(famagustaCheckbox.isChecked())
                         .build());
+        dismiss();
     }
 }

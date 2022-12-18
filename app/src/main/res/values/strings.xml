@@ -40,6 +40,7 @@
     <string name="close">Close</string>
     <string name="privacy_policy_underlined"><u>privacy policy</u></string>
     <string name="ad_id" translatable="false">ca-app-pub-8620421729218548/3895085465</string>
+    <string name="test_ad_id" translatable="false">ca-app-pub-3940256099942544/6300978111</string>
     <string name="button" translatable="false">Button</string>
     <string name="language">Language</string>
     <string name="english" translatable="false">English</string>
@@ -47,7 +48,7 @@
     <string name="privacy_policy_start">"I accept the "</string>
     <string name="privacy_policy_end">.</string>
     <string name="main_menu">Main Menu</string>
-    <string name="last_updated">Last Updated: %s</string>
+    <string name="last_updated">Last Updated:</string>
     <string name="search_pharmacy">Search pharmacies</string>
     <string name="phone_format_pharmacy_only">%s (Pharmacy)</string>
     <string name="phone_format_both">%s (Pharmacy)\n%s (Home)</string>

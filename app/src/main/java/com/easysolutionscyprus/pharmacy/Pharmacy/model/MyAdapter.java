@@ -22,7 +22,6 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     private List<Pharmacy> pharmacyList;
     private List<Pharmacy> fullPharmacyList;
     private Favorites favorites;
-    private Context context;
 
     public MyAdapter() {
         super();
@@ -32,7 +31,6 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     @Override
     public MyHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.pharmacy_recycler_view_item, parent, false);
-        context = parent.getContext();
         return new MyHolder(view);
     }
 
@@ -52,12 +50,12 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
             holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
         }
         if (model.getHomePhone() == 0) {
-            holder.textViewPhone.setText(String.format(Locale.getDefault(), context.getString(phone_format_pharmacy_only),
-                    PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY")));
+            holder.textViewPhonePharmacy.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
+            holder.textViewPhoneHome.setVisibility(View.GONE);
         } else {
-            holder.textViewPhone.setText(String.format(Locale.getDefault(), context.getString(phone_format_both),
-                    PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"),
-                    PhoneNumberUtils.formatNumber("+357"+model.getHomePhone(), "CY")));
+            holder.textViewPhoneHome.setVisibility(View.VISIBLE);
+            holder.textViewPhonePharmacy.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
+            holder.textViewPhoneHome.setText(PhoneNumberUtils.formatNumber("+357"+model.getHomePhone(), "CY"));
         }
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model, position));
         holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));

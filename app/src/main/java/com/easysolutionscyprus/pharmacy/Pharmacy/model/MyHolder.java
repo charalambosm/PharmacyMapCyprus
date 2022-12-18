@@ -14,7 +14,8 @@ public class MyHolder extends RecyclerView.ViewHolder{
     protected final TextView textViewAddress;
     protected final TextView textViewNight;
     protected final TextView textViewDistance;
-    protected final TextView textViewPhone;
+    protected final TextView textViewPhonePharmacy;
+    protected final TextView textViewPhoneHome;
     protected final ImageButton moreButton;
     protected final ImageButton favoritesButton;
     protected final ImageButton directionButton;
@@ -24,7 +25,8 @@ public class MyHolder extends RecyclerView.ViewHolder{
         textViewName = itemView.findViewById(R.id.pharmacyRecyclerViewItemNameTextView);
         textViewAddress = itemView.findViewById(R.id.pharmacyRecyclerViewItemAddressTextView);
         textViewDistance = itemView.findViewById(R.id.pharmacyRecyclerViewItemDistanceTextView);
-        textViewPhone = itemView.findViewById(R.id.pharmacyRecyclerViewItemPhoneTextView);
+        textViewPhonePharmacy = itemView.findViewById(R.id.pharmacyRecyclerViewItemPhonePharmacyTextView);
+        textViewPhoneHome = itemView.findViewById(R.id.pharmacyRecyclerViewItemPhoneHomeTextView);
         textViewNight = itemView.findViewById(R.id.pharmacyRecyclerViewItemNightTextView);
         moreButton = itemView.findViewById(R.id.pharmacyRecyclerViewMoreButton);
         favoritesButton = itemView.findViewById(R.id.cardViewBookmarksButton);
