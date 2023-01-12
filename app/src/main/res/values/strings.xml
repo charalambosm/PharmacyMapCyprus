@@ -52,4 +52,5 @@
     <string name="search_pharmacy">Search pharmacies</string>
     <string name="phone_format_pharmacy_only">%s (Pharmacy)</string>
     <string name="phone_format_both">%s (Pharmacy)\n%s (Home)</string>
+    <string name="map">Pharmacy Map</string>
 </resources>

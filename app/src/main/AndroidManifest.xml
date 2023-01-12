@@ -16,6 +16,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PharmaciesCY"
         tools:targetApi="31">
+
+        <activity
+            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.MapsActivity"
+            android:exported="false" />
         <activity
             android:name="com.easysolutionscyprus.pharmacy.Main.view.MainActivity"
             android:exported="true">
@@ -47,8 +51,8 @@
 
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-8620421729218548~8082027891"/>
-<!--            android:value="ca-app-pub-3940256099942544~3347511713"/>-->
+            android:value="ca-app-pub-8620421729218548~8082027891" />
+
     </application>
 
 </manifest>

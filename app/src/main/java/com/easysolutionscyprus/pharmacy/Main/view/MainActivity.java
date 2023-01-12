@@ -14,6 +14,7 @@ import com.easysolutionscyprus.pharmacy.ContactUs.view.ContactUsActivity;
 import com.easysolutionscyprus.pharmacy.Main.model.DatabaseSingleton;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.AllListActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.FavoritesListActivity;
+import com.easysolutionscyprus.pharmacy.Pharmacy.view.MapsActivity;
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.NightOnlyListActivity;
 import com.easysolutionscyprus.pharmacy.Preferences.view.LanguageDialog;
 import com.easysolutionscyprus.pharmacy.R;
@@ -22,7 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 public class MainActivity extends TranslatableActivity {
     public static DatabaseSingleton databaseReference;
     TextView lastUpdatedTextView, lastUpdatedLabel;
-    Button allPharmaciesButton, nightPharmaciesButton, favoritePharmaciesButton, contactUsButton;
+    Button pharmacyMapButton, allPharmaciesButton, nightPharmaciesButton, favoritePharmaciesButton, contactUsButton;
     Toolbar toolbar;
 
     @Override
@@ -34,6 +35,7 @@ public class MainActivity extends TranslatableActivity {
     protected void configureViews() {
         lastUpdatedTextView = findViewById(R.id.lastUpdatedTextView);
         lastUpdatedLabel = findViewById(R.id.lastUpdatedLabel);
+        pharmacyMapButton = findViewById(R.id.mapButton);
         allPharmaciesButton = findViewById(R.id.allPharmaciesButton);
         nightPharmaciesButton = findViewById(R.id.nightPharmaciesButton);
         favoritePharmaciesButton = findViewById(R.id.favoritePharmaciesButton);
@@ -80,6 +82,11 @@ public class MainActivity extends TranslatableActivity {
         }
     }
 
+    public void pharmacyMapCallback(View view) {
+        Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
+        startActivity(intent);
+    }
+
     public void allPharmaciesCallback(View view) {
         Intent intent = new Intent(getApplicationContext(), AllListActivity.class);
         startActivity(intent);
@@ -109,6 +116,7 @@ public class MainActivity extends TranslatableActivity {
     private void updateViewsText() {
         translateActivity();
         lastUpdatedLabel.setText(getString(R.string.last_updated));
+        pharmacyMapButton.setText(R.string.map);
         allPharmaciesButton.setText(getString(R.string.all_pharmacies_title));
         nightPharmaciesButton.setText(getString(R.string.night_title));
         favoritePharmaciesButton.setText(getString(R.string.favorites_title));

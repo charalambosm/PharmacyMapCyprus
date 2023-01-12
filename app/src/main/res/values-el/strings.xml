@@ -48,4 +48,5 @@
     <string name="search_pharmacy">Αναζήτηση φαρμακείων</string>
     <string name="phone_format_pharmacy_only">%s (Φαρμακείο)</string>
     <string name="phone_format_both">%s (Φαρμακείο)\n%s (Σπίτι)</string>
+    <string name="map">Χάρτης Φαρμακείων</string>
 </resources>
