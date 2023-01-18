@@ -1,6 +1,5 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 
-import android.telephony.PhoneNumberUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,25 +32,11 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     @Override
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         Pharmacy model = pharmacyList.get(position);
-        holder.textViewName.setText(String.format("%s %s", model.getFirstName(), model.getLastName()));
-        holder.textViewAddress.setText(model.getAddress());
-        if (!model.isNight()) {
-            holder.textViewNight.setVisibility(View.GONE);
-        } else {
-            holder.textViewNight.setVisibility(View.VISIBLE);
-        }
+        holder.infoLayoutAdapter.setPharmacy(model);
         if (model.getDistance() == 0) {
             holder.textViewDistance.setVisibility(View.GONE);
         } else {
             holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
-        }
-        if (model.getHomePhone() == 0) {
-            holder.textViewPhonePharmacy.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
-            holder.textViewPhoneHome.setVisibility(View.GONE);
-        } else {
-            holder.textViewPhoneHome.setVisibility(View.VISIBLE);
-            holder.textViewPhonePharmacy.setText(PhoneNumberUtils.formatNumber("+357"+model.getPhone(), "CY"));
-            holder.textViewPhoneHome.setText(PhoneNumberUtils.formatNumber("+357"+model.getHomePhone(), "CY"));
         }
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model, position));
         holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));

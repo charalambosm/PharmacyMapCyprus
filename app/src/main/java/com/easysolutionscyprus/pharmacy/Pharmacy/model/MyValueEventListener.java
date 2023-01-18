@@ -34,21 +34,20 @@ public abstract class MyValueEventListener implements com.google.firebase.databa
     }
 
     protected void sortPharmacyListByDistance(Location location) {
-        double latitude = location.getLatitude();
-        double longitude = location.getLongitude();
         Comparator<Pharmacy> comparator = (p1, p2) -> {
-            float[] result1 = new float[3];
-            Location.distanceBetween(latitude, longitude, p1.getLatitude(), p1.getLongitude(), result1);
-            Float distance1 = result1[0];
+            Float distance1 = calculatePharmacyDistance(location, p1);
             p1.setDistance(distance1/1000);
 
-            float[] result2 = new float[3];
-            Location.distanceBetween(latitude, longitude, p2.getLatitude(), p2.getLongitude(), result2);
-            Float distance2 = result2[0];
-
+            Float distance2 = calculatePharmacyDistance(location, p2);
             return distance1.compareTo(distance2);
         };
         pharmacyList.sort(comparator);
+    }
+
+    protected Float calculatePharmacyDistance(Location currentLocation, Pharmacy pharmacy) {
+        float[] result = new float[3];
+        Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), pharmacy.getLatitude(), pharmacy.getLongitude(), result);
+        return result[0];
     }
 
     public abstract void update();

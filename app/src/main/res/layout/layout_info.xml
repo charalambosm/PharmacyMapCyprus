@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingHorizontal="5dp"
+    android:paddingVertical="5dp">
+
+    <TextView
+        android:id="@+id/infoLayoutContactTextView"
+        style="@style/TextViewContact"
+        android:layout_alignParentTop="true"/>
+
+    <TextView
+        android:id="@+id/infoLayoutAddressTextView"
+        style="@style/TextViewAddress"
+        android:layout_below="@+id/infoLayoutContactTextView" />
+
+    <TextView
+        android:id="@+id/infoLayoutPhonePharmacyTextView"
+        style="@style/TextViewPhonePharmacy"
+        android:layout_below="@id/infoLayoutAddressTextView"/>
+
+    <TextView
+        android:id="@+id/infoLayoutPhoneHomeTextView"
+        style="@style/TextViewPhoneHome"
+        android:visibility="gone"
+        android:layout_below="@id/infoLayoutPhonePharmacyTextView"/>
+
+    <TextView
+        android:id="@+id/infoLayoutNightTextView"
+        style="@style/TextViewNight"
+        android:visibility="gone"
+        android:layout_below="@+id/infoLayoutPhoneHomeTextView"/>
+
+</RelativeLayout>

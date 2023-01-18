@@ -181,11 +181,14 @@ public abstract class AbstractListActivity extends TranslatableActivity {
         myAdapter = new MyAdapter() {
             @Override
             public void cardViewShowMoreCallback(Pharmacy pharmacy, int position) {
-                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+//                Intent intent = new Intent(getApplicationContext(), DetailsActivity.class);
+//                intent.putExtra("pharmacy", pharmacy);
+//                intent.putExtra("favorites", favorites.isFavorite(pharmacy.getId()));
+//                intent.putExtra("position", position);
+//                detailsActivityResultsLauncher.launch(intent);
+                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
                 intent.putExtra("pharmacy", pharmacy);
-                intent.putExtra("favorites", favorites.isFavorite(pharmacy.getId()));
-                intent.putExtra("position", position);
-                detailsActivityResultsLauncher.launch(intent);
+                startActivity(intent);
             }
 
             @Override

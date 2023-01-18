@@ -3,7 +3,15 @@ package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-public class Pharmacy implements Parcelable {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+
+import com.google.android.gms.maps.model.LatLng;
+import com.google.maps.android.clustering.ClusterItem;
+
+import java.util.StringJoiner;
+
+public class Pharmacy implements Parcelable, ClusterItem {
     private int id;
     private String firstName;
     private String lastName;
@@ -109,5 +117,27 @@ public class Pharmacy implements Parcelable {
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
         parcel.writeDouble(distance);
+    }
+
+    @NonNull
+    @Override
+    public LatLng getPosition() {
+        return new LatLng(latitude, longitude);
+    }
+
+    @Nullable
+    @Override
+    public String getTitle() {
+        return firstName + " " + lastName;
+    }
+
+    @Nullable
+    @Override
+    public String getSnippet() {
+        StringJoiner joiner = new StringJoiner("|");
+        joiner.add(address)
+                .add(Integer.toString(phone))
+                .add(Integer.toString(homePhone));
+        return joiner.toString();
     }
 }

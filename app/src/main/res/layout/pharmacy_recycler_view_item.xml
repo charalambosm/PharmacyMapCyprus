@@ -9,48 +9,19 @@
         android:paddingHorizontal="5dp"
         android:paddingVertical="5dp">
 
-        <TextView
-            android:id="@+id/pharmacyRecyclerViewItemNameTextView"
-            style="@style/TextViewContact"
-            android:layout_alignParentTop="true"
-            android:layout_toLeftOf="@id/cardViewBookmarksButton"
-            android:layout_toRightOf="@id/directionLinearLayout"/>
-
-        <TextView
-            android:id="@+id/pharmacyRecyclerViewItemAddressTextView"
-            style="@style/TextViewAddress"
-            android:layout_below="@+id/pharmacyRecyclerViewItemNameTextView"
+        <include layout="@layout/layout_info"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/pharmacyRecyclerViewItemInfoLayout"
             android:layout_toLeftOf="@id/cardViewBookmarksButton"
             android:layout_toRightOf="@id/directionLinearLayout" />
-
-        <TextView
-            android:id="@+id/pharmacyRecyclerViewItemPhonePharmacyTextView"
-            style="@style/TextViewPhonePharmacy"
-            android:layout_toLeftOf="@id/cardViewBookmarksButton"
-            android:layout_toRightOf="@id/directionLinearLayout"
-            android:layout_below="@id/pharmacyRecyclerViewItemAddressTextView"/>
-
-        <TextView
-            android:id="@+id/pharmacyRecyclerViewItemPhoneHomeTextView"
-            style="@style/TextViewPhoneHome"
-            android:layout_toLeftOf="@id/cardViewBookmarksButton"
-            android:layout_toRightOf="@id/directionLinearLayout"
-            android:layout_below="@id/pharmacyRecyclerViewItemPhonePharmacyTextView"/>
-
-        <TextView
-            android:id="@+id/pharmacyRecyclerViewItemNightTextView"
-            style="@style/TextViewNight"
-            android:layout_toLeftOf="@id/cardViewBookmarksButton"
-            android:layout_below="@+id/pharmacyRecyclerViewItemPhoneHomeTextView"
-            android:layout_toRightOf="@id/directionLinearLayout"/>
 
         <ImageButton
             android:id="@+id/pharmacyRecyclerViewMoreButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@id/cardViewBookmarksButton"
+            android:layout_alignBottom="@+id/pharmacyRecyclerViewItemInfoLayout"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/more"
             android:minWidth="32dp"

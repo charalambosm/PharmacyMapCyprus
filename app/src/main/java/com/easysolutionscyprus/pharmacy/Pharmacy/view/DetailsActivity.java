@@ -7,6 +7,9 @@ import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
 import android.net.Uri;
 import android.telephony.PhoneNumberUtils;
@@ -19,6 +22,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 
 import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyCancellationToken;
@@ -31,6 +35,8 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.BitmapDescriptor;
+import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -133,15 +139,18 @@ public class DetailsActivity extends TranslatableActivity implements OnMapReadyC
 
     private void setupPharmacyMarker() {
         pharmacyLatLng = new LatLng(pharmacy.getLatitude(), pharmacy.getLongitude());
-        MarkerOptions markerOptions = new MarkerOptions().position(pharmacyLatLng).
-                title(String.format("%s %s", pharmacy.getFirstName(), pharmacy.getLastName()));
+        MarkerOptions markerOptions = new MarkerOptions();
+        markerOptions.icon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy));
+        markerOptions.title(pharmacy.getTitle());
+        markerOptions.snippet(pharmacy.getSnippet());
+        markerOptions.position(pharmacyLatLng);
         Marker marker = mMap.addMarker(markerOptions);
         if (marker != null) {
             marker.showInfoWindow();
         }
     }
 
-    @SuppressLint("MissingPermission")
+    @SuppressLint({"MissingPermission", "PotentialBehaviorOverride"})
     private void initializeGoogleMap(@NonNull GoogleMap googleMap) {
         mMap = googleMap;
         if (ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
@@ -149,8 +158,8 @@ public class DetailsActivity extends TranslatableActivity implements OnMapReadyC
         } else {
             mMap.setMyLocationEnabled(true);
         }
-        mMap.getUiSettings().setMapToolbarEnabled(false);
-        mMap.getUiSettings().setZoomControlsEnabled(false);
+        googleMap.getUiSettings().setMapToolbarEnabled(true);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
         mMap.getUiSettings().setTiltGesturesEnabled(false);
     }
 
@@ -272,5 +281,15 @@ public class DetailsActivity extends TranslatableActivity implements OnMapReadyC
         intent.putExtra("cardPosition", cardPosition);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    private BitmapDescriptor bitmapDescriptorFromVector(int vectorResId) {
+        Drawable vectorDrawable = ContextCompat.getDrawable(this, vectorResId);
+        assert vectorDrawable != null;
+        vectorDrawable.setBounds(0, 0, vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight());
+        Bitmap bitmap = Bitmap.createBitmap(vectorDrawable.getIntrinsicWidth(), vectorDrawable.getIntrinsicHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(bitmap);
+        vectorDrawable.draw(canvas);
+        return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 }
