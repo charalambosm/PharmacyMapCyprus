@@ -14,13 +14,13 @@ import com.google.android.gms.maps.model.BitmapDescriptor;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
 import com.google.maps.android.clustering.ClusterManager;
 import com.google.maps.android.clustering.view.DefaultClusterRenderer;
 
-public class MyClusterRenderer extends DefaultClusterRenderer<Pharmacy>{
+public abstract class MyClusterRenderer extends DefaultClusterRenderer<Pharmacy>{
     Context context;
-    Marker selectedMarker;
-    Pharmacy selectedPharmacy;
+    Pharmacy currentPharmacy;
 
     public MyClusterRenderer(Context context, GoogleMap map, ClusterManager<Pharmacy> clusterManager) {
         super(context, map, clusterManager);
@@ -36,10 +36,15 @@ public class MyClusterRenderer extends DefaultClusterRenderer<Pharmacy>{
 
     @Override
     protected void onClusterItemRendered(@NonNull Pharmacy clusterItem, @NonNull Marker marker) {
-        if (selectedPharmacy != null && clusterItem.getId() == selectedPharmacy.getId()) {
-            this.selectedMarker = marker;
-            marker.setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_marker_highlighted));
+        if (currentPharmacy != null && clusterItem.getId() == currentPharmacy.getId()) {
+            selectNewMarker(clusterItem);
+        } else if (clusterItem.isNight()) {
+            marker.setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_night_marker));
         }
+    }
+
+    public Pharmacy getCurrentPharmacy() {
+        return currentPharmacy;
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(int vectorResId) {
@@ -52,26 +57,47 @@ public class MyClusterRenderer extends DefaultClusterRenderer<Pharmacy>{
         return BitmapDescriptorFactory.fromBitmap(bitmap);
     }
 
-    public void setSelectedPharmacy(Pharmacy selectedPharmacy) {
-        this.selectedPharmacy = selectedPharmacy;
+    @Override
+    protected boolean shouldRenderAsCluster(@NonNull Cluster<Pharmacy> cluster) {
+        return cluster.getSize() > 6;
     }
 
-    public void setSelectedMarker(Pharmacy item) {
-        unHighlightPreviouslySelectedMarker();
-        this.selectedPharmacy = item;
-        this.selectedMarker =  getMarker(item);
-        highlightSelectedMarker();
-    }
-
-    private void unHighlightPreviouslySelectedMarker() {
-        if(selectedMarker!=null) {
-            selectedMarker.setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_marker));
+    @Override
+    protected void onClusterRendered(@NonNull Cluster<Pharmacy> cluster, @NonNull Marker marker) {
+        super.onClusterRendered(cluster, marker);
+        for (Pharmacy pharmacy : cluster.getItems()) {
+            if (currentPharmacy != null && pharmacy.getId() == currentPharmacy.getId()) {
+                unselectPharmacy();
+                break;
+            }
         }
     }
 
-    private void highlightSelectedMarker() {
-        if(selectedMarker!=null) {
-            selectedMarker.setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_marker_highlighted));
+    protected void unselectPreviouslySelectedMarker() {
+        if (getMarker(currentPharmacy) != null) {
+            if (currentPharmacy.isNight()) {
+                getMarker(currentPharmacy).setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_night_marker));
+            } else {
+                getMarker(currentPharmacy).setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_marker));
+            }
+            getMarker(currentPharmacy).hideInfoWindow();
         }
+        currentPharmacy = null;
     }
+
+    protected void selectNewMarker(Pharmacy pharmacy) {
+        if (getMarker(pharmacy) != null) {
+            if (pharmacy.isNight()) {
+                getMarker(pharmacy).setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_night_marker_highlighted));
+            } else {
+                getMarker(pharmacy).setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_marker_highlighted));
+            }
+            getMarker(pharmacy).showInfoWindow();
+        }
+        currentPharmacy = pharmacy;
+    }
+
+    public abstract void selectPharmacy(Pharmacy pharmacy);
+
+    public abstract void unselectPharmacy();
 }

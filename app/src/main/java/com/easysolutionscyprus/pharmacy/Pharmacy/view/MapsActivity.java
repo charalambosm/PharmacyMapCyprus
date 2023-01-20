@@ -80,7 +80,7 @@ public class MapsActivity extends TranslatableActivity implements
         infoLayout = findViewById(R.id.mapsActivityInfoLayout);
         infoLayoutAdapter = new InfoLayoutAdapter(this);
         infoCardView = findViewById(R.id.mapsActivityInfoCardView);
-        expandInfoButton = findViewById(R.id.mapsActivityExpandInfoButton);
+        expandInfoButton = findViewById(R.id.mapsActivityCloseInfoButton);
     }
 
     @Override
@@ -138,11 +138,11 @@ public class MapsActivity extends TranslatableActivity implements
         // Initialize Cluster Manager
         initializeClusterManager();
 
+        // Initialize Cluster Renderer
+        initializeClusterRenderer();
+
         // Initialize Google Map
         initializeGoogleMap();
-
-        // Add value event listener to database reference
-        pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
     }
 
     @SuppressLint("MissingPermission")
@@ -156,21 +156,38 @@ public class MapsActivity extends TranslatableActivity implements
         }
         googleMap.setOnMapClickListener(this);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
-        googleMap.getUiSettings().setZoomControlsEnabled(false);
+        googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
         googleMap.getUiSettings().setTiltGesturesEnabled(false);
-        googleMap.getUiSettings().setMyLocationButtonEnabled(false);
+        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
     }
 
     @SuppressLint("PotentialBehaviorOverride")
     private void initializeClusterManager() {
         clusterManager = new ClusterManager<>(this, googleMap);
-        myClusterRenderer = new MyClusterRenderer(this,googleMap,clusterManager);
-        clusterManager.setRenderer(myClusterRenderer);
         googleMap.setOnCameraIdleListener(clusterManager);
         googleMap.setOnMarkerClickListener(clusterManager);
         googleMap.setOnInfoWindowClickListener(clusterManager);
         clusterManager.setOnClusterItemClickListener(this);
+    }
+
+    private void initializeClusterRenderer() {
+        myClusterRenderer = new MyClusterRenderer(this, googleMap, clusterManager) {
+            @Override
+            public void selectPharmacy(Pharmacy pharmacy) {
+                unselectPreviouslySelectedMarker();
+                selectNewMarker(pharmacy);
+                infoCardView.setVisibility(View.VISIBLE);
+                infoLayoutAdapter.setPharmacy(pharmacy);
+            }
+
+            @Override
+            public void unselectPharmacy() {
+                unselectPreviouslySelectedMarker();
+                infoCardView.setVisibility(View.GONE);
+            }
+        };
+        clusterManager.setRenderer(myClusterRenderer);
     }
 
     @Override
@@ -196,58 +213,40 @@ public class MapsActivity extends TranslatableActivity implements
                         currentLocation = location;
                         initializeMapCamera();
                  }
+                    // Add value event listener to database reference
+                    pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
                 });
-
     }
 
     private void initializeMapCamera() {
-        LatLng initialLatLng;
-        float zoom;
         if (currentPharmacy != null) {
-            initialLatLng = new LatLng(currentPharmacy.getLatitude(), currentPharmacy.getLongitude());
-            zoom = 17;
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(initialLatLng, zoom));
-            myClusterRenderer.setSelectedPharmacy(currentPharmacy);
-            selectMarker(currentPharmacy);
+            moveCameraWithZoom(currentPharmacy.getLatitude(), currentPharmacy.getLongitude(), 17);
+            myClusterRenderer.selectPharmacy(currentPharmacy);
         } else if (currentLocation != null) {
-            initialLatLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
-            zoom = 15;
-            googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(initialLatLng, zoom));
+            moveCameraWithZoom(currentLocation.getLatitude(), currentLocation.getLongitude(), 17);
         } else {
-            initialLatLng = new LatLng(35.095192, 33.203430);
-            zoom = 8;
-            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialLatLng, zoom));
+            moveCameraWithZoom(35.095192, 33.203430,9);
         }
     }
 
-    private void selectMarker(Pharmacy item) {
-        myClusterRenderer.setSelectedMarker(item);
-        infoCardView.setVisibility(View.VISIBLE);
-        infoLayout.setVisibility(View.VISIBLE);
-        infoLayoutAdapter.setPharmacy(item);
+    private void moveCameraWithZoom(double latitude, double longitude, float zoom) {
+        LatLng latLng = new LatLng(latitude, longitude);
+        googleMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, zoom));
     }
 
     @Override
     public boolean onClusterItemClick(Pharmacy item) {
-        selectMarker(item);
-        LatLng latLng = new LatLng(item.getLatitude(), item.getLongitude());
-        googleMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+        myClusterRenderer.selectPharmacy(item);
+        moveCameraWithZoom(item.getLatitude(), item.getLongitude(),googleMap.getCameraPosition().zoom);
         return true;
     }
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
-        myClusterRenderer.setSelectedMarker(null);
-        infoCardView.setVisibility(View.GONE);
+        myClusterRenderer.unselectPharmacy();
     }
 
-    public void expandInfoButtonCallback(View view) {
-        if (infoLayout.getVisibility() == View.VISIBLE) {
-            infoLayout.setVisibility(View.GONE);
-            expandInfoButton.setImageResource(R.drawable.ic_chevron_up);
-        } else {
-            infoLayout.setVisibility(View.VISIBLE);
-            expandInfoButton.setImageResource(R.drawable.ic_chevron_down);
-        }
+    public void closeInfoButtonCallback(View view) {
+        myClusterRenderer.unselectPharmacy();
     }
 }

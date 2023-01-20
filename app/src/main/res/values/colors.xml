@@ -13,8 +13,13 @@
     <color name="light_green">#FFACBD91</color>
     <color name="dark_green">#FF566341</color>
     <color name="green">#FF6C7D51</color>
+    <color name="light_pink">#FFCDA7B4</color>
+    <color name="pink">#FFB1758A</color>
+    <color name="dark_pink">#FF8D5D6E</color>
+    <color name="cutty_sark">#FF517D78</color>
     <color name="orange">#FFFFB347</color>
     <color name="yellow">#FFFFF387</color>
+    <color name="dark_yellow">#FFFFE607</color>
     <color name="red">#FFFF6961</color>
     <color name="textHint">#FF757575</color>
 </resources>

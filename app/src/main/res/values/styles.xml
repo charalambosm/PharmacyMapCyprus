@@ -63,6 +63,13 @@
         <item name="android:hint">@string/address</item>
     </style>
 
+    <style name="TextViewCurrentlyOpen" parent="TextViewStandard">
+        <item name="android:drawableLeft">@drawable/ic_schedule</item>
+        <item name="android:paddingLeft">5dp</item>
+        <item name="android:drawablePadding">10dp</item>
+        <item name="android:hint">Currently Open</item>
+    </style>
+
     <style name="TextViewWarning" parent="TextViewStandard">
         <item name="android:layout_gravity">center</item>
         <item name="android:drawableLeft">@drawable/ic_warning</item>

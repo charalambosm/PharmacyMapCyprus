@@ -11,7 +11,6 @@ import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.R;
 
 import java.util.List;
-import java.util.Locale;
 
 public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     private List<Pharmacy> pharmacyList;
@@ -33,14 +32,8 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         Pharmacy model = pharmacyList.get(position);
         holder.infoLayoutAdapter.setPharmacy(model);
-        if (model.getDistance() == 0) {
-            holder.textViewDistance.setVisibility(View.GONE);
-        } else {
-            holder.textViewDistance.setText(String.format(Locale.getDefault(), "%3.1f km",model.getDistance()));
-        }
         holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model, position));
         holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
-        holder.directionButton.setOnClickListener(view -> cardViewDirectionCallback(model));
         if (favorites.isFavorite(model.getId())) {
             holder.favoritesButton.setImageResource(R.drawable.ic_favorite);
         } else {
@@ -87,6 +80,4 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     public abstract void cardViewShowMoreCallback(Pharmacy pharmacy, int position);
 
     public abstract void cardViewBookmarksCallback(Pharmacy pharmacy, int position);
-
-    public abstract void cardViewDirectionCallback(Pharmacy pharmacy);
 }

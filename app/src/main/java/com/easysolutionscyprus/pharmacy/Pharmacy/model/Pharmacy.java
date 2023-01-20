@@ -9,8 +9,6 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
-import java.util.StringJoiner;
-
 public class Pharmacy implements Parcelable, ClusterItem {
     private int id;
     private String firstName;
@@ -134,10 +132,6 @@ public class Pharmacy implements Parcelable, ClusterItem {
     @Nullable
     @Override
     public String getSnippet() {
-        StringJoiner joiner = new StringJoiner("|");
-        joiner.add(address)
-                .add(Integer.toString(phone))
-                .add(Integer.toString(homePhone));
-        return joiner.toString();
+        return null;
     }
 }

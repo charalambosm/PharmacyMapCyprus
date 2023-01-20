@@ -8,28 +8,56 @@
     <TextView
         android:id="@+id/infoLayoutContactTextView"
         style="@style/TextViewContact"
+        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
         android:layout_alignParentTop="true"/>
 
     <TextView
         android:id="@+id/infoLayoutAddressTextView"
         style="@style/TextViewAddress"
+        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
         android:layout_below="@+id/infoLayoutContactTextView" />
 
     <TextView
         android:id="@+id/infoLayoutPhonePharmacyTextView"
         style="@style/TextViewPhonePharmacy"
+        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
         android:layout_below="@id/infoLayoutAddressTextView"/>
 
     <TextView
         android:id="@+id/infoLayoutPhoneHomeTextView"
         style="@style/TextViewPhoneHome"
         android:visibility="gone"
+        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
         android:layout_below="@id/infoLayoutPhonePharmacyTextView"/>
 
     <TextView
         android:id="@+id/infoLayoutNightTextView"
         style="@style/TextViewNight"
         android:visibility="gone"
+        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
         android:layout_below="@+id/infoLayoutPhoneHomeTextView"/>
 
+    <LinearLayout
+        android:id="@+id/infoLayoutDirectionLinearLayout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:orientation="vertical">
+
+        <ImageButton
+            android:id="@+id/infoLayoutDirectionButton"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_gravity="center"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/button"
+            android:scaleType="fitXY"
+            android:src="@drawable/btn_directions" />
+
+        <TextView
+            android:id="@+id/infoLayoutDistanceTextView"
+            style="@style/TextViewStandard"
+            android:layout_width="wrap_content"/>
+    </LinearLayout>
 </RelativeLayout>

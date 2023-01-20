@@ -13,8 +13,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/pharmacyRecyclerViewItemInfoLayout"
-            android:layout_toLeftOf="@id/cardViewBookmarksButton"
-            android:layout_toRightOf="@id/directionLinearLayout" />
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@id/cardViewBookmarksButton"/>
 
         <ImageButton
             android:id="@+id/pharmacyRecyclerViewMoreButton"
@@ -24,7 +24,7 @@
             android:layout_alignBottom="@+id/pharmacyRecyclerViewItemInfoLayout"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/more"
-            android:minWidth="32dp"
+            android:minWidth="48dp"
             android:minHeight="48dp"
             android:src="@drawable/ic_chevron_right" />
 
@@ -35,31 +35,8 @@
             android:layout_alignParentRight="true"
             android:background="?android:attr/selectableItemBackground"
             android:contentDescription="@string/favorites_title"
-            android:minWidth="32dp"
+            android:minWidth="48dp"
             android:minHeight="48dp"
             android:src="@drawable/ic_favorite_add" />
-
-        <LinearLayout
-            android:id="@+id/directionLinearLayout"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:orientation="vertical">
-
-            <ImageButton
-                android:id="@+id/cardViewDirectionButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/button"
-                android:scaleType="fitXY"
-                android:src="@drawable/btn_directions" />
-
-            <TextView
-                android:id="@+id/pharmacyRecyclerViewItemDistanceTextView"
-                style="@style/TextViewStandard"
-                android:layout_width="wrap_content"/>
-        </LinearLayout>
     </RelativeLayout>
 </androidx.cardview.widget.CardView>
