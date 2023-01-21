@@ -1,23 +1,17 @@
 package com.easysolutionscyprus.pharmacy.Preferences.view;
 
-import static android.view.Window.FEATURE_NO_TITLE;
-
-import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.CheckBox;
 
 import androidx.annotation.NonNull;
 
-import com.easysolutionscyprus.pharmacy.R;
 import com.easysolutionscyprus.pharmacy.Preferences.model.DistrictPreference;
+import com.easysolutionscyprus.pharmacy.R;
 
 import java.util.Set;
 
-public class PharmacyFilterDialog extends Dialog implements View.OnClickListener, DialogPrototype {
-    Button okButton;
+public class PharmacyFilterDialog extends AbstractDialog implements View.OnClickListener, DialogPrototype {
     CheckBox nicosiaCheckbox, limassolCheckbox, larnacaCheckBox, paphosCheckbox, famagustaCheckbox;
     DistrictPreference districtSettings;
 
@@ -27,28 +21,20 @@ public class PharmacyFilterDialog extends Dialog implements View.OnClickListener
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_filter);
-        configureSaveButton();
-        configureOptionWidgets();
+    public int withContentView() {
+        return R.layout.dialog_filter;
     }
 
     @Override
-    public void onClick(View view) {
-        if (view.getId() == R.id.filterDialogOKButton) {
-            onSave();
-        } else {
-            dismiss();
-        }
+    public int withSaveButton() {
+        return R.id.filterDialogSaveButton;
     }
 
     @Override
-    public void configureSaveButton() {
-        okButton = findViewById(R.id.filterDialogOKButton);
-        okButton.setOnClickListener(this);
+    public int withCancelButton() {
+        return R.id.filterDialogCancelButton;
     }
+
 
     @Override
     public void configureOptionWidgets() {
@@ -85,6 +71,5 @@ public class PharmacyFilterDialog extends Dialog implements View.OnClickListener
                         .setPaphos(paphosCheckbox.isChecked())
                         .setFamagusta(famagustaCheckbox.isChecked())
                         .build());
-        dismiss();
     }
 }

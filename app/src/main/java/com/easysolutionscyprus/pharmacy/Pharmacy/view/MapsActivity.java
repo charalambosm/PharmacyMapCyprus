@@ -7,6 +7,9 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.RelativeLayout;
@@ -24,6 +27,7 @@ import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyCancellationToken;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyClusterRenderer;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.MyValueEventListener;
 import com.easysolutionscyprus.pharmacy.Pharmacy.model.Pharmacy;
+import com.easysolutionscyprus.pharmacy.Preferences.view.MapFilterDialog;
 import com.easysolutionscyprus.pharmacy.R;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.google.android.gms.location.LocationServices;
@@ -53,6 +57,9 @@ public class MapsActivity extends TranslatableActivity implements
     InfoLayoutAdapter infoLayoutAdapter;
     Pharmacy currentPharmacy;
     SupportMapFragment supportMapFragment;
+    MapFilterDialog mapFilterDialog;
+    boolean showNightOnly = false;
+    boolean stayOnLocation = false;
 
     @Override
     protected int withLayout() {
@@ -66,6 +73,9 @@ public class MapsActivity extends TranslatableActivity implements
 
         // Get intent data
         getIntentData();
+
+        // Define the map filter dialog
+        configureMapFilterDialog();
 
         // Define the map
         configureMapFragment();
@@ -83,6 +93,17 @@ public class MapsActivity extends TranslatableActivity implements
         expandInfoButton = findViewById(R.id.mapsActivityCloseInfoButton);
     }
 
+    private void configureMapFilterDialog() {
+        mapFilterDialog = new MapFilterDialog(this);
+        mapFilterDialog.setOnDismissListener(dialog -> {
+            showNightOnly = mapFilterDialog.isShowNightOnly();
+            currentPharmacy = null;
+            myClusterRenderer.unselectPharmacy();
+            stayOnLocation = true;
+            getCurrentLocation();
+        });
+    }
+
     @Override
     protected void configureToolbar() {
         Toolbar toolbar = findViewById(R.id.mapsActivityToolbar);
@@ -90,6 +111,22 @@ public class MapsActivity extends TranslatableActivity implements
         ActionBar actionBar = getSupportActionBar();
         if (actionBar != null) {
             actionBar.setDisplayHomeAsUpEnabled(true);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.list_toolbar, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        if (item.getItemId() == R.id.action_filter) {
+            mapFilterDialog.show();
+            return true;
+        } else {
+            return super.onOptionsItemSelected(item);
         }
     }
 
@@ -112,11 +149,20 @@ public class MapsActivity extends TranslatableActivity implements
         myValueEventListener = new MyValueEventListener() {
             @Override
             public void update() {
+                Log.d("GMAP", "Updating pharmacy markers");
+                clusterManager.clearItems();
                 for (Pharmacy pharmacy: pharmacyList) {
                     if (currentLocation!=null) {
                         pharmacy.setDistance(calculatePharmacyDistance(currentLocation,pharmacy)/1000);
                     }
-                    clusterManager.addItem(pharmacy);
+                    if (showNightOnly && pharmacy.isNight()) {
+                        clusterManager.addItem(pharmacy);
+                    } else if (!showNightOnly) {
+                        clusterManager.addItem(pharmacy);
+                    }
+                }
+                if (currentPharmacy == null) {
+                    clusterManager.cluster();
                 }
             }
         };
@@ -211,7 +257,9 @@ public class MapsActivity extends TranslatableActivity implements
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         currentLocation = location;
-                        initializeMapCamera();
+                        if (!stayOnLocation) {
+                            initializeMapCamera();
+                        }
                  }
                     // Add value event listener to database reference
                     pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
@@ -220,10 +268,10 @@ public class MapsActivity extends TranslatableActivity implements
 
     private void initializeMapCamera() {
         if (currentPharmacy != null) {
-            moveCameraWithZoom(currentPharmacy.getLatitude(), currentPharmacy.getLongitude(), 17);
+            moveCameraWithZoom(currentPharmacy.getLatitude(), currentPharmacy.getLongitude(), 15);
             myClusterRenderer.selectPharmacy(currentPharmacy);
         } else if (currentLocation != null) {
-            moveCameraWithZoom(currentLocation.getLatitude(), currentLocation.getLongitude(), 17);
+            moveCameraWithZoom(currentLocation.getLatitude(), currentLocation.getLongitude(), 15);
         } else {
             moveCameraWithZoom(35.095192, 33.203430,9);
         }

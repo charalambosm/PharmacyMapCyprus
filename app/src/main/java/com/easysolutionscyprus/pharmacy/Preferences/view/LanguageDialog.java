@@ -1,12 +1,7 @@
 package com.easysolutionscyprus.pharmacy.Preferences.view;
 
-import static android.view.Window.FEATURE_NO_TITLE;
-
-import android.app.Dialog;
 import android.content.Context;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.RadioGroup;
 
 import androidx.annotation.NonNull;
@@ -14,9 +9,8 @@ import androidx.annotation.NonNull;
 import com.easysolutionscyprus.pharmacy.R;
 import com.easysolutionscyprus.pharmacy.Preferences.model.LocalePreference;
 
-public class LanguageDialog extends Dialog implements View.OnClickListener, DialogPrototype {
+public class LanguageDialog extends AbstractDialog implements View.OnClickListener, DialogPrototype {
     LocalePreference localeSettings;
-    Button okButton;
     RadioGroup languageRadioGroup;
 
     public LanguageDialog(@NonNull Context context) {
@@ -26,27 +20,18 @@ public class LanguageDialog extends Dialog implements View.OnClickListener, Dial
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        requestWindowFeature(FEATURE_NO_TITLE);
-        setContentView(R.layout.dialog_language);
-        configureSaveButton();
-        configureOptionWidgets();
-    }
-
-
-
-    @Override
-    public void onClick(View v) {
-        if (v.getId() == R.id.languageDialogOKButton) {
-            onSave();
-        }
+    public int withContentView() {
+        return R.layout.dialog_language;
     }
 
     @Override
-    public void configureSaveButton() {
-        okButton = findViewById(R.id.languageDialogOKButton);
-        okButton.setOnClickListener(this);
+    public int withSaveButton() {
+        return R.id.languageDialogSaveButton;
+    }
+
+    @Override
+    public int withCancelButton() {
+        return R.id.languageDialogCancelButton;
     }
 
     @Override
@@ -67,6 +52,5 @@ public class LanguageDialog extends Dialog implements View.OnClickListener, Dial
         } else {
             localeSettings.setPreference("el");
         }
-        dismiss();
     }
 }

@@ -10,16 +10,13 @@
     <string name="contact_prompt">Your opinion matters to us. For improving our app and services please fill in the form with your ideas.\n\nThank you!</string>
     <string name="send">Send</string>
     <string name="address">Address</string>
-    <string name="distance">Distance</string>
     <string name="night_pharmacy">Night pharmacy</string>
     <string name="full_name_empty">Full name cannot be empty.</string>
     <string name="email_empty">Email cannot be empty.</string>
-    <string name="phone_empty">Phone cannot be empty.</string>
     <string name="message_empty">Message cannot be empty.</string>
     <string name="email_sent_successfully">Email has been sent successfully!</string>
     <string name="email_sent_unsuccessfully">Email has not been sent. Please check your internet connection and try again.</string>
     <string name="fill_form_prompt">Please fill in all the fields above.</string>
-    <string name="phone_wrong">Phone is not in the correct format.</string>
     <string name="email_wrong">Email is not in the correct format.</string>
     <string name="full_name_wrong">Full name is not in the correct format.</string>
     <string name="location_access_not_granted_prompt">Location access how not been granted.</string>
@@ -34,10 +31,9 @@
     <string name="famagusta">Famagusta</string>
     <string name="save">Save</string>
     <string name="more">More</string>
-    <string name="filters">Filter</string>
+    <string name="filters">Filters</string>
     <string name="add_to_favorites">Add to favorites</string>
     <string name="delete_from_favorites">Delete from favorites</string>
-    <string name="close">Close</string>
     <string name="privacy_policy_underlined"><u>privacy policy</u></string>
     <string name="home_phone">Home phone</string>
     <string name="language">Language</string>
@@ -46,7 +42,6 @@
     <string name="main_menu">Main Menu</string>
     <string name="last_updated">Last Updated:</string>
     <string name="search_pharmacy">Search pharmacies</string>
-    <string name="phone_format_pharmacy_only">%s (Pharmacy)</string>
-    <string name="phone_format_both">%s (Pharmacy)\n%s (Home)</string>
     <string name="map">Pharmacy Map</string>
+    <string name="cancel">Cancel</string>
 </resources>

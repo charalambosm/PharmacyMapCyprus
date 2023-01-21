@@ -31,24 +31,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:elevation="10dp"
         android:visibility="gone"
         android:layout_alignParentBottom="true">
         <RelativeLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="5dp">
+            android:padding="5dp">
             <ImageButton
                 android:id="@+id/mapsActivityCloseInfoButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="?android:attr/selectableItemBackground"
-                android:contentDescription="@string/more"
-                android:minWidth="48dp"
-                android:minHeight="48dp"
+                style="@style/CancelButtonStandard"
                 android:onClick="closeInfoButtonCallback"
-                android:src="@drawable/ic_close" />
+                android:contentDescription="@string/cancel" />
 
             <include layout="@layout/layout_info"
                 android:id="@+id/mapsActivityInfoLayout"

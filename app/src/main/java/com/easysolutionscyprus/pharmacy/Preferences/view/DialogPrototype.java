@@ -1,7 +1,9 @@
 package com.easysolutionscyprus.pharmacy.Preferences.view;
 
 public interface DialogPrototype {
-    void configureSaveButton();
+    int withContentView();
+    int withSaveButton();
+    int withCancelButton();
     void configureOptionWidgets();
     void onSave();
 }

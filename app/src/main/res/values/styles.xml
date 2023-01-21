@@ -1,9 +1,5 @@
 <resources>
 
-    <style name="Widget.Theme.PharmacyList.MyView" parent="">
-        <item name="android:background">@color/gray</item>
-    </style>
-
     <style name="CardViewStandard" parent="CardView">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
@@ -63,23 +59,9 @@
         <item name="android:hint">@string/address</item>
     </style>
 
-    <style name="TextViewCurrentlyOpen" parent="TextViewStandard">
-        <item name="android:drawableLeft">@drawable/ic_schedule</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:hint">Currently Open</item>
-    </style>
-
     <style name="TextViewWarning" parent="TextViewStandard">
         <item name="android:layout_gravity">center</item>
         <item name="android:drawableLeft">@drawable/ic_warning</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
-    </style>
-
-    <style name="TextViewInfo" parent="TextViewStandard">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:drawableLeft">@drawable/ic_info</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawablePadding">10dp</item>
     </style>
@@ -116,11 +98,15 @@
         <item name="android:background">?android:attr/selectableItemBackground</item>
     </style>
 
-    <style name="SwitchStandard" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/green</item>
-        <item name="colorSwitchThumbNormal">@color/gray</item>
-        <item name="android:colorForeground">@color/dark_gray</item>
+    <style name="CancelButtonStandard" parent="">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_alignParentRight">true</item>
+        <item name="android:layout_alignParentTop">true</item>
+        <item name="android:background">?android:attr/selectableItemBackground</item>
+        <item name="android:minWidth">36dp</item>
+        <item name="android:minHeight">36dp</item>
+        <item name="android:src">@drawable/ic_close</item>
+        <item name="android:contentDescription">Cancel</item>
     </style>
-
-    <string name="home_phone">Home phone</string>
 </resources>

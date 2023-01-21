@@ -10,16 +10,13 @@
     <string name="all_fields_are_necessary_prompt">Όλα τα πεδία είναι υποχρεωτικά!</string>
     <string name="send">Αποστολή</string>
     <string name="address">Διεύθυνση</string>
-    <string name="distance">Απόσταση</string>
     <string name="night_pharmacy">Διημερεύον φαρμακείο</string>
     <string name="full_name_empty">Το ονοματεπώνυμο δεν μπορει να είναι κενό.</string>
     <string name="email_empty">Το email δεν μπορεί να είναι κενό.</string>
-    <string name="phone_empty">Το τηλέφωνο δεν μπορεί να είναι κενό.</string>
     <string name="message_empty">Το μύνημα δεν μπορεί να είναι κενό.</string>
     <string name="email_sent_successfully">Το email έχει σταλεί επιτυχώς!</string>
     <string name="email_sent_unsuccessfully">Το email δεν έχει σταλεί. Παρακαλώ ελέγξτε την σύνδεση σας στο διαδικτύο και ξαναδοκιμάστε!</string>
     <string name="fill_form_prompt">Παρακαλώ συμπληρώστε όλα τα πεδία στην φόρμα.</string>
-    <string name="phone_wrong">Το τηλεφώνο δεν έχει τη σωστή μορφή.</string>
     <string name="location_access_not_granted_prompt">Δεν έχει επιτραπεί πρόσβαση στην τοποθεσία αυτης της συσκευής.</string>
     <string name="full_name_wrong">Το ονοματεπώνυμο δεν έχει τη σωστή μορφή.</string>
     <string name="email_wrong">Το email δεν έχει τη σωστή μορφή.</string>
@@ -37,7 +34,6 @@
     <string name="filters">Φίλτρα</string>
     <string name="delete_from_favorites">Διαγραφή απο το αγαπημένα</string>
     <string name="add_to_favorites">Πρόσθηκη στα αγαπημένα</string>
-    <string name="close">Κλείσιμο</string>
     <string name="privacy_policy_underlined"><u>πολιτική απορρήτου</u></string>
     <string name="home_phone">Τηλέφωνο οικίας</string>
     <string name="language">Γλώσσα</string>
@@ -46,7 +42,6 @@
     <string name="main_menu">Κυρίως Μενού</string>
     <string name="last_updated">Ανανεώθηκε:</string>
     <string name="search_pharmacy">Αναζήτηση φαρμακείων</string>
-    <string name="phone_format_pharmacy_only">%s (Φαρμακείο)</string>
-    <string name="phone_format_both">%s (Φαρμακείο)\n%s (Σπίτι)</string>
     <string name="map">Χάρτης Φαρμακείων</string>
+    <string name="cancel">Ακύρωση</string>
 </resources>

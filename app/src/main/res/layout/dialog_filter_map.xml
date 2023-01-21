@@ -9,48 +9,48 @@
         android:padding="5dp">
 
         <ImageButton
-            android:id="@+id/languageDialogCancelButton"
+            android:id="@+id/mapFilterDialogCancelButton"
             style="@style/CancelButtonStandard"
             android:contentDescription="@string/cancel" />
 
         <TextView
-            android:id="@+id/languageTextView"
+            android:id="@+id/mapFilterDialogHeading"
             style="@style/TextViewHeading"
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="@string/language"/>
+            android:text="@string/filters"/>
+
 
         <RadioGroup
-            android:id="@+id/languageRadioGroup"
+            android:id="@+id/mapFilterDialogRadioGroup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/languageTextView"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentRight="true"
+            android:layout_below="@id/mapFilterDialogHeading"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:orientation="vertical">
-
             <RadioButton
-                android:id="@+id/englishRadioButton"
+                android:id="@+id/mapFilterDialogAllPharmaciesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/dark_green"
-                android:text="@string/english"/>
+                android:text="@string/all_pharmacies_title"/>
 
             <RadioButton
-                android:id="@+id/greekRadioButton"
+                android:id="@+id/mapFilterDialogNightPharmaciesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/dark_green"
-                android:text="@string/greek"/>
+                android:text="@string/night_title"/>
         </RadioGroup>
 
         <Button
-            android:id="@+id/languageDialogSaveButton"
+            android:id="@+id/mapFilterDialogSaveButton"
             style="@style/ButtonStandard"
-            android:layout_below="@id/languageRadioGroup"
+            android:layout_below="@id/mapFilterDialogRadioGroup"
             android:layout_centerHorizontal="true"
             android:text="@string/save"/>
+    </RelativeLayout>
 
-</RelativeLayout>
 </androidx.cardview.widget.CardView>
+

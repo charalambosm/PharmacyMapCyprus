@@ -30,9 +30,6 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.DetailsActivity"
-            android:exported="false" />
-        <activity
             android:name="com.easysolutionscyprus.pharmacy.Pharmacy.view.AllListActivity"
             android:exported="false" />
         <activity
