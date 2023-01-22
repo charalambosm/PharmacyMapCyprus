@@ -46,12 +46,7 @@ public abstract class TranslatableActivity extends AppCompatActivity {
     @SuppressLint("MissingPermission")
     private void configureAds() {
         MobileAds.initialize(this, initializationStatus -> {});
-        List<String> testDeviceIds = Collections.singletonList("78CCC020CE6CDC9E1BF6F407A7848165");
-        RequestConfiguration configuration =
-                new RequestConfiguration.Builder().setTestDeviceIds(testDeviceIds).build();
-        MobileAds.setRequestConfiguration(configuration);
         AdRequest adRequest = new AdRequest.Builder().build();
         adView.loadAd(adRequest);
     }
-
 }

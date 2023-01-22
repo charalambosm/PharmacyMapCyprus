@@ -21,6 +21,9 @@ public class Pharmacy implements Parcelable, ClusterItem {
     private double latitude;
     private double longitude;
     private double distance;
+    private String firstNameNormalized;
+    private String lastNameNormalized;
+    private String addressNormalized;
 
     @SuppressWarnings("unused")
     public Pharmacy() {}
@@ -95,6 +98,30 @@ public class Pharmacy implements Parcelable, ClusterItem {
 
     public void setDistance(double distance) {
         this.distance = distance;
+    }
+
+    public String getFirstNameNormalized() {
+        return firstNameNormalized;
+    }
+
+    public void setFirstNameNormalized(String firstNameNormalized) {
+        this.firstNameNormalized = firstNameNormalized;
+    }
+
+    public String getLastNameNormalized() {
+        return lastNameNormalized;
+    }
+
+    public void setLastNameNormalized(String lastNameNormalized) {
+        this.lastNameNormalized = lastNameNormalized;
+    }
+
+    public String getAddressNormalized() {
+        return addressNormalized;
+    }
+
+    public void setAddressNormalized(String addressNormalized) {
+        this.addressNormalized = addressNormalized;
     }
 
     @Override
