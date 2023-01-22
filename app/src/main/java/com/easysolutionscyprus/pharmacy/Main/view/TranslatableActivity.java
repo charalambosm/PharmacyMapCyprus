@@ -1,6 +1,7 @@
 package com.easysolutionscyprus.pharmacy.Main.view;
 
 import android.annotation.SuppressLint;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -25,9 +26,9 @@ public abstract class TranslatableActivity extends AppCompatActivity {
         translateActivity();
         setContentView(withLayout());
         configureViews();
+        configureAds();
         executeOnCreateActions();
         configureToolbar();
-        configureAds();
     }
 
     protected abstract int withLayout();

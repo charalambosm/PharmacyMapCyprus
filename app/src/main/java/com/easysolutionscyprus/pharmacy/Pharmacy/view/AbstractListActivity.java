@@ -250,6 +250,7 @@ public abstract class AbstractListActivity extends TranslatableActivity {
                 .addOnSuccessListener(this, location -> {
                     if (location != null) {
                         currentLocation = location;
+                        resetSearchView();
                         // Add value event listener to database reference
                         pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
                     }

@@ -1,7 +1,6 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 
 import android.location.Location;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -30,7 +29,6 @@ public abstract class MyValueEventListener implements com.google.firebase.databa
                 pharmacy.setAddressNormalized(normalizeText(pharmacy.getAddress()));
                 pharmacy.setFirstNameNormalized(normalizeText(pharmacy.getFirstName()));
                 pharmacy.setLastNameNormalized(normalizeText(pharmacy.getLastName()));
-                Log.d("NORMALIZED_ADDRESS", pharmacy.getAddressNormalized());
             }
             this.pharmacyList.add(pharmacy);
         }
