@@ -26,9 +26,9 @@ public abstract class TranslatableActivity extends AppCompatActivity {
         translateActivity();
         setContentView(withLayout());
         configureViews();
-        configureAds();
         executeOnCreateActions();
         configureToolbar();
+        configureAds();
     }
 
     protected abstract int withLayout();
@@ -46,8 +46,11 @@ public abstract class TranslatableActivity extends AppCompatActivity {
 
     @SuppressLint("MissingPermission")
     private void configureAds() {
-        MobileAds.initialize(this, initializationStatus -> {});
-        AdRequest adRequest = new AdRequest.Builder().build();
-        adView.loadAd(adRequest);
+        MobileAds.initialize(this, initializationStatus -> {
+            AdRequest adRequest = new AdRequest.Builder().build();
+            adView.loadAd(adRequest);
+        });
+//        AdRequest adRequest = new AdRequest.Builder().build();
+//        adView.loadAd(adRequest);
     }
 }

@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cyprus Pharmacy Guide</string>
     <string name="email">Email</string>
     <string name="phone">Phone</string>
     <string name="message">Message</string>

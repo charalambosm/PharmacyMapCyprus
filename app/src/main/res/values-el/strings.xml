@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Cyprus Pharmacy Guide</string>
     <string name="contact_us_title">Επικοινωνία</string>
     <string name="contact_prompt">Η γνώμη σας μας ενδιαφέρει. Για την βελτίωση της εφαρμογής και των υπηρεσιών μας, συμπληρώστε την φόρμα με τις ιδέες σας.\n\nΕυχαριστούμε!</string>
     <string name="full_name">Ονοματεπώνυμο</string>

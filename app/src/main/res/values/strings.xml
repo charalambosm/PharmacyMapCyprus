@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">Pharmacy Pocket Guide Cyprus</string>
+    <string name="app_name" translatable="false">Pharmacy Map Cyprus</string>
     <string name="contact_prompt">Your opinion matters to us. For improving our app and services please fill in the form with your ideas.\n\nThank you!</string>
     <string name="contact_us_title">Contact Us</string>
     <string name="full_name">Full Name</string>
@@ -19,7 +19,7 @@
     <string name="fill_form_prompt">Please fill in all the fields above.</string>
     <string name="email_wrong">Email is not in the correct format.</string>
     <string name="full_name_wrong">Full name is not in the correct format.</string>
-    <string name="location_access_not_granted_prompt">Location access how not been granted.</string>
+    <string name="location_access_not_granted_prompt">Location access has not been granted.</string>
     <string name="favorites_title">Favorites</string>
     <string name="all_pharmacies_title">All pharmacies</string>
     <string name="night_title">Night pharmacies today</string>

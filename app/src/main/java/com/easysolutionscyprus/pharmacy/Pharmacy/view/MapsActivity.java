@@ -161,8 +161,9 @@ public class MapsActivity extends TranslatableActivity implements
                         clusterManager.addItem(pharmacy);
                     }
                 }
-                if (currentPharmacy == null) {
-                    clusterManager.cluster();
+                clusterManager.cluster();
+                if (currentPharmacy != null) {
+                    myClusterRenderer.selectPharmacy(currentPharmacy);
                 }
             }
         };
@@ -194,18 +195,18 @@ public class MapsActivity extends TranslatableActivity implements
     @SuppressLint("MissingPermission")
     private void initializeGoogleMap() {
         initializeMapCamera();
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
-        } else {
-            getCurrentLocation();
-            googleMap.setMyLocationEnabled(true);
-        }
         googleMap.setOnMapClickListener(this);
         googleMap.getUiSettings().setMapToolbarEnabled(true);
         googleMap.getUiSettings().setZoomControlsEnabled(true);
         googleMap.getUiSettings().setZoomGesturesEnabled(true);
         googleMap.getUiSettings().setTiltGesturesEnabled(false);
-        googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+        } else {
+            getCurrentLocation();
+            googleMap.setMyLocationEnabled(true);
+            googleMap.getUiSettings().setMyLocationButtonEnabled(true);
+        }
     }
 
     @SuppressLint("PotentialBehaviorOverride")
@@ -246,6 +247,9 @@ public class MapsActivity extends TranslatableActivity implements
                     // PERMISSION GRANTED - get current location
                     getCurrentLocation();
                 }
+            } else {
+                // Add value event listener to database reference
+                pharmacyListDatabaseReference.addValueEventListener(myValueEventListener);
             }
         }
     }
@@ -269,7 +273,6 @@ public class MapsActivity extends TranslatableActivity implements
     private void initializeMapCamera() {
         if (currentPharmacy != null) {
             moveCameraWithZoom(currentPharmacy.getLatitude(), currentPharmacy.getLongitude(), 15);
-            myClusterRenderer.selectPharmacy(currentPharmacy);
         } else if (currentLocation != null) {
             moveCameraWithZoom(currentLocation.getLatitude(), currentLocation.getLongitude(), 15);
         } else {

@@ -11,8 +11,8 @@ android {
         applicationId "com.easysolutionscyprus.pharmacy"
         minSdk 24
         targetSdk 33
-        versionCode 4
-        versionName "0.3"
+        versionCode 5
+        versionName "1.0"
         resConfigs "en", "el"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -38,7 +38,7 @@ dependencies {
     implementation platform('com.google.firebase:firebase-bom:30.3.2')
     implementation 'com.google.firebase:firebase-analytics'
     implementation 'androidx.appcompat:appcompat:1.6.0'
-    implementation 'com.google.android.material:material:1.7.0'
+    implementation 'com.google.android.material:material:1.8.0'
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
     implementation 'androidx.swiperefreshlayout:swiperefreshlayout:1.1.0'
     implementation 'com.google.firebase:firebase-database:20.1.0'
@@ -50,7 +50,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.5.1"
     implementation "androidx.preference:preference:1.2.0"
     implementation "com.hbb20:ccp:2.6.0"
-    implementation 'com.google.android.gms:play-services-ads:21.4.0'
+    implementation 'com.google.android.gms:play-services-ads:21.5.0'
     implementation files('libs/activation.jar')
     implementation files('libs/additionnal.jar')
     implementation files('libs/mail.jar')
