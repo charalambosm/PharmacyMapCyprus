@@ -1,7 +1,6 @@
 package com.easysolutionscyprus.pharmacy.Main.view;
 
 import android.annotation.SuppressLint;
-import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -11,10 +10,6 @@ import com.easysolutionscyprus.pharmacy.Preferences.model.LocalePreference;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.RequestConfiguration;
-
-import java.util.Collections;
-import java.util.List;
 
 public abstract class TranslatableActivity extends AppCompatActivity {
     protected LocalePreference localePreference;
@@ -50,7 +45,5 @@ public abstract class TranslatableActivity extends AppCompatActivity {
             AdRequest adRequest = new AdRequest.Builder().build();
             adView.loadAd(adRequest);
         });
-//        AdRequest adRequest = new AdRequest.Builder().build();
-//        adView.loadAd(adRequest);
     }
 }
