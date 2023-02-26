@@ -11,8 +11,6 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageButton;
-import android.widget.RelativeLayout;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
@@ -51,9 +49,7 @@ public class MapsActivity extends TranslatableActivity implements
     final MyCancellationToken myCancellationToken = new MyCancellationToken();
     ClusterManager<Pharmacy> clusterManager;
     MyClusterRenderer myClusterRenderer;
-    RelativeLayout infoLayout;
     CardView infoCardView;
-    ImageButton expandInfoButton;
     InfoLayoutAdapter infoLayoutAdapter;
     Pharmacy currentPharmacy;
     SupportMapFragment supportMapFragment;
@@ -87,10 +83,9 @@ public class MapsActivity extends TranslatableActivity implements
     @Override
     protected void configureViews() {
         adView = findViewById(R.id.adView);
-        infoLayout = findViewById(R.id.mapsActivityInfoLayout);
-        infoLayoutAdapter = new InfoLayoutAdapter(this);
+        infoLayoutAdapter = new InfoLayoutAdapter.InfoLayoutAdapterBuilder(this)
+                .withAddressButtonDisabled().withExpandLayout().withButtonLayout().build();
         infoCardView = findViewById(R.id.mapsActivityInfoCardView);
-        expandInfoButton = findViewById(R.id.mapsActivityCloseInfoButton);
     }
 
     private void configureMapFilterDialog() {
@@ -149,7 +144,7 @@ public class MapsActivity extends TranslatableActivity implements
         myValueEventListener = new MyValueEventListener() {
             @Override
             public void update() {
-                Log.d("GMAP", "Updating pharmacy markers");
+                Log.d("PHARMACY_LIST","Getting pharmacy list..");
                 clusterManager.clearItems();
                 for (Pharmacy pharmacy: pharmacyList) {
                     if (currentLocation!=null) {
@@ -161,9 +156,11 @@ public class MapsActivity extends TranslatableActivity implements
                         clusterManager.addItem(pharmacy);
                     }
                 }
-                clusterManager.cluster();
                 if (currentPharmacy != null) {
                     myClusterRenderer.selectPharmacy(currentPharmacy);
+                } else {
+                    clusterManager.cluster();
+                    infoCardView.setVisibility(View.GONE);
                 }
             }
         };
@@ -226,15 +223,22 @@ public class MapsActivity extends TranslatableActivity implements
                 selectNewMarker(pharmacy);
                 infoCardView.setVisibility(View.VISIBLE);
                 infoLayoutAdapter.setPharmacy(pharmacy);
+                infoCardView.post(() -> moveMapToPharmacy(pharmacy));
             }
 
             @Override
             public void unselectPharmacy() {
                 unselectPreviouslySelectedMarker();
                 infoCardView.setVisibility(View.GONE);
+                googleMap.setPadding(0,0,0,0);
             }
         };
         clusterManager.setRenderer(myClusterRenderer);
+    }
+
+    private void moveMapToPharmacy(Pharmacy pharmacy) {
+        googleMap.setPadding(0,0,0,infoCardView.getHeight());
+        moveCameraWithZoom(pharmacy.getLatitude(), pharmacy.getLongitude(),15);
     }
 
     @Override
@@ -288,16 +292,11 @@ public class MapsActivity extends TranslatableActivity implements
     @Override
     public boolean onClusterItemClick(Pharmacy item) {
         myClusterRenderer.selectPharmacy(item);
-        moveCameraWithZoom(item.getLatitude(), item.getLongitude(),googleMap.getCameraPosition().zoom);
         return true;
     }
 
     @Override
     public void onMapClick(@NonNull LatLng latLng) {
-        myClusterRenderer.unselectPharmacy();
-    }
-
-    public void closeInfoButtonCallback(View view) {
         myClusterRenderer.unselectPharmacy();
     }
 }

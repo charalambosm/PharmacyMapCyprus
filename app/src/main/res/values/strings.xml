@@ -49,4 +49,8 @@
     <string name="map">Pharmacy Map</string>
     <string name="cancel">Cancel</string>
     <string name="home_phone">Home phone</string>
+    <string name="expand" translatable="false">Expand</string>
+    <string name="get_directions">Get\nDirections</string>
+    <string name="call_pharmacy">Call\nPharmacy</string>
+    <string name="call_home">Call\nHome</string>
 </resources>

@@ -31,25 +31,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
-        android:visibility="gone"
-        android:layout_alignBottom="@id/pharmaciesMap">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
-            <ImageButton
-                android:id="@+id/mapsActivityCloseInfoButton"
-                style="@style/CancelButtonStandard"
-                android:onClick="closeInfoButtonCallback"
-                android:contentDescription="@string/cancel" />
+        android:visibility="invisible"
+        android:layout_above="@+id/adView">
 
-            <include layout="@layout/layout_info"
-                android:id="@+id/mapsActivityInfoLayout"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@id/mapsActivityCloseInfoButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
+        <include layout="@layout/layout_info"
+            android:id="@+id/mapsActivityInfoLayout"/>
     </androidx.cardview.widget.CardView>
 
     <com.google.android.gms.ads.AdView

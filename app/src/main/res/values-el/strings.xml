@@ -43,4 +43,8 @@
     <string name="search_pharmacy">Αναζήτηση φαρμακείων</string>
     <string name="map">Χάρτης Φαρμακείων</string>
     <string name="cancel">Ακύρωση</string>
+    <string name="get_directions">Κατεύθυνση</string>
+    <string name="call_pharmacy">Κλήση\nφαρμακείο</string>
+    <string name="distance">Απόσταση</string>
+    <string name="call_home">Κλήση\nσπίτι</string>
 </resources>

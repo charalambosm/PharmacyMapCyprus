@@ -43,4 +43,8 @@
     <string name="search_pharmacy">Search pharmacies</string>
     <string name="map">Pharmacy Map</string>
     <string name="cancel">Cancel</string>
+    <string name="get_directions">Get\nDirections</string>
+    <string name="call_pharmacy">Call\nPharmacy</string>
+    <string name="distance">Distance</string>
+    <string name="call_home">Call\nHome</string>
 </resources>

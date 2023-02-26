@@ -1,42 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/cardViewRoot"
+    android:layout_marginHorizontal="10dp"
+    android:layout_marginVertical="10dp"
+    app:cardCornerRadius="10dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="@color/green"
+    android:elevation="4dp"
     style="@style/CardViewStandard">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
+    <include layout="@layout/layout_info"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingHorizontal="5dp"
-        android:paddingVertical="5dp">
-
-        <include layout="@layout/layout_info"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/pharmacyRecyclerViewItemInfoLayout"
-            android:layout_alignParentLeft="true"
-            android:layout_toLeftOf="@id/cardViewBookmarksButton"/>
-
-        <ImageButton
-            android:id="@+id/pharmacyRecyclerViewMoreButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignBottom="@+id/pharmacyRecyclerViewItemInfoLayout"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/more"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/ic_chevron_right" />
-
-        <ImageButton
-            android:id="@+id/cardViewBookmarksButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/favorites_title"
-            android:minWidth="48dp"
-            android:minHeight="48dp"
-            android:src="@drawable/ic_favorite_add" />
-    </RelativeLayout>
-</androidx.cardview.widget.CardView>
+        android:id="@+id/pharmacyRecyclerViewItemInfoLayout"/>
+</com.google.android.material.card.MaterialCardView>

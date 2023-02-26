@@ -1,63 +1,147 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="wrap_content"
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:fillViewport="true"
+    android:layout_height="wrap_content">
+
+<LinearLayout
+    android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:paddingHorizontal="5dp"
-    android:paddingVertical="5dp">
-
-    <TextView
-        android:id="@+id/infoLayoutContactTextView"
-        style="@style/TextViewContact"
-        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
-        android:layout_alignParentTop="true"/>
-
-    <TextView
-        android:id="@+id/infoLayoutAddressTextView"
-        style="@style/TextViewAddress"
-        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
-        android:layout_below="@+id/infoLayoutContactTextView" />
-
-    <TextView
-        android:id="@+id/infoLayoutPhonePharmacyTextView"
-        style="@style/TextViewPhonePharmacy"
-        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
-        android:layout_below="@id/infoLayoutAddressTextView"/>
-
-    <TextView
-        android:id="@+id/infoLayoutPhoneHomeTextView"
-        style="@style/TextViewPhoneHome"
-        android:visibility="gone"
-        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
-        android:layout_below="@id/infoLayoutPhonePharmacyTextView"/>
-
-    <TextView
-        android:id="@+id/infoLayoutNightTextView"
-        style="@style/TextViewNight"
-        android:visibility="gone"
-        android:layout_toRightOf="@+id/infoLayoutDirectionLinearLayout"
-        android:layout_below="@+id/infoLayoutPhoneHomeTextView"/>
+    android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/infoLayoutDirectionLinearLayout"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_alignParentLeft="true"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoLayoutNameButton"
+            style="@style/ButtonName"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="right"
+            android:layout_marginRight="5dp"
+            android:orientation="vertical">
+            <ImageButton
+                android:id="@+id/infoLayoutBookmarksButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="?android:attr/selectableItemBackground"
+                android:contentDescription="@string/favorites_title"
+                android:minWidth="48dp"
+                android:minHeight="48dp"
+                android:src="@drawable/ic_favorite_add" />
+            <com.google.android.material.textview.MaterialTextView
+                android:id="@+id/infoLayoutDistanceButton"
+                style="@style/TextViewDistance"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infoLayoutButtonsLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
         android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/infoLayoutDirectionButton"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_gravity="center"
-            android:background="?android:attr/selectableItemBackground"
-            android:contentDescription="@string/button"
-            android:scaleType="fitXY"
-            android:src="@drawable/btn_directions" />
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
-        <TextView
-            android:id="@+id/infoLayoutDistanceTextView"
-            style="@style/TextViewStandard"
-            android:layout_width="wrap_content"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/infoLayoutGetDirectionsButton"
+                style="@style/ButtonWithImage"
+                android:layout_weight="1"
+                android:text="@string/get_directions"
+                android:drawableTop="@drawable/btn_directions"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/infoLayoutCallPharmacyButton"
+                style="@style/ButtonWithImage"
+                android:layout_weight="1"
+                android:text="@string/call_pharmacy"
+                android:drawableTop="@drawable/btn_call_pharmacy"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/infoLayoutCallHomeButton"
+                style="@style/ButtonWithImage"
+                android:layout_weight="1"
+                android:text="@string/call_home"
+                android:drawableTop="@drawable/btn_call_home"/>
+        </LinearLayout>
     </LinearLayout>
-</RelativeLayout>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/infoLayoutAddressButton"
+        style="@style/ButtonAddress"/>
+
+    <LinearLayout
+        android:id="@+id/infoLayoutExpandableLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+        android:id="@+id/infoLayoutPhonePharmacyButton"
+        style="@style/ButtonPhonePharmacy"/>
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoLayoutPhoneHomeButton"
+            style="@style/ButtonPhoneHome"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infoLayoutNightLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.button.MaterialButton
+            style="@style/ButtonNight"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/infoLayoutExpandLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        android:orientation="vertical">
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+        <ImageButton
+            android:id="@+id/infoLayoutExpandButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/selectableItemBackground"
+            android:contentDescription="@string/expand"
+            android:src="@drawable/ic_expand_more" />
+    </LinearLayout>
+</LinearLayout>
+</ScrollView>
