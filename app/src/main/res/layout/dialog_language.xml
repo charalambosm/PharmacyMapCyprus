@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CardViewStandard">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardViewStandard"
+    android:elevation="4dp"
+    app:strokeWidth="1dip"
+    app:strokeColor="@color/black">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -13,7 +17,7 @@
             style="@style/CancelButtonStandard"
             android:contentDescription="@string/cancel" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/languageTextView"
             style="@style/TextViewHeading"
             android:layout_width="wrap_content"
@@ -30,14 +34,14 @@
             android:gravity="center"
             android:orientation="vertical">
 
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/englishRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/dark_green"
                 android:text="@string/english"/>
 
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/greekRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -53,4 +57,4 @@
             android:text="@string/save"/>
 
 </RelativeLayout>
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

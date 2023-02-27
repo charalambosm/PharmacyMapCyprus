@@ -1,13 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CardViewStandard">
+<com.google.android.material.card.MaterialCardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardViewStandard"
+    android:elevation="4dp"
+    app:strokeWidth="1dip"
+    app:strokeColor="@color/black">
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="5dp">
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/districtsTextView"
             style="@style/TextViewHeading"
             android:layout_width="wrap_content"
@@ -19,7 +24,7 @@
             style="@style/CancelButtonStandard"
             android:contentDescription="@string/cancel"/>
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/nicosiaCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -29,7 +34,7 @@
             android:buttonTint="@color/dark_green"
             android:text="@string/nicosia" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/limassolCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -39,7 +44,7 @@
             android:buttonTint="@color/dark_green"
             android:text="@string/limassol" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/larnacaCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -49,7 +54,7 @@
             android:buttonTint="@color/dark_green"
             android:text="@string/larnaca" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/paphosCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -59,7 +64,7 @@
             android:buttonTint="@color/dark_green"
             android:text="@string/paphos" />
 
-        <CheckBox
+        <com.google.android.material.checkbox.MaterialCheckBox
             android:id="@+id/famagustaCheckbox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,7 +74,7 @@
             android:buttonTint="@color/dark_green"
             android:text="@string/famagusta" />
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/filterDialogSaveButton"
             style="@style/ButtonStandard"
             android:layout_below="@id/famagustaCheckbox"
@@ -77,5 +82,4 @@
             android:text="@string/save"/>
 
     </RelativeLayout>
-
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     style="@style/LinearLayoutMain"
+    android:gravity="center_horizontal"
     tools:context=".Main.view.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,71 +13,117 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         app:titleMarginStart="24dp"
-        app:logo="@drawable/ic_home"
+        app:logo="@drawable/ic_logo"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="true"
         app:title="@string/main_menu" />
 
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/mapButton"
-        style="@style/ButtonStandard"
-        android:drawableLeft="@drawable/ic_map"
-        android:onClick="pharmacyMapCallback"
-        android:text="@string/map"/>
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        app:strokeWidth="1dip"
+        app:strokeColor="@color/black">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/mapButton"
+            style="@style/ButtonStandard"
+            android:drawableLeft="@drawable/ic_map"
+            android:onClick="pharmacyMapCallback"
+            android:text="@string/map"/>
+    </com.google.android.material.card.MaterialCardView>
+
+
+    <View
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        app:strokeWidth="1dip"
+        app:strokeColor="@color/black">
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/allPharmaciesButton"
         style="@style/ButtonStandard"
         android:drawableLeft="@drawable/ic_pharmacy"
         android:onClick="allPharmaciesCallback"
         android:text="@string/all_pharmacies_title"/>
+    </com.google.android.material.card.MaterialCardView>
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        app:strokeWidth="1dip"
+        app:strokeColor="@color/black">
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/nightPharmaciesButton"
         style="@style/ButtonStandard"
         android:drawableLeft="@drawable/ic_night"
         android:onClick="nightOnlyPharmaciesCallback"
         android:text="@string/night_title"/>
+    </com.google.android.material.card.MaterialCardView>
+
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        app:strokeWidth="1dip"
+        app:strokeColor="@color/black">
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/favoritePharmaciesButton"
         style="@style/ButtonStandard"
         android:drawableLeft="@drawable/ic_favorite"
         android:onClick="bookmarksPharmaciesCallback"
         android:text="@string/favorites_title"/>
+    </com.google.android.material.card.MaterialCardView>
 
     <View
         android:layout_width="wrap_content"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:cardCornerRadius="10dp"
+        android:elevation="4dp"
+        app:strokeWidth="1dip"
+        app:strokeColor="@color/black">
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/contactUsButton"
         style="@style/ButtonStandard"
         android:drawableLeft="@drawable/ic_support"
         android:onClick="contactUsCallback"
         android:text="@string/contact_us_title"/>
+    </com.google.android.material.card.MaterialCardView>
 
     <View
         android:layout_width="wrap_content"

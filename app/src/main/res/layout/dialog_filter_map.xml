@@ -1,7 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView
+<com.google.android.material.card.MaterialCardView
     xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/CardViewStandard">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/CardViewStandard"
+    android:elevation="4dp"
+    app:strokeWidth="1dip"
+    app:strokeColor="@color/black">
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -13,13 +17,12 @@
             style="@style/CancelButtonStandard"
             android:contentDescription="@string/cancel" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/mapFilterDialogHeading"
             style="@style/TextViewHeading"
             android:layout_width="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="@string/filters"/>
-
 
         <RadioGroup
             android:id="@+id/mapFilterDialogRadioGroup"
@@ -29,14 +32,14 @@
             android:layout_centerHorizontal="true"
             android:gravity="center"
             android:orientation="vertical">
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/mapFilterDialogAllPharmaciesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:buttonTint="@color/dark_green"
                 android:text="@string/all_pharmacies_title"/>
 
-            <RadioButton
+            <com.google.android.material.radiobutton.MaterialRadioButton
                 android:id="@+id/mapFilterDialogNightPharmaciesRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -44,7 +47,7 @@
                 android:text="@string/night_title"/>
         </RadioGroup>
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/mapFilterDialogSaveButton"
             style="@style/ButtonStandard"
             android:layout_below="@id/mapFilterDialogRadioGroup"
@@ -52,5 +55,5 @@
             android:text="@string/save"/>
     </RelativeLayout>
 
-</androidx.cardview.widget.CardView>
+</com.google.android.material.card.MaterialCardView>
 
