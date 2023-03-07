@@ -9,6 +9,9 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.text.Normalizer;
+import java.util.HashMap;
+
 public class Pharmacy implements Parcelable, ClusterItem {
     private int id;
     private String firstName;
@@ -24,6 +27,7 @@ public class Pharmacy implements Parcelable, ClusterItem {
     private String firstNameNormalized;
     private String lastNameNormalized;
     private String addressNormalized;
+    private HashMap<String, String> openingTimes;
 
     @SuppressWarnings("unused")
     public Pharmacy() {}
@@ -40,6 +44,8 @@ public class Pharmacy implements Parcelable, ClusterItem {
         latitude = in.readDouble();
         longitude = in.readDouble();
         distance = in.readDouble();
+        openingTimes = new HashMap<>();
+        in.readMap(openingTimes, String.class.getClassLoader());
     }
 
     public static final Creator<Pharmacy> CREATOR = new Creator<Pharmacy>() {
@@ -53,6 +59,12 @@ public class Pharmacy implements Parcelable, ClusterItem {
             return new Pharmacy[size];
         }
     };
+
+    public void postProcess() {
+        addressNormalized = normalizeText(address);
+        firstNameNormalized = normalizeText(firstName);
+        lastNameNormalized = normalizeText(lastName);
+    }
 
     public int getId() {
         return id;
@@ -104,24 +116,21 @@ public class Pharmacy implements Parcelable, ClusterItem {
         return firstNameNormalized;
     }
 
-    public void setFirstNameNormalized(String firstNameNormalized) {
-        this.firstNameNormalized = firstNameNormalized;
-    }
-
     public String getLastNameNormalized() {
         return lastNameNormalized;
-    }
-
-    public void setLastNameNormalized(String lastNameNormalized) {
-        this.lastNameNormalized = lastNameNormalized;
     }
 
     public String getAddressNormalized() {
         return addressNormalized;
     }
 
-    public void setAddressNormalized(String addressNormalized) {
-        this.addressNormalized = addressNormalized;
+    public HashMap<String, String> getOpeningTimes() {
+        return openingTimes;
+    }
+
+    private String normalizeText(String text) {
+        String normalizedText = Normalizer.normalize(text, Normalizer.Form.NFD);
+        return normalizedText.replaceAll("\\p{M}", "");
     }
 
     @Override
@@ -142,6 +151,7 @@ public class Pharmacy implements Parcelable, ClusterItem {
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
         parcel.writeDouble(distance);
+        parcel.writeMap(openingTimes);
     }
 
     @NonNull

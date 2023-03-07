@@ -53,4 +53,8 @@
     <string name="get_directions">Get\nDirections</string>
     <string name="call_pharmacy">Call\nPharmacy</string>
     <string name="call_home">Call\nHome</string>
+    <string name="closes_at">Closes at %s</string>
+    <string name="opens_at">Opens at %s</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
 </resources>

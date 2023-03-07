@@ -120,6 +120,13 @@
         <item name="android:drawableRight">@drawable/ic_chevron_right</item>
     </style>
 
+    <style name="ButtonOpeningTimes" parent="ButtonStandard">
+        <item name="android:gravity">center_vertical</item>
+        <item name="android:clickable">false</item>
+        <item name="android:drawableLeft">@drawable/ic_opening_times</item>
+        <item name="android:layout_marginRight">0dp</item>
+    </style>
+
     <style name="TextViewDistance" parent="ButtonStandard">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_marginTop">0dp</item>

@@ -90,6 +90,26 @@
         android:id="@+id/infoLayoutAddressButton"
         style="@style/ButtonAddress"/>
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoLayoutIsOpenButton"
+            style="@style/ButtonOpeningTimes"/>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/infoLayoutIsOpenDetailsButton"
+            android:layout_toRightOf="@id/infoLayoutIsOpenButton"
+            android:clickable="false"
+            android:layout_marginLeft="0dp"
+            android:gravity="center_vertical"
+            style="@style/ButtonStandard"/>
+    </RelativeLayout>
+
     <LinearLayout
         android:id="@+id/infoLayoutExpandableLayout"
         android:layout_width="match_parent"

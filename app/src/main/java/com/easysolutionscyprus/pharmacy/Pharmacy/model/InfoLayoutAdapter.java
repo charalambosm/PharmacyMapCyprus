@@ -15,6 +15,8 @@ import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.R;
 import com.google.android.material.button.MaterialButton;
 
+import java.time.LocalTime;
+import java.time.ZoneId;
 import java.util.Locale;
 
 public class InfoLayoutAdapter {
@@ -23,10 +25,18 @@ public class InfoLayoutAdapter {
     private final Context context;
     private final Favorites favorites;
     private final MaterialButton buttonName, buttonAddress, buttonPhonePharmacy,
-            buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome;
+            buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome,
+            buttonIsOpen, buttonIsOpenDetails;
     private final TextView buttonDistance;
     private final LinearLayout expandableLayout, nightLayout;
     private final ImageButton buttonBookmark, buttonExpand;
+
+    enum OpeningTimesSlot {
+        OPEN_FIRST,
+        CLOSED_LUNCH_BREAK,
+        OPEN_SECOND,
+        CLOSED_NEXT_DAY
+    }
 
     private InfoLayoutAdapter(InfoLayoutAdapterBuilder infoLayoutAdapterBuilder) {
         context = infoLayoutAdapterBuilder.context;
@@ -38,6 +48,8 @@ public class InfoLayoutAdapter {
         buttonPhoneHome = infoLayoutAdapterBuilder.buttonPhoneHome;
         buttonBookmark = infoLayoutAdapterBuilder.buttonBookmark;
         buttonExpand = infoLayoutAdapterBuilder.buttonExpand;
+        buttonIsOpen = infoLayoutAdapterBuilder.buttonIsOpen;
+        buttonIsOpenDetails = infoLayoutAdapterBuilder.buttonIsOpenDetails;
         buttonGetDirections = infoLayoutAdapterBuilder.buttonGetDirections;
         buttonCallPharmacy = infoLayoutAdapterBuilder.buttonCallPharmacy;
         buttonCallHome = infoLayoutAdapterBuilder.buttonCallHome;
@@ -48,7 +60,8 @@ public class InfoLayoutAdapter {
     public static class InfoLayoutAdapterBuilder {
         private final Context context;
         private final MaterialButton buttonName, buttonAddress, buttonPhonePharmacy,
-                buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome;
+                buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome,
+                buttonIsOpen, buttonIsOpenDetails;
         private final TextView buttonDistance;
         private final LinearLayout buttonLayout, expandableLayout, nightLayout, expandLayout;
         private final ImageButton buttonBookmark, buttonExpand;
@@ -62,6 +75,8 @@ public class InfoLayoutAdapter {
             buttonPhoneHome = itemView.findViewById(R.id.infoLayoutPhoneHomeButton);
             buttonLayout = itemView.findViewById(R.id.infoLayoutButtonsLayout);
             buttonDistance = itemView.findViewById(R.id.infoLayoutDistanceButton);
+            buttonIsOpen = itemView.findViewById(R.id.infoLayoutIsOpenButton);
+            buttonIsOpenDetails = itemView.findViewById(R.id.infoLayoutIsOpenDetailsButton);
             buttonGetDirections = itemView.findViewById(R.id.infoLayoutGetDirectionsButton);
             buttonCallPharmacy = itemView.findViewById(R.id.infoLayoutCallPharmacyButton);
             buttonCallHome = itemView.findViewById(R.id.infoLayoutCallHomeButton);
@@ -80,6 +95,8 @@ public class InfoLayoutAdapter {
             buttonPhoneHome = activity.findViewById(R.id.infoLayoutPhoneHomeButton);
             buttonLayout = activity.findViewById(R.id.infoLayoutButtonsLayout);
             buttonDistance = activity.findViewById(R.id.infoLayoutDistanceButton);
+            buttonIsOpen = activity.findViewById(R.id.infoLayoutIsOpenButton);
+            buttonIsOpenDetails = activity.findViewById(R.id.infoLayoutIsOpenDetailsButton);
             buttonGetDirections = activity.findViewById(R.id.infoLayoutGetDirectionsButton);
             buttonCallPharmacy = activity.findViewById(R.id.infoLayoutCallPharmacyButton);
             buttonCallHome = activity.findViewById(R.id.infoLayoutCallHomeButton);
@@ -147,10 +164,82 @@ public class InfoLayoutAdapter {
             buttonDistance.setVisibility(View.VISIBLE);
             buttonDistance.setText(String.format(Locale.getDefault(), "~ %3.1f km",pharmacy.getDistance()));
         }
+        setIsOpenButtonText();
+        buttonIsOpenDetails.setText(getIsOpenDetailsString());
         updateBookmarkButtonDrawable();
         buttonBookmark.setOnClickListener(view -> infoLayoutBookmarkButtonCallback());
         buttonGetDirections.setOnClickListener(view -> infoLayoutDirectionButtonCallback());
         buttonExpand.setOnClickListener(view -> infoExpandButtonCallback());
+    }
+
+    private void setIsOpenButtonText() {
+        if (findOpeningTimesSlot() == OpeningTimesSlot.OPEN_FIRST ||
+                findOpeningTimesSlot() == OpeningTimesSlot.OPEN_SECOND) {
+            buttonIsOpen.setTextColor(context.getColor(R.color.green));
+            buttonIsOpen.setText(R.string.open);
+        } else {
+            buttonIsOpen.setTextColor(context.getColor(R.color.red));
+            buttonIsOpen.setText(R.string.closed);
+        }
+    }
+
+    private String getIsOpenDetailsString() {
+        switch(findOpeningTimesSlot()) {
+            case OPEN_FIRST:
+                return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimes().get("end1"));
+            case CLOSED_LUNCH_BREAK:
+                return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimes().get("start2"));
+            case OPEN_SECOND:
+                return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimes().get("end2"));
+            case CLOSED_NEXT_DAY:
+                return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimes().get("start1"));
+            default:
+                return "";
+        }
+    }
+
+    private OpeningTimesSlot findOpeningTimesSlot() {
+        // First get local time in Cyprus
+        LocalTime currentTimeInCyprus = getCurrentTimeInCyprus();
+
+        // Read all pharmacy opening times
+        String start1 = pharmacy.getOpeningTimes().get("start1");
+        String end1 = pharmacy.getOpeningTimes().get("end1");
+        String start2 = pharmacy.getOpeningTimes().get("start2");
+        String end2 = pharmacy.getOpeningTimes().get("end2");
+
+        // Check first time period
+        LocalTime startTime1 = LocalTime.parse(start1);
+        LocalTime endTime1 = LocalTime.parse(end1);
+        if (currentTimeInCyprus.isAfter(startTime1) && currentTimeInCyprus.isBefore(endTime1)) {
+            return OpeningTimesSlot.OPEN_FIRST;
+        }
+
+        // If there is not second time slot, then the pharmacy will open in the morning again
+        if (start2 == null && end2 == null) {
+            return OpeningTimesSlot.CLOSED_NEXT_DAY;
+        }
+
+        // Check second time period
+        LocalTime startTime2 = LocalTime.parse(start2);
+        LocalTime endTime2 = LocalTime.parse(end2);
+        if (currentTimeInCyprus.isAfter(startTime2) && currentTimeInCyprus.isBefore(endTime2)) {
+            return OpeningTimesSlot.OPEN_SECOND;
+        }
+
+        // Check if it is during lunch break
+        if (currentTimeInCyprus.isAfter(endTime1) && currentTimeInCyprus.isBefore(startTime2)) {
+            return OpeningTimesSlot.CLOSED_LUNCH_BREAK;
+        }
+
+        // Otherwise it will be open the next day (or morning)
+        return OpeningTimesSlot.CLOSED_NEXT_DAY;
+    }
+
+    private LocalTime getCurrentTimeInCyprus() {
+        // Get current time in Nicosia
+        ZoneId nicosiaZoneId = ZoneId.of("Asia/Nicosia");
+        return LocalTime.now(nicosiaZoneId);
     }
 
     private void infoLayoutAddressButtonCallback() {

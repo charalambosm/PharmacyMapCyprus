@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.easysolutionscyprus.pharmacy"
-        minSdk 24
+        minSdk 26
         targetSdk 33
         versionCode 6
         versionName "1.1"

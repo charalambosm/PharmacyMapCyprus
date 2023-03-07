@@ -47,4 +47,8 @@
     <string name="call_pharmacy">Κλήση\nφαρμακείο</string>
     <string name="distance">Απόσταση</string>
     <string name="call_home">Κλήση\nσπίτι</string>
+    <string name="closes_at">Κλείνει %s</string>
+    <string name="opens_at">Ανοίγει %s</string>
+    <string name="open">Αννοιχτό</string>
+    <string name="closed">Κλειστό</string>
 </resources>
