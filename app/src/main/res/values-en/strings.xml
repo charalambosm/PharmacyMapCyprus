@@ -22,6 +22,7 @@
     <string name="favorites_title">Favorites</string>
     <string name="all_pharmacies_title">All pharmacies</string>
     <string name="night_title">Night pharmacies today</string>
+    <string name="night_title_btn">Night pharmacies\ntoday</string>
     <string name="districts">Districts</string>
     <string name="nicosia">Nicosia</string>
     <string name="limassol">Limassol</string>

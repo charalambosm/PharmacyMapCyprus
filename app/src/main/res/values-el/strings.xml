@@ -22,6 +22,7 @@
     <string name="favorites_title">Αγαπημένα</string>
     <string name="all_pharmacies_title">Όλα τα φαρμακεία</string>
     <string name="night_title">Διημερεύον σήμερα</string>
+    <string name="night_title_btn">Διημερεύον\nσήμερα</string>
     <string name="districts">Επαρχίες</string>
     <string name="nicosia">Λευκωσία</string>
     <string name="limassol">Λεμεσός</string>

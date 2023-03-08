@@ -26,53 +26,12 @@
         <item name="android:textSize">20sp</item>
     </style>
 
-    <style name="TextViewContact" parent="TextViewStandard">
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawableLeft">@drawable/ic_person</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:hint">@string/full_name</item>
-    </style>
-
-    <style name="TextViewPhonePharmacy" parent="TextViewStandard">
-        <item name="android:drawableLeft">@drawable/ic_phone_pharmacy</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:autoLink">phone</item>
-        <item name="android:hint">@string/phone</item>
-    </style>
-
-    <style name="TextViewPhoneHome" parent="TextViewStandard">
-        <item name="android:drawableLeft">@drawable/ic_phone_home</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:lineSpacingExtra">4sp</item>
-        <item name="android:autoLink">phone</item>
-        <item name="android:hint">@string/phone</item>
-    </style>
-
-    <style name="TextViewAddress" parent="TextViewStandard">
-        <item name="android:drawableLeft">@drawable/ic_location</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:hint">@string/address</item>
-    </style>
 
     <style name="TextViewWarning" parent="TextViewStandard">
         <item name="android:layout_gravity">center</item>
         <item name="android:drawableLeft">@drawable/ic_warning</item>
         <item name="android:paddingLeft">5dp</item>
         <item name="android:drawablePadding">10dp</item>
-    </style>
-
-    <style name="TextViewNight" parent="TextViewStandard">
-        <item name="android:layout_gravity">center</item>
-        <item name="android:drawableLeft">@drawable/ic_night</item>
-        <item name="android:paddingLeft">5dp</item>
-        <item name="android:drawablePadding">10dp</item>
-        <item name="android:textStyle">bold</item>
-        <item name="android:text">@string/night_pharmacy</item>
     </style>
 
     <style name="EditTextStandard" parent="@android:style/Widget.EditText">
@@ -159,17 +118,14 @@
         <item name="android:text">@string/night_pharmacy</item>
     </style>
 
-    <style name="CancelButtonStandard" parent="">
-        <item name="android:layout_width">wrap_content</item>
-        <item name="android:layout_height">wrap_content</item>
+    <style name="CancelButtonStandard" parent="ButtonWithImage">
+        <item name="android:layout_marginTop">0dp</item>
+        <item name="android:layout_marginBottom">0dp</item>
         <item name="android:layout_alignParentRight">true</item>
         <item name="android:layout_alignParentTop">true</item>
-        <item name="android:background">?android:attr/selectableItemBackground</item>
         <item name="android:minWidth">36dp</item>
         <item name="android:minHeight">36dp</item>
         <item name="android:src">@drawable/ic_close</item>
         <item name="android:contentDescription">Cancel</item>
     </style>
-
-    <string name="distance">Distance</string>
 </resources>

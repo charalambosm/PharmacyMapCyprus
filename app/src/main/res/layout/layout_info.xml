@@ -64,7 +64,7 @@
                 style="@style/ButtonWithImage"
                 android:layout_weight="1"
                 android:text="@string/get_directions"
-                android:drawableTop="@drawable/btn_directions"/>
+                android:drawableTop="@drawable/btn_get_directions"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/infoLayoutCallPharmacyButton"
@@ -94,21 +94,23 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
         <com.google.android.material.button.MaterialButton
             android:id="@+id/infoLayoutIsOpenButton"
             style="@style/ButtonOpeningTimes"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/infoLayoutIsOpenDetailsButton"
-            android:layout_toRightOf="@id/infoLayoutIsOpenButton"
+            android:layout_weight="1"
             android:clickable="false"
             android:layout_marginLeft="0dp"
             android:gravity="center_vertical"
-            style="@style/ButtonStandard"/>
-    </RelativeLayout>
+            style="@style/ButtonStandard"
+            android:layout_width="0dp" />
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/infoLayoutExpandableLayout"

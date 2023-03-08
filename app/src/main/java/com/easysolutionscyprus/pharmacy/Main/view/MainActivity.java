@@ -118,7 +118,7 @@ public class MainActivity extends TranslatableActivity {
         lastUpdatedLabel.setText(getString(R.string.last_updated));
         pharmacyMapButton.setText(R.string.map);
         allPharmaciesButton.setText(getString(R.string.all_pharmacies_title));
-        nightPharmaciesButton.setText(getString(R.string.night_title));
+        nightPharmaciesButton.setText(getString(R.string.night_title_btn));
         favoritePharmaciesButton.setText(getString(R.string.favorites_title));
         contactUsButton.setText(getString(R.string.contact_us_title));
         toolbar.setTitle(getString(R.string.main_menu));

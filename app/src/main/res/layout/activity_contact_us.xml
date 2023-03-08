@@ -97,9 +97,10 @@
         </LinearLayout>
 
 
-        <Button
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/sendButton"
             style="@style/ButtonStandard"
+            android:layout_gravity="center"
             android:text="@string/send"/>
 
         <View
