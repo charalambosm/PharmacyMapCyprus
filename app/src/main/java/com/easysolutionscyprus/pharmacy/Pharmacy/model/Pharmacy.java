@@ -10,7 +10,9 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
 import java.text.Normalizer;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Pharmacy implements Parcelable, ClusterItem {
     private int id;
@@ -18,7 +20,6 @@ public class Pharmacy implements Parcelable, ClusterItem {
     private String lastName;
     private String address;
     private String district;
-    private boolean night;
     private int phone;
     private int homePhone;
     private double latitude;
@@ -27,7 +28,8 @@ public class Pharmacy implements Parcelable, ClusterItem {
     private String firstNameNormalized;
     private String lastNameNormalized;
     private String addressNormalized;
-    private HashMap<String, String> openingTimes;
+    private List<Boolean> nightList;
+    private List<HashMap<String, String>> openingTimesList;
 
     @SuppressWarnings("unused")
     public Pharmacy() {}
@@ -38,14 +40,15 @@ public class Pharmacy implements Parcelable, ClusterItem {
         lastName = in.readString();
         address = in.readString();
         district = in.readString();
-        night = in.readByte() != 0;
+        nightList = new ArrayList<>();
+        in.readList(nightList, Boolean.class.getClassLoader());
         phone = in.readInt();
         homePhone = in.readInt();
         latitude = in.readDouble();
         longitude = in.readDouble();
         distance = in.readDouble();
-        openingTimes = new HashMap<>();
-        in.readMap(openingTimes, String.class.getClassLoader());
+        openingTimesList = new ArrayList<>();
+        in.readList(openingTimesList, HashMap.class.getClassLoader());
     }
 
     public static final Creator<Pharmacy> CREATOR = new Creator<Pharmacy>() {
@@ -87,7 +90,7 @@ public class Pharmacy implements Parcelable, ClusterItem {
     }
 
     public boolean isNight() {
-        return night;
+        return nightList.get(0);
     }
 
     public int getPhone() {
@@ -125,7 +128,7 @@ public class Pharmacy implements Parcelable, ClusterItem {
     }
 
     public HashMap<String, String> getOpeningTimes() {
-        return openingTimes;
+        return openingTimesList.get(0);
     }
 
     private String normalizeText(String text) {
@@ -145,13 +148,13 @@ public class Pharmacy implements Parcelable, ClusterItem {
         parcel.writeString(lastName);
         parcel.writeString(address);
         parcel.writeString(district);
-        parcel.writeByte((byte) (night ? 1 : 0));
+        parcel.writeList(nightList);
         parcel.writeInt(phone);
         parcel.writeInt(homePhone);
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
         parcel.writeDouble(distance);
-        parcel.writeMap(openingTimes);
+        parcel.writeList(openingTimesList);
     }
 
     @NonNull
@@ -170,5 +173,13 @@ public class Pharmacy implements Parcelable, ClusterItem {
     @Override
     public String getSnippet() {
         return null;
+    }
+
+    public List<Boolean> getNightList() {
+        return nightList;
+    }
+
+    public List<HashMap<String, String>> getOpeningTimesList() {
+        return openingTimesList;
     }
 }
