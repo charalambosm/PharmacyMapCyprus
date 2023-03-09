@@ -5,12 +5,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.telephony.PhoneNumberUtils;
-import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.MapsActivity;
@@ -182,11 +179,6 @@ public class InfoLayoutAdapter {
 
         public InfoLayoutAdapterBuilder withExpandLayout() {
             expandLayout.setVisibility(View.VISIBLE);
-            return this;
-        }
-
-        public InfoLayoutAdapterBuilder withActionBarHeight(int height) {
-            Log.d("EXPAND_LAYOUT", String.valueOf(height));
             return this;
         }
 
