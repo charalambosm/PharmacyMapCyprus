@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.telephony.PhoneNumberUtils;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.MapsActivity;
@@ -15,9 +18,15 @@ import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.R;
 import com.google.android.material.button.MaterialButton;
 
+import java.text.SimpleDateFormat;
 import java.time.LocalTime;
 import java.time.ZoneId;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.TimeZone;
 
 public class InfoLayoutAdapter {
     Pharmacy pharmacy;
@@ -28,10 +37,13 @@ public class InfoLayoutAdapter {
             buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome,
             buttonIsOpen, buttonIsOpenDetails;
     private final TextView buttonDistance;
-    private final LinearLayout expandableLayout, nightLayout;
+    private final LinearLayout expandableLayout, nightLayout, buttonLayout;
     private final ImageButton buttonBookmark, buttonExpand;
+    private final List<MaterialButton> scheduleTimeList = new ArrayList<>();
+    private final List<MaterialButton> scheduleDayList = new ArrayList<>();
+    private final View marginView;
 
-    enum OpeningTimesSlot {
+    enum openingTimesSlot {
         OPEN_FIRST,
         CLOSED_LUNCH_BREAK,
         OPEN_SECOND,
@@ -49,12 +61,28 @@ public class InfoLayoutAdapter {
         buttonBookmark = infoLayoutAdapterBuilder.buttonBookmark;
         buttonExpand = infoLayoutAdapterBuilder.buttonExpand;
         buttonIsOpen = infoLayoutAdapterBuilder.buttonIsOpen;
+        buttonLayout = infoLayoutAdapterBuilder.buttonLayout;
         buttonIsOpenDetails = infoLayoutAdapterBuilder.buttonIsOpenDetails;
         buttonGetDirections = infoLayoutAdapterBuilder.buttonGetDirections;
         buttonCallPharmacy = infoLayoutAdapterBuilder.buttonCallPharmacy;
         buttonCallHome = infoLayoutAdapterBuilder.buttonCallHome;
         expandableLayout = infoLayoutAdapterBuilder.expandableLayout;
         nightLayout = infoLayoutAdapterBuilder.nightLayout;
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay1);
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay2);
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay3);
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay4);
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay5);
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay6);
+        scheduleDayList.add(infoLayoutAdapterBuilder.scheduleDay7);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime1);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime2);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime3);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime4);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime5);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime6);
+        scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime7);
+        marginView = infoLayoutAdapterBuilder.marginView;
     }
 
     public static class InfoLayoutAdapterBuilder {
@@ -65,6 +93,11 @@ public class InfoLayoutAdapter {
         private final TextView buttonDistance;
         private final LinearLayout buttonLayout, expandableLayout, nightLayout, expandLayout;
         private final ImageButton buttonBookmark, buttonExpand;
+        private final MaterialButton scheduleDay1, scheduleDay2, scheduleDay3, scheduleDay4,
+                scheduleDay5, scheduleDay6, scheduleDay7;
+        private final MaterialButton scheduleTime1, scheduleTime2, scheduleTime3, scheduleTime4,
+                scheduleTime5, scheduleTime6, scheduleTime7;
+        private final View marginView;
 
         public InfoLayoutAdapterBuilder(View itemView) {
             context = itemView.getContext();
@@ -84,6 +117,21 @@ public class InfoLayoutAdapter {
             nightLayout = itemView.findViewById(R.id.infoLayoutNightLayout);
             buttonExpand = itemView.findViewById(R.id.infoLayoutExpandButton);
             expandLayout = itemView.findViewById(R.id.infoLayoutExpandLayout);
+            scheduleDay1 = itemView.findViewById(R.id.scheduleDay1);
+            scheduleDay2 = itemView.findViewById(R.id.scheduleDay2);
+            scheduleDay3 = itemView.findViewById(R.id.scheduleDay3);
+            scheduleDay4 = itemView.findViewById(R.id.scheduleDay4);
+            scheduleDay5 = itemView.findViewById(R.id.scheduleDay5);
+            scheduleDay6 = itemView.findViewById(R.id.scheduleDay6);
+            scheduleDay7 = itemView.findViewById(R.id.scheduleDay7);
+            scheduleTime1 = itemView.findViewById(R.id.scheduleTime1);
+            scheduleTime2 = itemView.findViewById(R.id.scheduleTime2);
+            scheduleTime3 = itemView.findViewById(R.id.scheduleTime3);
+            scheduleTime4 = itemView.findViewById(R.id.scheduleTime4);
+            scheduleTime5 = itemView.findViewById(R.id.scheduleTime5);
+            scheduleTime6 = itemView.findViewById(R.id.scheduleTime6);
+            scheduleTime7 = itemView.findViewById(R.id.scheduleTime7);
+            marginView = itemView.findViewById(R.id.marginView);
         }
 
         public InfoLayoutAdapterBuilder(Activity activity) {
@@ -104,6 +152,21 @@ public class InfoLayoutAdapter {
             nightLayout = activity.findViewById(R.id.infoLayoutNightLayout);
             buttonExpand = activity.findViewById(R.id.infoLayoutExpandButton);
             expandLayout = activity.findViewById(R.id.infoLayoutExpandLayout);
+            scheduleDay1 = activity.findViewById(R.id.scheduleDay1);
+            scheduleDay2 = activity.findViewById(R.id.scheduleDay2);
+            scheduleDay3 = activity.findViewById(R.id.scheduleDay3);
+            scheduleDay4 = activity.findViewById(R.id.scheduleDay4);
+            scheduleDay5 = activity.findViewById(R.id.scheduleDay5);
+            scheduleDay6 = activity.findViewById(R.id.scheduleDay6);
+            scheduleDay7 = activity.findViewById(R.id.scheduleDay7);
+            scheduleTime1 = activity.findViewById(R.id.scheduleTime1);
+            scheduleTime2 = activity.findViewById(R.id.scheduleTime2);
+            scheduleTime3 = activity.findViewById(R.id.scheduleTime3);
+            scheduleTime4 = activity.findViewById(R.id.scheduleTime4);
+            scheduleTime5 = activity.findViewById(R.id.scheduleTime5);
+            scheduleTime6 = activity.findViewById(R.id.scheduleTime6);
+            scheduleTime7 = activity.findViewById(R.id.scheduleTime7);
+            marginView = activity.findViewById(R.id.marginView);
         }
 
         public InfoLayoutAdapterBuilder withAddressButtonDisabled() {
@@ -119,6 +182,11 @@ public class InfoLayoutAdapter {
 
         public InfoLayoutAdapterBuilder withExpandLayout() {
             expandLayout.setVisibility(View.VISIBLE);
+            return this;
+        }
+
+        public InfoLayoutAdapterBuilder withActionBarHeight(int height) {
+            Log.d("EXPAND_LAYOUT", String.valueOf(height));
             return this;
         }
 
@@ -170,11 +238,12 @@ public class InfoLayoutAdapter {
         buttonBookmark.setOnClickListener(view -> infoLayoutBookmarkButtonCallback());
         buttonGetDirections.setOnClickListener(view -> infoLayoutDirectionButtonCallback());
         buttonExpand.setOnClickListener(view -> infoExpandButtonCallback());
+        updateScheduleTable();
     }
 
     private void setIsOpenButtonText() {
-        if (findOpeningTimesSlot() == OpeningTimesSlot.OPEN_FIRST ||
-                findOpeningTimesSlot() == OpeningTimesSlot.OPEN_SECOND) {
+        if (findOpeningTimeSlot() == openingTimesSlot.OPEN_FIRST ||
+                findOpeningTimeSlot() == openingTimesSlot.OPEN_SECOND) {
             buttonIsOpen.setTextColor(context.getColor(R.color.green));
             buttonIsOpen.setText(R.string.open);
         } else {
@@ -184,7 +253,7 @@ public class InfoLayoutAdapter {
     }
 
     private String getIsOpenDetailsString() {
-        switch(findOpeningTimesSlot()) {
+        switch(findOpeningTimeSlot()) {
             case OPEN_FIRST:
                 return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimes().get("end1"));
             case CLOSED_LUNCH_BREAK:
@@ -198,7 +267,7 @@ public class InfoLayoutAdapter {
         }
     }
 
-    private OpeningTimesSlot findOpeningTimesSlot() {
+    private openingTimesSlot findOpeningTimeSlot() {
         // First get local time in Cyprus
         LocalTime currentTimeInCyprus = getCurrentTimeInCyprus();
 
@@ -212,34 +281,68 @@ public class InfoLayoutAdapter {
         LocalTime startTime1 = LocalTime.parse(start1);
         LocalTime endTime1 = LocalTime.parse(end1);
         if (currentTimeInCyprus.isAfter(startTime1) && currentTimeInCyprus.isBefore(endTime1)) {
-            return OpeningTimesSlot.OPEN_FIRST;
+            return openingTimesSlot.OPEN_FIRST;
         }
 
         // If there is not second time slot, then the pharmacy will open in the morning again
         if (start2 == null && end2 == null) {
-            return OpeningTimesSlot.CLOSED_NEXT_DAY;
+            return openingTimesSlot.CLOSED_NEXT_DAY;
         }
 
         // Check second time period
         LocalTime startTime2 = LocalTime.parse(start2);
         LocalTime endTime2 = LocalTime.parse(end2);
         if (currentTimeInCyprus.isAfter(startTime2) && currentTimeInCyprus.isBefore(endTime2)) {
-            return OpeningTimesSlot.OPEN_SECOND;
+            return openingTimesSlot.OPEN_SECOND;
         }
 
         // Check if it is during lunch break
         if (currentTimeInCyprus.isAfter(endTime1) && currentTimeInCyprus.isBefore(startTime2)) {
-            return OpeningTimesSlot.CLOSED_LUNCH_BREAK;
+            return openingTimesSlot.CLOSED_LUNCH_BREAK;
         }
 
         // Otherwise it will be open the next day (or morning)
-        return OpeningTimesSlot.CLOSED_NEXT_DAY;
+        return openingTimesSlot.CLOSED_NEXT_DAY;
     }
 
     private LocalTime getCurrentTimeInCyprus() {
         // Get current time in Nicosia
-        ZoneId nicosiaZoneId = ZoneId.of("Asia/Nicosia");
+        ZoneId nicosiaZoneId = ZoneId.of("Europe/Athens");
         return LocalTime.now(nicosiaZoneId);
+    }
+
+    private void updateScheduleTable() {
+        // Set the timezone to Nicosia
+        TimeZone nicosiaTimezone = TimeZone.getTimeZone("Europe/Athens");
+        Calendar calendar = Calendar.getInstance(nicosiaTimezone);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+
+        for (int i = 0; i < scheduleDayList.size(); i++) {
+            if (i!=0) {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
+            }
+            scheduleDayList.get(i).setText(dateFormat.format(calendar.getTime()));
+            if (pharmacy.getOpeningTimesList().get(i) == null) {
+                // Case where the pharmacy is closed (holiday or a Sunday)
+                scheduleTimeList.get(i).setTextColor(context.getColor(R.color.red));
+                scheduleTimeList.get(i).setText(context.getString(R.string.closed));
+            } else {
+                scheduleTimeList.get(i).setText(getOpeningTimesString(
+                        pharmacy.getOpeningTimesList().get(i)));
+            }
+        }
+    }
+
+    private String getOpeningTimesString(HashMap<String, String> openingTimes) {
+        // Case where the pharmacy is open for two time periods in one day
+        String str1 = String.join("-",openingTimes.get("start1"), openingTimes.get("end1"));
+        if (openingTimes.get("start2") != null) {
+            String str2 = String.join("-",openingTimes.get("start2"), openingTimes.get("end2"));
+            return String.join("\n", str1, str2);
+        }
+
+        // Case where the pharmacy is open for one time period in one day
+        return str1;
     }
 
     private void infoLayoutAddressButtonCallback() {
@@ -297,14 +400,18 @@ public class InfoLayoutAdapter {
 
     private void expandLayout() {
         isExpanded = true;
+        buttonLayout.setVisibility(View.VISIBLE);
         expandableLayout.setVisibility(View.VISIBLE);
         buttonExpand.setImageResource(R.drawable.ic_expand_less);
+        marginView.setVisibility(View.VISIBLE);
     }
 
     private void collapseLayout() {
         isExpanded = false;
+        buttonLayout.setVisibility(View.GONE);
         expandableLayout.setVisibility(View.GONE);
         buttonExpand.setImageResource(R.drawable.ic_expand_more);
+        marginView.setVisibility(View.GONE);
     }
 
     private void infoExpandButtonCallback() {

@@ -11,6 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="true"
         app:title="@string/map"
@@ -26,16 +27,23 @@
         android:layout_height="wrap_content"
         tools:context=".Pharmacy.view.MapsActivity" />
 
-        <com.google.android.material.card.MaterialCardView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_above="@+id/adView">
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mapsActivityInfoCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:visibility="invisible"
-        android:layout_above="@+id/adView">
-        <include layout="@layout/layout_info"
-            android:id="@+id/mapsActivityInfoLayout"/>
-        </com.google.android.material.card.MaterialCardView>
+        android:background="@color/transparent"
+        android:visibility="invisible">
+        <include
+            android:id="@+id/mapsActivityInfoLayout"
+            layout="@layout/layout_info" />
+    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
+
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"

@@ -20,9 +20,9 @@ public abstract class TranslatableActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         translateActivity();
         setContentView(withLayout());
+        configureToolbar();
         configureViews();
         executeOnCreateActions();
-        configureToolbar();
         configureAds();
     }
 

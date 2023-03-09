@@ -11,7 +11,7 @@ public class MyHolder extends RecyclerView.ViewHolder{
     public MyHolder(@NonNull View itemView) {
         super(itemView);
         infoLayoutAdapter = new InfoLayoutAdapter.InfoLayoutAdapterBuilder(itemView)
-                .withExpandLayout().build();
+                .build();
     }
 }
 

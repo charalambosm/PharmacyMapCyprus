@@ -59,4 +59,5 @@
     <string name="open">Open</string>
     <string name="closed">Closed</string>
     <string name="distance">Distance</string>
+    <string name="working_hours">Working Hours</string>
 </resources>

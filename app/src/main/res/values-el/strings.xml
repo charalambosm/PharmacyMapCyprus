@@ -50,6 +50,7 @@
     <string name="call_home">Κλήση\nσπίτι</string>
     <string name="closes_at">Κλείνει %s</string>
     <string name="opens_at">Ανοίγει %s</string>
-    <string name="open">Αννοιχτό</string>
+    <string name="open">Ανοιχτό</string>
     <string name="closed">Κλειστό</string>
+    <string name="working_hours">Ώρες Λειτουργείας</string>
 </resources>
