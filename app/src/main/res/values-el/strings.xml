@@ -54,4 +54,6 @@
     <string name="closed">Κλειστό</string>
     <string name="working_hours">Ώρες Λειτουργείας</string>
     <string name="settings">Επιλογές</string>
+    <string name="disconnected_opening_times">Δεν είναι δυνατή η ανάκτηση πληροφοριών για τις ώρες λειτουργίας. Ελέγξτε την κατάσταση της σύνδεσής σας.</string>
+
 </resources>

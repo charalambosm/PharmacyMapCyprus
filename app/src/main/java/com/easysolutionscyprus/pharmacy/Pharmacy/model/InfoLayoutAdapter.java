@@ -1,5 +1,7 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 
+import static com.easysolutionscyprus.pharmacy.Main.view.MainActivity.databaseReference;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,7 @@ import android.telephony.PhoneNumberUtils;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
 import android.widget.TextView;
 
 import com.easysolutionscyprus.pharmacy.Pharmacy.view.MapsActivity;
@@ -32,13 +35,15 @@ public class InfoLayoutAdapter {
     private final Favorites favorites;
     private final MaterialButton buttonName, buttonAddress, buttonPhonePharmacy,
             buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome,
-            buttonIsOpen, buttonIsOpenDetails;
+            buttonIsOpen, buttonIsOpenDetails, buttonDisconnected;
+    private final TableLayout scheduleTable;
     private final TextView buttonDistance;
-    private final LinearLayout expandableLayout, nightLayout, buttonLayout;
+    private final LinearLayout expandableLayout, nightLayout, buttonLayout, isOpenLayout;
     private final ImageButton buttonBookmark, buttonExpand;
     private final List<MaterialButton> scheduleTimeList = new ArrayList<>();
     private final List<MaterialButton> scheduleDayList = new ArrayList<>();
     private final View marginView;
+    private final boolean connected;
 
     enum openingTimesSlot {
         OPEN_FIRST,
@@ -80,16 +85,21 @@ public class InfoLayoutAdapter {
         scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime6);
         scheduleTimeList.add(infoLayoutAdapterBuilder.scheduleTime7);
         marginView = infoLayoutAdapterBuilder.marginView;
+        connected = databaseReference.isConnected();
+        buttonDisconnected = infoLayoutAdapterBuilder.buttonDisconnected;
+        scheduleTable = infoLayoutAdapterBuilder.scheduleTable;
+        isOpenLayout = infoLayoutAdapterBuilder.isOpenLayout;
     }
 
     public static class InfoLayoutAdapterBuilder {
         private final Context context;
         private final MaterialButton buttonName, buttonAddress, buttonPhonePharmacy,
                 buttonPhoneHome, buttonGetDirections, buttonCallPharmacy, buttonCallHome,
-                buttonIsOpen, buttonIsOpenDetails;
+                buttonIsOpen, buttonIsOpenDetails, buttonDisconnected;
         private final TextView buttonDistance;
-        private final LinearLayout buttonLayout, expandableLayout, nightLayout, expandLayout;
+        private final LinearLayout buttonLayout, expandableLayout, nightLayout, expandLayout, isOpenLayout;
         private final ImageButton buttonBookmark, buttonExpand;
+        private final TableLayout scheduleTable;
         private final MaterialButton scheduleDay1, scheduleDay2, scheduleDay3, scheduleDay4,
                 scheduleDay5, scheduleDay6, scheduleDay7;
         private final MaterialButton scheduleTime1, scheduleTime2, scheduleTime3, scheduleTime4,
@@ -129,6 +139,9 @@ public class InfoLayoutAdapter {
             scheduleTime6 = itemView.findViewById(R.id.scheduleTime6);
             scheduleTime7 = itemView.findViewById(R.id.scheduleTime7);
             marginView = itemView.findViewById(R.id.marginView);
+            buttonDisconnected = itemView.findViewById(R.id.infoLayoutDisconnectedButton);
+            scheduleTable = itemView.findViewById(R.id.infoLayoutScheduleTable);
+            isOpenLayout = itemView.findViewById(R.id.infoLayoutIsOpenLayout);
         }
 
         public InfoLayoutAdapterBuilder(Activity activity) {
@@ -164,6 +177,9 @@ public class InfoLayoutAdapter {
             scheduleTime6 = activity.findViewById(R.id.scheduleTime6);
             scheduleTime7 = activity.findViewById(R.id.scheduleTime7);
             marginView = activity.findViewById(R.id.marginView);
+            buttonDisconnected = activity.findViewById(R.id.infoLayoutDisconnectedButton);
+            scheduleTable = activity.findViewById(R.id.infoLayoutScheduleTable);
+            isOpenLayout = activity.findViewById(R.id.infoLayoutIsOpenLayout);
         }
 
         public InfoLayoutAdapterBuilder withAddressButtonDisabled() {
@@ -224,13 +240,23 @@ public class InfoLayoutAdapter {
             buttonDistance.setVisibility(View.VISIBLE);
             buttonDistance.setText(String.format(Locale.getDefault(), "~ %3.1f km",pharmacy.getDistance()));
         }
-        setIsOpenButtonText();
-        buttonIsOpenDetails.setText(getIsOpenDetailsString());
+        if (connected) {
+            setIsOpenButtonText();
+            buttonIsOpenDetails.setText(getIsOpenDetailsString());
+            updateScheduleTable();
+            isOpenLayout.setVisibility(View.VISIBLE);
+            scheduleTable.setVisibility(View.VISIBLE);
+            buttonDisconnected.setVisibility(View.GONE);
+        } else {
+            isOpenLayout.setVisibility(View.GONE);
+            scheduleTable.setVisibility(View.GONE);
+            buttonDisconnected.setVisibility(View.VISIBLE);
+        }
+
         updateBookmarkButtonDrawable();
         buttonBookmark.setOnClickListener(view -> infoLayoutBookmarkButtonCallback());
         buttonGetDirections.setOnClickListener(view -> infoLayoutDirectionButtonCallback());
         buttonExpand.setOnClickListener(view -> infoExpandButtonCallback());
-        updateScheduleTable();
     }
 
     private void setIsOpenButtonText() {
@@ -395,7 +421,9 @@ public class InfoLayoutAdapter {
         buttonLayout.setVisibility(View.VISIBLE);
         expandableLayout.setVisibility(View.VISIBLE);
         buttonExpand.setImageResource(R.drawable.ic_expand_less);
-        marginView.setVisibility(View.VISIBLE);
+        if (connected) {
+            marginView.setVisibility(View.VISIBLE);
+        }
     }
 
     private void collapseLayout() {

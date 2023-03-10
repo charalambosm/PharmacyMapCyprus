@@ -97,7 +97,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
 
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/infoLayoutDisconnectedButton"
+        android:layout_width="match_parent"
+        android:text="@string/disconnected_opening_times"
+        style="@style/ButtonOpeningTimes"/>
+
     <LinearLayout
+        android:id="@+id/infoLayoutIsOpenLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
@@ -127,6 +134,7 @@
             android:layout_height="wrap_content"/>
         
         <TableLayout
+            android:id="@+id/infoLayoutScheduleTable"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
             <com.google.android.material.button.MaterialButton
