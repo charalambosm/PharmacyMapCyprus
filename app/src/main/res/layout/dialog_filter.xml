@@ -74,12 +74,20 @@
             android:buttonTint="@color/dark_green"
             android:text="@string/famagusta" />
 
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_below="@id/famagustaCheckbox"
+            app:cardCornerRadius="10dp"
+            app:strokeWidth="1dip"
+            app:strokeColor="@color/black"
+            android:elevation="4dp">
         <com.google.android.material.button.MaterialButton
             android:id="@+id/filterDialogSaveButton"
             style="@style/ButtonStandard"
-            android:layout_below="@id/famagustaCheckbox"
-            android:layout_centerHorizontal="true"
+            android:minHeight="0dp"
             android:text="@string/save"/>
-
+        </com.google.android.material.card.MaterialCardView>
     </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

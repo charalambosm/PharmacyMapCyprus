@@ -53,4 +53,5 @@
     <string name="open">Ανοιχτό</string>
     <string name="closed">Κλειστό</string>
     <string name="working_hours">Ώρες Λειτουργείας</string>
+    <string name="settings">Επιλογές</string>
 </resources>

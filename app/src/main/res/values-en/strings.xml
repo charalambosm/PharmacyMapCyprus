@@ -53,4 +53,5 @@
     <string name="open">Open</string>
     <string name="closed">Closed</string>
     <string name="working_hours">Working Hours</string>
+    <string name="settings">Settings</string>
 </resources>

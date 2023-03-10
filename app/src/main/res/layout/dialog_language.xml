@@ -49,12 +49,22 @@
                 android:text="@string/greek"/>
         </RadioGroup>
 
-        <Button
-            android:id="@+id/languageDialogSaveButton"
-            style="@style/ButtonStandard"
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_below="@id/languageRadioGroup"
             android:layout_centerHorizontal="true"
-            android:text="@string/save"/>
+            app:cardCornerRadius="10dp"
+            app:strokeWidth="1dip"
+            app:strokeColor="@color/black"
+            android:elevation="4dp">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/languageDialogSaveButton"
+                style="@style/ButtonStandard"
+                android:minHeight="0dp"
+                android:text="@string/save"/>
+        </com.google.android.material.card.MaterialCardView>
+
 
 </RelativeLayout>
 </com.google.android.material.card.MaterialCardView>

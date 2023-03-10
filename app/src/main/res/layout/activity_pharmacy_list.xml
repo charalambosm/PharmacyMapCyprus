@@ -41,6 +41,10 @@
             app:iconifiedByDefault="false" />
     </androidx.cardview.widget.CardView>
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefreshLayout"
         android:layout_weight="1"

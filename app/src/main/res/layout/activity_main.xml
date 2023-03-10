@@ -72,12 +72,23 @@
                 android:text="@string/favorites_title"/>
         </TableRow>
 
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/contactUsButton"
-            style="@style/ButtonWithImage"
-            android:drawableTop="@drawable/btn_support"
-            android:onClick="contactUsCallback"
-            android:text="@string/contact_us_title"/>
+        <TableRow
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/contactUsButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_support"
+                android:onClick="contactUsCallback"
+                android:text="@string/contact_us_title"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settingsButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_settings"
+                android:onClick="settingsCallback"
+                android:text="@string/settings"/>
+        </TableRow>
     </TableLayout>
 
     <View
