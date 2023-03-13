@@ -49,7 +49,8 @@ public class InfoLayoutAdapter {
         OPEN_FIRST,
         CLOSED_LUNCH_BREAK,
         OPEN_SECOND,
-        CLOSED_NEXT_DAY
+        CLOSED_NEXT_DAY,
+        CLOSED_MONDAY
     }
 
     private InfoLayoutAdapter(InfoLayoutAdapterBuilder infoLayoutAdapterBuilder) {
@@ -273,13 +274,15 @@ public class InfoLayoutAdapter {
     private String getIsOpenDetailsString() {
         switch(findOpeningTimeSlot()) {
             case OPEN_FIRST:
-                return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimes().get("end1"));
+                return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimesList().get(0).get("end1"));
             case CLOSED_LUNCH_BREAK:
-                return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimes().get("start2"));
+                return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimesList().get(0).get("start2"));
             case OPEN_SECOND:
-                return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimes().get("end2"));
+                return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimesList().get(0).get("end2"));
             case CLOSED_NEXT_DAY:
-                return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimes().get("start1"));
+                return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimesList().get(1).get("start1"));
+            case CLOSED_MONDAY:
+                return context.getString(R.string.opens_on_monday);
             default:
                 return "";
         }
@@ -290,10 +293,14 @@ public class InfoLayoutAdapter {
         LocalTime currentTimeInCyprus = getCurrentTimeInCyprus();
 
         // Read all pharmacy opening times
-        String start1 = pharmacy.getOpeningTimes().get("start1");
-        String end1 = pharmacy.getOpeningTimes().get("end1");
-        String start2 = pharmacy.getOpeningTimes().get("start2");
-        String end2 = pharmacy.getOpeningTimes().get("end2");
+        HashMap<String, String> openingTimes = pharmacy.getOpeningTimesList().get(0);
+        if (openingTimes == null) {
+            return openingTimesSlot.CLOSED_NEXT_DAY;
+        }
+        String start1 = openingTimes.get("start1");
+        String end1 = openingTimes.get("end1");
+        String start2 = openingTimes.get("start2");
+        String end2 = openingTimes.get("end2");
 
         // Check first time period
         LocalTime startTime1 = LocalTime.parse(start1);
@@ -304,6 +311,9 @@ public class InfoLayoutAdapter {
 
         // If there is not second time slot, then the pharmacy will open in the morning again
         if (start2 == null && end2 == null) {
+            if (pharmacy.getOpeningTimesList().get(1) == null) {
+                return openingTimesSlot.CLOSED_MONDAY;
+            }
             return openingTimesSlot.CLOSED_NEXT_DAY;
         }
 
@@ -340,7 +350,8 @@ public class InfoLayoutAdapter {
                 calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
             scheduleDayList.get(i).setText(dateFormat.format(calendar.getTime()));
-            if (pharmacy.getOpeningTimesList().get(i) == null) {
+            if ((pharmacy.getOpeningTimesList().size() != scheduleDayList.size() &&
+                    (i+1)==scheduleDayList.size()) || pharmacy.getOpeningTimesList().get(i) == null) {
                 // Case where the pharmacy is closed (holiday or a Sunday)
                 scheduleTimeList.get(i).setTextColor(context.getColor(R.color.red));
                 scheduleTimeList.get(i).setText(context.getString(R.string.closed));

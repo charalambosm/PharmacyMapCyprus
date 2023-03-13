@@ -11,8 +11,8 @@ android {
         applicationId "com.easysolutionscyprus.pharmacy"
         minSdk 26
         targetSdk 33
-        versionCode 8
-        versionName "1.2.1"
+        versionCode 9
+        versionName "1.2.2"
         resConfigs "en", "el"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
