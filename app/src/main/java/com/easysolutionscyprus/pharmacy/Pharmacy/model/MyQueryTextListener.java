@@ -7,39 +7,59 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class MyQueryTextListener implements SearchView.OnQueryTextListener{
+    protected List<Pharmacy> searchResults = new ArrayList<>();
+    List<Pharmacy> pharmacyList;
+
+    public MyQueryTextListener(List<Pharmacy> pharmacyList) {
+        this.pharmacyList = pharmacyList;
+    }
+
     @Override
     public boolean onQueryTextSubmit(String query) {
+        performSearch(query);
         return false;
     }
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        search(newText);
+        performSearch(newText);
         return false;
     }
 
-    protected List<Pharmacy> containsAny(String newText, List<Pharmacy> fullPharmacyList) {
-        List<Pharmacy> matchedPharmacyList = new ArrayList<>();
-        String normalizedText = normalizeText(newText);
-        for (Pharmacy pharmacy : fullPharmacyList) {
-            if (contains(normalizedText, pharmacy)) {
-                matchedPharmacyList.add(pharmacy);
+    private void performSearch(String query) {
+        // Preprocess query
+        String normalizedQuery = normalizeText(query);
+        String[] keywords = normalizedQuery.split("\\s");
+
+        // Clear the current search results
+        searchResults.clear();
+
+        // Iterate over pharmacy list to find any that match
+        for (Pharmacy pharmacy : pharmacyList) {
+            boolean match = true;
+            for (String keyword : keywords) {
+                if (!pharmacy.getFirstNameNormalized().toLowerCase().contains(keyword.toLowerCase()) &&
+                !pharmacy.getLastNameNormalized().toLowerCase().contains(keyword.toLowerCase()) &&
+                !pharmacy.getAddressNormalized().toLowerCase().contains(keyword.toLowerCase())) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if (match) {
+                searchResults.add(pharmacy);
             }
         }
-        return matchedPharmacyList;
+
+        // Update the UI with the new search results
+        updateSearchResultsUI();
     }
+
+    protected abstract void updateSearchResultsUI();
 
     private String normalizeText(String newText) {
         String normalizedText = Normalizer.normalize(newText, Normalizer.Form.NFD);
         return normalizedText.replaceAll("\\p{M}", "");
     }
-
-    private boolean contains(String normalizedText, Pharmacy pharmacy) {
-        return  pharmacy.getFirstNameNormalized().toLowerCase().contains(normalizedText.toLowerCase()) ||
-                pharmacy.getLastNameNormalized().toLowerCase().contains(normalizedText.toLowerCase()) ||
-                pharmacy.getAddressNormalized().toLowerCase().contains(normalizedText.toLowerCase());
-    }
-
-    public abstract void search(String newText);
 }
 

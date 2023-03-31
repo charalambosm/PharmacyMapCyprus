@@ -46,11 +46,11 @@ public class InfoLayoutAdapter {
     private final boolean connected;
 
     enum openingTimesSlot {
-        OPEN_FIRST,
-        CLOSED_LUNCH_BREAK,
-        OPEN_SECOND,
-        CLOSED_NEXT_DAY,
-        CLOSED_MONDAY
+        OPEN_IN_FIRST_PERIOD,
+        CLOSED_FOR_LUNCH_BREAK,
+        OPEN_IN_SECOND_PERIOD,
+        CLOSED_OPENS_TOMORROW,
+        CLOSED_FOR_MORE_THAN_ONE_DAY
     }
 
     private InfoLayoutAdapter(InfoLayoutAdapterBuilder infoLayoutAdapterBuilder) {
@@ -261,8 +261,8 @@ public class InfoLayoutAdapter {
     }
 
     private void setIsOpenButtonText() {
-        if (findOpeningTimeSlot() == openingTimesSlot.OPEN_FIRST ||
-                findOpeningTimeSlot() == openingTimesSlot.OPEN_SECOND) {
+        if (findOpeningTimeSlot() == openingTimesSlot.OPEN_IN_FIRST_PERIOD ||
+                findOpeningTimeSlot() == openingTimesSlot.OPEN_IN_SECOND_PERIOD) {
             buttonIsOpen.setTextColor(context.getColor(R.color.green));
             buttonIsOpen.setText(R.string.open);
         } else {
@@ -273,19 +273,33 @@ public class InfoLayoutAdapter {
 
     private String getIsOpenDetailsString() {
         switch(findOpeningTimeSlot()) {
-            case OPEN_FIRST:
+            case OPEN_IN_FIRST_PERIOD:
                 return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimesList().get(0).get("end1"));
-            case CLOSED_LUNCH_BREAK:
+            case CLOSED_FOR_LUNCH_BREAK:
                 return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimesList().get(0).get("start2"));
-            case OPEN_SECOND:
+            case OPEN_IN_SECOND_PERIOD:
                 return String.format(context.getString(R.string.closes_at), pharmacy.getOpeningTimesList().get(0).get("end2"));
-            case CLOSED_NEXT_DAY:
+            case CLOSED_OPENS_TOMORROW:
                 return String.format(context.getString(R.string.opens_at), pharmacy.getOpeningTimesList().get(1).get("start1"));
-            case CLOSED_MONDAY:
-                return context.getString(R.string.opens_on_monday);
+            case CLOSED_FOR_MORE_THAN_ONE_DAY:
+                return String.format(context.getString(R.string.opens_on_day), findNextAvailableOpeningDay());
             default:
                 return "";
         }
+    }
+
+    private String findNextAvailableOpeningDay() {
+        TimeZone nicosiaTimezone = TimeZone.getTimeZone("Europe/Athens");
+        Calendar calendar = Calendar.getInstance(nicosiaTimezone);
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
+
+        for (int i=1; i < pharmacy.getOpeningTimesList().size(); i++) {
+            if (pharmacy.getOpeningTimesList().get(i) != null) {
+                calendar.add(Calendar.DAY_OF_YEAR, i);
+                break;
+            }
+        }
+        return dateFormat.format(calendar.getTime());
     }
 
     private openingTimesSlot findOpeningTimeSlot() {
@@ -295,7 +309,7 @@ public class InfoLayoutAdapter {
         // Read all pharmacy opening times
         HashMap<String, String> openingTimes = pharmacy.getOpeningTimesList().get(0);
         if (openingTimes == null) {
-            return openingTimesSlot.CLOSED_NEXT_DAY;
+            return openingTimesSlot.CLOSED_OPENS_TOMORROW;
         }
         String start1 = openingTimes.get("start1");
         String end1 = openingTimes.get("end1");
@@ -306,31 +320,37 @@ public class InfoLayoutAdapter {
         LocalTime startTime1 = LocalTime.parse(start1);
         LocalTime endTime1 = LocalTime.parse(end1);
         if (currentTimeInCyprus.isAfter(startTime1) && currentTimeInCyprus.isBefore(endTime1)) {
-            return openingTimesSlot.OPEN_FIRST;
+            return openingTimesSlot.OPEN_IN_FIRST_PERIOD;
         }
 
-        // If there is not second time slot, then the pharmacy will open in the morning again
         if (start2 == null && end2 == null) {
+            // Pharmacy will not open next morning -> find which day it ope s
             if (pharmacy.getOpeningTimesList().get(1) == null) {
-                return openingTimesSlot.CLOSED_MONDAY;
+                return openingTimesSlot.CLOSED_FOR_MORE_THAN_ONE_DAY;
             }
-            return openingTimesSlot.CLOSED_NEXT_DAY;
+            // Pharmacy will open in the morning again
+            return openingTimesSlot.CLOSED_OPENS_TOMORROW;
         }
 
         // Check second time period
         LocalTime startTime2 = LocalTime.parse(start2);
         LocalTime endTime2 = LocalTime.parse(end2);
         if (currentTimeInCyprus.isAfter(startTime2) && currentTimeInCyprus.isBefore(endTime2)) {
-            return openingTimesSlot.OPEN_SECOND;
+            return openingTimesSlot.OPEN_IN_SECOND_PERIOD;
         }
 
         // Check if it is during lunch break
         if (currentTimeInCyprus.isAfter(endTime1) && currentTimeInCyprus.isBefore(startTime2)) {
-            return openingTimesSlot.CLOSED_LUNCH_BREAK;
+            return openingTimesSlot.CLOSED_FOR_LUNCH_BREAK;
+        }
+
+        // It will be closed for more than one day
+        if (pharmacy.getOpeningTimesList().get(1) == null) {
+            return openingTimesSlot.CLOSED_FOR_MORE_THAN_ONE_DAY;
         }
 
         // Otherwise it will be open the next day (or morning)
-        return openingTimesSlot.CLOSED_NEXT_DAY;
+        return openingTimesSlot.CLOSED_OPENS_TOMORROW;
     }
 
     private LocalTime getCurrentTimeInCyprus() {
@@ -346,18 +366,15 @@ public class InfoLayoutAdapter {
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", Locale.getDefault());
 
         for (int i = 0; i < scheduleDayList.size(); i++) {
-            if (i!=0) {
-                calendar.add(Calendar.DAY_OF_YEAR, 1);
-            }
-            scheduleDayList.get(i).setText(dateFormat.format(calendar.getTime()));
-            if ((pharmacy.getOpeningTimesList().size() != scheduleDayList.size() &&
-                    (i+1)==scheduleDayList.size()) || pharmacy.getOpeningTimesList().get(i) == null) {
-                // Case where the pharmacy is closed (holiday or a Sunday)
-                scheduleTimeList.get(i).setTextColor(context.getColor(R.color.red));
-                scheduleTimeList.get(i).setText(context.getString(R.string.closed));
-            } else {
+            try {
+                scheduleDayList.get(i).setText(dateFormat.format(calendar.getTime()));
                 scheduleTimeList.get(i).setText(getOpeningTimesString(
                         pharmacy.getOpeningTimesList().get(i)));
+            } catch (Exception e) {
+                scheduleTimeList.get(i).setTextColor(context.getColor(R.color.red));
+                scheduleTimeList.get(i).setText(context.getString(R.string.closed));
+            } finally {
+                calendar.add(Calendar.DAY_OF_YEAR, 1);
             }
         }
     }

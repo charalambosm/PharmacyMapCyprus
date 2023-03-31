@@ -126,16 +126,6 @@ public abstract class AbstractListActivity extends TranslatableActivity {
 
         // Configure search view
         searchView = findViewById(R.id.pharmacySearchView);
-        searchView.setOnQueryTextListener(new MyQueryTextListener() {
-            @Override
-            public void search(String newText) {
-                if (myAdapter.getFullPharmacyList() != null) {
-                    List<Pharmacy> matchedPharmacyList = containsAny(newText, myAdapter.getFullPharmacyList());
-                    myAdapter.searchPharmacyList(matchedPharmacyList);
-                    recyclerView.setAdapter(myAdapter);
-                }
-            }
-        });
 
         // Configure ad view
         adView = findViewById(R.id.pharmacyListAdView);
@@ -190,6 +180,13 @@ public abstract class AbstractListActivity extends TranslatableActivity {
                     List<Pharmacy> filteredPharmacyList = myFilter.apply(pharmacyList);
                     // Set pharmacy list to adapter and set adapter to recycler view
                     myAdapter.setPharmacyList(filteredPharmacyList);
+                    searchView.setOnQueryTextListener(new MyQueryTextListener(filteredPharmacyList) {
+                        @Override
+                        protected void updateSearchResultsUI() {
+                            myAdapter.setPharmacyList(searchResults);
+                            recyclerView.setAdapter(myAdapter);
+                        }
+                    });
                     recyclerView.setAdapter(myAdapter);
                     swipeRefreshLayout.setRefreshing(false);
                 }
