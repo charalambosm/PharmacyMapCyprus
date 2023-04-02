@@ -309,6 +309,9 @@ public class InfoLayoutAdapter {
         // Read all pharmacy opening times
         HashMap<String, String> openingTimes = pharmacy.getOpeningTimesList().get(0);
         if (openingTimes == null) {
+            if (pharmacy.getOpeningTimesList().get(1) == null) {
+                return openingTimesSlot.CLOSED_FOR_MORE_THAN_ONE_DAY;
+            }
             return openingTimesSlot.CLOSED_OPENS_TOMORROW;
         }
         String start1 = openingTimes.get("start1");
@@ -370,6 +373,7 @@ public class InfoLayoutAdapter {
                 scheduleDayList.get(i).setText(dateFormat.format(calendar.getTime()));
                 scheduleTimeList.get(i).setText(getOpeningTimesString(
                         pharmacy.getOpeningTimesList().get(i)));
+                scheduleTimeList.get(i).setTextColor(context.getColor(R.color.black));
             } catch (Exception e) {
                 scheduleTimeList.get(i).setTextColor(context.getColor(R.color.red));
                 scheduleTimeList.get(i).setText(context.getString(R.string.closed));
