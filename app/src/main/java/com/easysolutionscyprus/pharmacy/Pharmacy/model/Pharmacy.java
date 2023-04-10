@@ -9,13 +9,17 @@ import androidx.annotation.Nullable;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.maps.android.clustering.ClusterItem;
 
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+
 public class Pharmacy implements Parcelable, ClusterItem {
     private int id;
     private String firstName;
     private String lastName;
     private String address;
     private String district;
-    private boolean night;
     private int phone;
     private int homePhone;
     private double latitude;
@@ -24,6 +28,8 @@ public class Pharmacy implements Parcelable, ClusterItem {
     private String firstNameNormalized;
     private String lastNameNormalized;
     private String addressNormalized;
+    private List<Boolean> nightList;
+    private List<HashMap<String, String>> openingTimesList;
 
     @SuppressWarnings("unused")
     public Pharmacy() {}
@@ -34,12 +40,15 @@ public class Pharmacy implements Parcelable, ClusterItem {
         lastName = in.readString();
         address = in.readString();
         district = in.readString();
-        night = in.readByte() != 0;
+        nightList = new ArrayList<>();
+        in.readList(nightList, Boolean.class.getClassLoader());
         phone = in.readInt();
         homePhone = in.readInt();
         latitude = in.readDouble();
         longitude = in.readDouble();
         distance = in.readDouble();
+        openingTimesList = new ArrayList<>();
+        in.readList(openingTimesList, HashMap.class.getClassLoader());
     }
 
     public static final Creator<Pharmacy> CREATOR = new Creator<Pharmacy>() {
@@ -53,6 +62,12 @@ public class Pharmacy implements Parcelable, ClusterItem {
             return new Pharmacy[size];
         }
     };
+
+    public void postProcess() {
+        addressNormalized = normalizeText(address);
+        firstNameNormalized = normalizeText(firstName);
+        lastNameNormalized = normalizeText(lastName);
+    }
 
     public int getId() {
         return id;
@@ -75,7 +90,7 @@ public class Pharmacy implements Parcelable, ClusterItem {
     }
 
     public boolean isNight() {
-        return night;
+        return nightList.get(0);
     }
 
     public int getPhone() {
@@ -104,24 +119,21 @@ public class Pharmacy implements Parcelable, ClusterItem {
         return firstNameNormalized;
     }
 
-    public void setFirstNameNormalized(String firstNameNormalized) {
-        this.firstNameNormalized = firstNameNormalized;
-    }
-
     public String getLastNameNormalized() {
         return lastNameNormalized;
-    }
-
-    public void setLastNameNormalized(String lastNameNormalized) {
-        this.lastNameNormalized = lastNameNormalized;
     }
 
     public String getAddressNormalized() {
         return addressNormalized;
     }
 
-    public void setAddressNormalized(String addressNormalized) {
-        this.addressNormalized = addressNormalized;
+    public HashMap<String, String> getOpeningTimes() {
+        return openingTimesList.get(0);
+    }
+
+    private String normalizeText(String text) {
+        String normalizedText = Normalizer.normalize(text, Normalizer.Form.NFD);
+        return normalizedText.replaceAll("\\p{M}", "");
     }
 
     @Override
@@ -136,12 +148,13 @@ public class Pharmacy implements Parcelable, ClusterItem {
         parcel.writeString(lastName);
         parcel.writeString(address);
         parcel.writeString(district);
-        parcel.writeByte((byte) (night ? 1 : 0));
+        parcel.writeList(nightList);
         parcel.writeInt(phone);
         parcel.writeInt(homePhone);
         parcel.writeDouble(latitude);
         parcel.writeDouble(longitude);
         parcel.writeDouble(distance);
+        parcel.writeList(openingTimesList);
     }
 
     @NonNull
@@ -160,5 +173,13 @@ public class Pharmacy implements Parcelable, ClusterItem {
     @Override
     public String getSnippet() {
         return null;
+    }
+
+    public List<Boolean> getNightList() {
+        return nightList;
+    }
+
+    public List<HashMap<String, String>> getOpeningTimesList() {
+        return openingTimesList;
     }
 }

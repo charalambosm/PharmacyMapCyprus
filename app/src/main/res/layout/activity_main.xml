@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:fitsSystemWindows="true"
     style="@style/LinearLayoutMain"
+    android:gravity="center_horizontal"
     tools:context=".Main.view.MainActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -12,74 +13,86 @@
         android:layout_height="wrap_content"
         android:layout_gravity="top"
         app:titleMarginStart="24dp"
-        app:logo="@drawable/ic_home"
+        app:logo="@drawable/ic_logo"
         android:elevation="4dp"
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="true"
         app:title="@string/main_menu" />
 
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <View
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
-    <Button
-        android:id="@+id/mapButton"
-        style="@style/ButtonStandard"
-        android:drawableLeft="@drawable/ic_map"
-        android:onClick="pharmacyMapCallback"
-        android:text="@string/map"/>
+    <TableLayout
+        android:layout_gravity="center"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <TableRow
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/mapButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_pharmacy_map"
+                android:onClick="pharmacyMapCallback"
+                android:text="@string/map"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/allPharmaciesButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_pharmacy_list"
+                android:onClick="allPharmaciesCallback"
+                android:text="@string/all_pharmacies_title"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/nightPharmaciesButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_night"
+                android:onClick="nightOnlyPharmaciesCallback"
+                android:text="@string/night_title_btn"/>
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/favoritePharmaciesButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_favorites"
+                android:onClick="bookmarksPharmaciesCallback"
+                android:text="@string/favorites_title"/>
+        </TableRow>
+
+        <TableRow
+            android:layout_marginVertical="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/contactUsButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_support"
+                android:onClick="contactUsCallback"
+                android:text="@string/contact_us_title"/>
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/settingsButton"
+                style="@style/ButtonWithImage"
+                android:drawableTop="@drawable/btn_settings"
+                android:onClick="settingsCallback"
+                android:text="@string/settings"/>
+        </TableRow>
+    </TableLayout>
 
     <View
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/allPharmaciesButton"
-        style="@style/ButtonStandard"
-        android:drawableLeft="@drawable/ic_pharmacy"
-        android:onClick="allPharmaciesCallback"
-        android:text="@string/all_pharmacies_title"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/nightPharmaciesButton"
-        style="@style/ButtonStandard"
-        android:drawableLeft="@drawable/ic_night"
-        android:onClick="nightOnlyPharmaciesCallback"
-        android:text="@string/night_title"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/favoritePharmaciesButton"
-        style="@style/ButtonStandard"
-        android:drawableLeft="@drawable/ic_favorite"
-        android:onClick="bookmarksPharmaciesCallback"
-        android:text="@string/favorites_title"/>
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
-
-    <Button
-        android:id="@+id/contactUsButton"
-        style="@style/ButtonStandard"
-        android:drawableLeft="@drawable/ic_support"
-        android:onClick="contactUsCallback"
-        android:text="@string/contact_us_title"/>
-
-    <View
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_weight="1"/>
 
@@ -88,13 +101,13 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/lastUpdatedLabel"
             style="@style/TextViewStandard"
             android:gravity="center"
             android:text="@string/last_updated"/>
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             android:id="@+id/lastUpdatedTextView"
             style="@style/TextViewStandard"
             android:gravity="center"/>

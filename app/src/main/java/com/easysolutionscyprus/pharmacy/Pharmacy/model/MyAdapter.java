@@ -7,15 +7,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.easysolutionscyprus.pharmacy.Preferences.model.Favorites;
 import com.easysolutionscyprus.pharmacy.R;
 
 import java.util.List;
 
-public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
+public class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     private List<Pharmacy> pharmacyList;
     private List<Pharmacy> fullPharmacyList;
-    private Favorites favorites;
 
     public MyAdapter() {
         super();
@@ -32,13 +30,6 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
     public void onBindViewHolder(@NonNull MyHolder holder, int position) {
         Pharmacy model = pharmacyList.get(position);
         holder.infoLayoutAdapter.setPharmacy(model);
-        holder.moreButton.setOnClickListener(view -> cardViewShowMoreCallback(model, position));
-        holder.favoritesButton.setOnClickListener(view -> cardViewBookmarksCallback(model, position));
-        if (favorites.isFavorite(model.getId())) {
-            holder.favoritesButton.setImageResource(R.drawable.ic_favorite);
-        } else {
-            holder.favoritesButton.setImageResource(R.drawable.ic_favorite_add);
-        }
     }
 
     @Override
@@ -68,16 +59,8 @@ public abstract class MyAdapter extends RecyclerView.Adapter<MyHolder>{
         return fullPharmacyList;
     }
 
-    public void setFullPharmacyList(List<Pharmacy> pharmacyList) {
+    public void setPharmacyList(List<Pharmacy> pharmacyList) {
         this.fullPharmacyList = pharmacyList;
         this.pharmacyList = pharmacyList;
     }
-
-    public void setFavorites(Favorites favorites) {
-        this.favorites = favorites;
-    }
-
-    public abstract void cardViewShowMoreCallback(Pharmacy pharmacy, int position);
-
-    public abstract void cardViewBookmarksCallback(Pharmacy pharmacy, int position);
 }

@@ -22,6 +22,7 @@
     <string name="favorites_title">Favorites</string>
     <string name="all_pharmacies_title">All pharmacies</string>
     <string name="night_title">Night pharmacies today</string>
+    <string name="night_title_btn">Night pharmacies\ntoday</string>
     <string name="districts">Districts</string>
     <string name="nicosia">Nicosia</string>
     <string name="limassol">Limassol</string>
@@ -43,4 +44,16 @@
     <string name="search_pharmacy">Search pharmacies</string>
     <string name="map">Pharmacy Map</string>
     <string name="cancel">Cancel</string>
+    <string name="get_directions">Get\nDirections</string>
+    <string name="call_pharmacy">Call\nPharmacy</string>
+    <string name="distance">Distance</string>
+    <string name="call_home">Call\nHome</string>
+    <string name="closes_at">Closes at %s</string>
+    <string name="opens_at">Opens at %s</string>
+    <string name="open">Open</string>
+    <string name="closed">Closed</string>
+    <string name="working_hours">Working Hours</string>
+    <string name="settings">Settings</string>
+    <string name="disconnected_opening_times">Unable to retrieve opening times info. Please check your connection status.</string>
+    <string name="opens_on_day">Opens on %s</string>
 </resources>

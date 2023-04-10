@@ -22,6 +22,7 @@
     <string name="favorites_title">Αγαπημένα</string>
     <string name="all_pharmacies_title">Όλα τα φαρμακεία</string>
     <string name="night_title">Διημερεύον σήμερα</string>
+    <string name="night_title_btn">Διημερεύον\nσήμερα</string>
     <string name="districts">Επαρχίες</string>
     <string name="nicosia">Λευκωσία</string>
     <string name="limassol">Λεμεσός</string>
@@ -43,4 +44,16 @@
     <string name="search_pharmacy">Αναζήτηση φαρμακείων</string>
     <string name="map">Χάρτης Φαρμακείων</string>
     <string name="cancel">Ακύρωση</string>
+    <string name="get_directions">Κατεύθυνση</string>
+    <string name="call_pharmacy">Κλήση\nφαρμακείο</string>
+    <string name="distance">Απόσταση</string>
+    <string name="call_home">Κλήση\nσπίτι</string>
+    <string name="closes_at">Κλείνει %s</string>
+    <string name="opens_at">Ανοίγει %s</string>
+    <string name="open">Ανοιχτό</string>
+    <string name="closed">Κλειστό</string>
+    <string name="working_hours">Ώρες Λειτουργείας</string>
+    <string name="settings">Επιλογές</string>
+    <string name="disconnected_opening_times">Δεν είναι δυνατή η ανάκτηση πληροφοριών για τις ώρες λειτουργίας. Ελέγξτε την κατάσταση της σύνδεσής σας.</string>
+    <string name="opens_on_day">Ανοίγει %s</string>
 </resources>

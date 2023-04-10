@@ -1,6 +1,7 @@
 package com.easysolutionscyprus.pharmacy.Pharmacy.model;
 
 import android.location.Location;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 
@@ -26,9 +27,7 @@ public abstract class MyValueEventListener implements com.google.firebase.databa
         for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
             Pharmacy pharmacy = dataSnapshot.getValue(Pharmacy.class);
             if (pharmacy != null) {
-                pharmacy.setAddressNormalized(normalizeText(pharmacy.getAddress()));
-                pharmacy.setFirstNameNormalized(normalizeText(pharmacy.getFirstName()));
-                pharmacy.setLastNameNormalized(normalizeText(pharmacy.getLastName()));
+                pharmacy.postProcess();
             }
             this.pharmacyList.add(pharmacy);
         }
@@ -54,11 +53,6 @@ public abstract class MyValueEventListener implements com.google.firebase.databa
         float[] result = new float[3];
         Location.distanceBetween(currentLocation.getLatitude(), currentLocation.getLongitude(), pharmacy.getLatitude(), pharmacy.getLongitude(), result);
         return result[0];
-    }
-
-    private String normalizeText(String text) {
-        String normalizedText = Normalizer.normalize(text, Normalizer.Form.NFD);
-        return normalizedText.replaceAll("\\p{M}", "");
     }
 
     public abstract void update();

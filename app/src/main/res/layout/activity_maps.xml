@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     style="@style/LinearLayoutMain"
+    android:animateLayoutChanges="true"
     android:fitsSystemWindows="true"
     tools:context=".Pharmacy.view.MapsActivity">
 
@@ -11,11 +12,17 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="4dp"
+        android:background="@color/white"
         android:minHeight="?attr/actionBarSize"
         android:nestedScrollingEnabled="true"
         app:title="@string/map"
         app:titleMarginStart="24dp"
         app:logo="@drawable/ic_map"/>
+
+    <com.google.android.material.divider.MaterialDivider
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/mapsActivityToolbar"/>
 
     <androidx.fragment.app.FragmentContainerView
         android:id="@+id/pharmaciesMap"
@@ -26,31 +33,23 @@
         android:layout_height="wrap_content"
         tools:context=".Pharmacy.view.MapsActivity" />
 
-    <androidx.cardview.widget.CardView
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/transparent"
+        android:layout_above="@+id/adView">
+    <com.google.android.material.card.MaterialCardView
         android:id="@+id/mapsActivityInfoCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:visibility="gone"
-        android:layout_alignBottom="@id/pharmaciesMap">
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:padding="5dp">
-            <ImageButton
-                android:id="@+id/mapsActivityCloseInfoButton"
-                style="@style/CancelButtonStandard"
-                android:onClick="closeInfoButtonCallback"
-                android:contentDescription="@string/cancel" />
+        android:background="@color/transparent"
+        android:visibility="invisible">
+        <include
+            android:id="@+id/mapsActivityInfoLayout"
+            layout="@layout/layout_info" />
+    </com.google.android.material.card.MaterialCardView>
+    </ScrollView>
 
-            <include layout="@layout/layout_info"
-                android:id="@+id/mapsActivityInfoLayout"
-                android:layout_alignParentLeft="true"
-                android:layout_toLeftOf="@id/mapsActivityCloseInfoButton"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"

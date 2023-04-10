@@ -19,7 +19,6 @@ import androidx.appcompat.widget.SearchView;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -124,21 +123,9 @@ public abstract class AbstractListActivity extends TranslatableActivity {
         recyclerView = findViewById(R.id.pharmacyRecyclerView);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(linearLayoutManager);
-        DividerItemDecoration divider = new DividerItemDecoration(this, DividerItemDecoration.VERTICAL);
-        recyclerView.addItemDecoration(divider, 0);
 
         // Configure search view
         searchView = findViewById(R.id.pharmacySearchView);
-        searchView.setOnQueryTextListener(new MyQueryTextListener() {
-            @Override
-            public void search(String newText) {
-                if (myAdapter.getFullPharmacyList() != null) {
-                    List<Pharmacy> matchedPharmacyList = containsAny(newText, myAdapter.getFullPharmacyList());
-                    myAdapter.searchPharmacyList(matchedPharmacyList);
-                    recyclerView.setAdapter(myAdapter);
-                }
-            }
-        });
 
         // Configure ad view
         adView = findViewById(R.id.pharmacyListAdView);
@@ -175,25 +162,7 @@ public abstract class AbstractListActivity extends TranslatableActivity {
     protected abstract MyFilter buildFilter(DistrictPreference districtSettings, Favorites favorites);
 
     private void configureAdapter() {
-        myAdapter = new MyAdapter() {
-            @Override
-            public void cardViewShowMoreCallback(Pharmacy pharmacy, int position) {
-                Intent intent = new Intent(getApplicationContext(), MapsActivity.class);
-                intent.putExtra("pharmacy", pharmacy);
-                startActivity(intent);
-            }
-
-            @Override
-            public void cardViewBookmarksCallback(Pharmacy pharmacy, int position) {
-                if (favorites.isFavorite(pharmacy.getId())) {
-                    favorites.deleteFavorite(pharmacy.getId());
-                } else {
-                    favorites.addFavorite(pharmacy.getId());
-                }
-                changeOrRemoveItem(position);
-            }
-        };
-        myAdapter.setFavorites(favorites);
+        myAdapter = new MyAdapter();
     }
 
     protected abstract void changeOrRemoveItem(int position);
@@ -210,7 +179,14 @@ public abstract class AbstractListActivity extends TranslatableActivity {
                     // Filter Pharmacy List
                     List<Pharmacy> filteredPharmacyList = myFilter.apply(pharmacyList);
                     // Set pharmacy list to adapter and set adapter to recycler view
-                    myAdapter.setFullPharmacyList(filteredPharmacyList);
+                    myAdapter.setPharmacyList(filteredPharmacyList);
+                    searchView.setOnQueryTextListener(new MyQueryTextListener(filteredPharmacyList) {
+                        @Override
+                        protected void updateSearchResultsUI() {
+                            myAdapter.setPharmacyList(searchResults);
+                            recyclerView.setAdapter(myAdapter);
+                        }
+                    });
                     recyclerView.setAdapter(myAdapter);
                     swipeRefreshLayout.setRefreshing(false);
                 }

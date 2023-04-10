@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -41,10 +42,6 @@ public abstract class MyClusterRenderer extends DefaultClusterRenderer<Pharmacy>
         } else if (clusterItem.isNight()) {
             marker.setIcon(bitmapDescriptorFromVector(R.drawable.ic_pharmacy_night_marker));
         }
-    }
-
-    public Pharmacy getCurrentPharmacy() {
-        return currentPharmacy;
     }
 
     private BitmapDescriptor bitmapDescriptorFromVector(int vectorResId) {

@@ -21,9 +21,18 @@
             android:nestedScrollingEnabled="true"
             app:logo="@drawable/ic_support"/>
 
-        <TextView
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+
+        <com.google.android.material.textview.MaterialTextView
             style="@style/TextViewStandard"
+            android:layout_marginVertical="10dp"
             android:text="@string/contact_prompt" />
+
+        <com.google.android.material.divider.MaterialDivider
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
 
         <EditText
             android:id="@+id/nameEditText"
@@ -52,34 +61,32 @@
             android:selectAllOnFocus="false"
             android:singleLine="false" />
 
-        <TextView
+        <com.google.android.material.textview.MaterialTextView
             style="@style/TextViewWarning"
+            android:layout_marginVertical="10dp"
             android:layout_width="wrap_content"
             android:text="@string/all_fields_are_necessary_prompt" />
 
-        <View
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-
         <LinearLayout
+            android:layout_marginVertical="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center">
-            <CheckBox
+
+            <com.google.android.material.checkbox.MaterialCheckBox
                 android:id="@+id/privacyPolicyCheckBox"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:buttonTint="@color/dark_green" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 style="@style/TextViewStandard"
                 android:layout_margin="0dp"
                 android:layout_width="wrap_content"
                 android:text="@string/privacy_policy_start"/>
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 android:id="@+id/privacyPolicyTextView"
                 style="@style/TextViewStandard"
                 android:layout_margin="0dp"
@@ -89,7 +96,7 @@
                 android:text="@string/privacy_policy_underlined"
                 android:focusable="true" />
 
-            <TextView
+            <com.google.android.material.textview.MaterialTextView
                 style="@style/TextViewStandard"
                 android:layout_margin="0dp"
                 android:layout_width="wrap_content"
@@ -97,10 +104,21 @@
         </LinearLayout>
 
 
-        <Button
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:cardCornerRadius="10dp"
+            android:layout_gravity="center"
+            android:layout_marginVertical="10dp"
+            app:strokeWidth="1dip"
+            app:strokeColor="@color/black"
+            android:elevation="4dp">
+        <com.google.android.material.button.MaterialButton
             android:id="@+id/sendButton"
             style="@style/ButtonStandard"
+            android:minHeight="0dp"
             android:text="@string/send"/>
+        </com.google.android.material.card.MaterialCardView>
 
         <View
             android:layout_width="0dp"

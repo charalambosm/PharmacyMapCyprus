@@ -23,7 +23,7 @@ import com.google.firebase.database.DataSnapshot;
 public class MainActivity extends TranslatableActivity {
     public static DatabaseSingleton databaseReference;
     TextView lastUpdatedTextView, lastUpdatedLabel;
-    Button pharmacyMapButton, allPharmaciesButton, nightPharmaciesButton, favoritePharmaciesButton, contactUsButton;
+    Button pharmacyMapButton, allPharmaciesButton, nightPharmaciesButton, favoritePharmaciesButton, contactUsButton, settingsButton;
     Toolbar toolbar;
 
     @Override
@@ -40,6 +40,7 @@ public class MainActivity extends TranslatableActivity {
         nightPharmaciesButton = findViewById(R.id.nightPharmaciesButton);
         favoritePharmaciesButton = findViewById(R.id.favoritePharmaciesButton);
         contactUsButton = findViewById(R.id.contactUsButton);
+        settingsButton = findViewById(R.id.settingsButton);
         adView = findViewById(R.id.adView);
     }
 
@@ -53,22 +54,6 @@ public class MainActivity extends TranslatableActivity {
     protected void configureToolbar() {
         toolbar = findViewById(R.id.mainToolbar);
         setSupportActionBar(toolbar);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.main_toolbar, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        if (item.getItemId() == R.id.action_language) {
-            showLanguageDialog();
-            return true;
-        } else {
-            return super.onOptionsItemSelected(item);
-        }
     }
 
     private void getDatabaseReference() {
@@ -107,6 +92,10 @@ public class MainActivity extends TranslatableActivity {
         startActivity(intent);
     }
 
+    public void settingsCallback(View view) {
+        showLanguageDialog();
+    }
+
     private void showLanguageDialog() {
         LanguageDialog languageDialog = new LanguageDialog(this);
         languageDialog.setOnDismissListener(dialog -> updateViewsText());
@@ -118,9 +107,10 @@ public class MainActivity extends TranslatableActivity {
         lastUpdatedLabel.setText(getString(R.string.last_updated));
         pharmacyMapButton.setText(R.string.map);
         allPharmaciesButton.setText(getString(R.string.all_pharmacies_title));
-        nightPharmaciesButton.setText(getString(R.string.night_title));
+        nightPharmaciesButton.setText(getString(R.string.night_title_btn));
         favoritePharmaciesButton.setText(getString(R.string.favorites_title));
         contactUsButton.setText(getString(R.string.contact_us_title));
+        settingsButton.setText(R.string.settings);
         toolbar.setTitle(getString(R.string.main_menu));
     }
 
